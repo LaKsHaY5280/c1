@@ -15,6 +15,8 @@ export const GENRE_CODES: Record<string, string> = {
   scifi: "SCI",
   fantasy: "FAN",
   thriller: "THR",
+  romance: "ROM",
+  drama: "DRM",
 };
 
 export function getGenreCode(genre: string): string {
@@ -24,11 +26,15 @@ export function getGenreCode(genre: string): string {
 
   if (value.includes("mystery")) return "MYS";
 
-  if (value.includes("scifi")) return "SCI";
+  if (value.includes("scifi") || value.includes("sci-fi") || value.includes("science fiction")) return "SCI";
 
   if (value.includes("fantasy")) return "FAN";
 
   if (value.includes("thriller")) return "THR";
+
+  if (value.includes("romance") || value.includes("romantic")) return "ROM";
+
+  if (value.includes("drama")) return "DRM";
 
   return "GEN";
 }
