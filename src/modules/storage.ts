@@ -47,6 +47,12 @@ export class Storage {
       return [];
     }
   }
+
+  async getNextSequence(collection: string): Promise<number> {
+    const files = await this.list(collection);
+
+    return files.length + 1;
+  }
 }
 
 export const storage = new Storage();
