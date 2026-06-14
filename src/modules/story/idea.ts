@@ -1,6 +1,6 @@
-import { gemini } from "../../services/gemini.service";
 import { storage } from "../storage";
 import { AssetType, generateId } from "../id-generator";
+import { generateJson, now } from "./base";
 
 export interface StoryIdea {
   id: string;
@@ -24,6 +24,16 @@ const DAY_SCHEDULE: Record<number, string> = {
   6: "romance",
 };
 
+const JSON_SCHEMA = `
+Return JSON only:
+{
+  "title": "",
+  "idea": "",
+  "hook": "the opening line spoken in the video",
+  "targetAudience": "",
+  "viralAngle": "why this specific idea will get shared and commented on"
+}`;
+
 const GENRE_PROMPTS: Record<string, string> = {
   horror: `
 You are a viral YouTube Shorts content strategist specializing in HORROR.
@@ -44,16 +54,7 @@ Requirements:
 - Opens with an immediate hook (first 3 seconds must grab)
 - One clear, simple supernatural or psychological threat
 - Ends on maximum dread — no happy ending
-
-Return JSON only:
-{
-  "title": "",
-  "idea": "",
-  "hook": "the opening line spoken in the video",
-  "targetAudience": "",
-  "viralAngle": "why this specific idea will get shared and commented on"
-}
-`,
+${JSON_SCHEMA}`,
 
   mystery: `
 You are a viral YouTube Shorts content strategist specializing in MYSTERY.
@@ -73,16 +74,7 @@ Requirements:
 - Must have one specific mysterious detail that drives the whole story
 - Viewer feels like an active investigator, not a passive listener
 - Ends with a cliffhanger or unsolved element that demands a follow-up video
-
-Return JSON only:
-{
-  "title": "",
-  "idea": "",
-  "hook": "the opening line spoken in the video",
-  "targetAudience": "",
-  "viralAngle": "why this specific idea will get shared and commented on"
-}
-`,
+${JSON_SCHEMA}`,
 
   scifi: `
 You are a viral YouTube Shorts content strategist specializing in SCIENCE FICTION.
@@ -102,16 +94,7 @@ Requirements:
 - The sci-fi concept must be graspable immediately — no complex worldbuilding
 - Should make the viewer uncomfortable about something in their real life
 - Strong visual potential for AI-generated scenes
-
-Return JSON only:
-{
-  "title": "",
-  "idea": "",
-  "hook": "the opening line spoken in the video",
-  "targetAudience": "",
-  "viralAngle": "why this specific idea will get shared and commented on"
-}
-`,
+${JSON_SCHEMA}`,
 
   fantasy: `
 You are a viral YouTube Shorts content strategist specializing in FANTASY.
@@ -131,16 +114,7 @@ Requirements:
 - Must have one original twist on a familiar fantasy concept
 - The fantasy element should feel fresh, not a standard dragon/wizard cliché
 - Should end with an emotional gut-punch or a wonder-inducing revelation
-
-Return JSON only:
-{
-  "title": "",
-  "idea": "",
-  "hook": "the opening line spoken in the video",
-  "targetAudience": "",
-  "viralAngle": "why this specific idea will get shared and commented on"
-}
-`,
+${JSON_SCHEMA}`,
 
   thriller: `
 You are a viral YouTube Shorts content strategist specializing in THRILLER.
@@ -160,16 +134,7 @@ Requirements:
 - Tension must escalate every 10 seconds — no dead moments
 - The threat must feel immediate and real, not distant
 - Ends at peak tension or with a devastating reveal
-
-Return JSON only:
-{
-  "title": "",
-  "idea": "",
-  "hook": "the opening line spoken in the video",
-  "targetAudience": "",
-  "viralAngle": "why this specific idea will get shared and commented on"
-}
-`,
+${JSON_SCHEMA}`,
 
   romance: `
 You are a viral YouTube Shorts content strategist specializing in ROMANCE.
@@ -189,16 +154,7 @@ Requirements:
 - Must have one specific emotional detail that feels human and real, not generic
 - The romantic payoff must land in the last 10 seconds
 - Should make the viewer either smile, tear up, or feel a pang of longing
-
-Return JSON only:
-{
-  "title": "",
-  "idea": "",
-  "hook": "the opening line spoken in the video",
-  "targetAudience": "",
-  "viralAngle": "why this specific idea will get shared and commented on"
-}
-`,
+${JSON_SCHEMA}`,
 
   drama: `
 You are a viral YouTube Shorts content strategist specializing in DRAMA.
@@ -218,21 +174,11 @@ Requirements:
 - Must center on a single raw human emotion — grief, betrayal, regret, sacrifice
 - No genre trappings — feels like something that could happen to a real person
 - Ends with an emotional reversal or a moment of painful clarity
-
-Return JSON only:
-{
-  "title": "",
-  "idea": "",
-  "hook": "the opening line spoken in the video",
-  "targetAudience": "",
-  "viralAngle": "why this specific idea will get shared and commented on"
-}
-`,
+${JSON_SCHEMA}`,
 };
 
 export function getTodaysGenre(): string {
-  const dayIndex = new Date().getDay();
-  return DAY_SCHEDULE[dayIndex];
+  return DAY_SCHEDULE[new Date().getDay()];
 }
 
 export class IdeaGenerator {
@@ -240,22 +186,17 @@ export class IdeaGenerator {
     const genre = genreOverride ?? getTodaysGenre();
     const prompt = GENRE_PROMPTS[genre];
 
-    if (!prompt) {
-      throw new Error(`No prompt found for genre: ${genre}`);
-    }
+    if (!prompt) throw new Error(`No prompt found for genre: ${genre}`);
 
     console.log(`🎬 Today's genre: ${genre.toUpperCase()}`);
 
-    const response = await gemini.models.generateContent({
-      model: "gemini-3.1-flash-lite",
-      contents: prompt,
-      config: {
-        responseMimeType: "application/json",
-      },
-    });
-
-    const text = response.text ?? "";
-    const parsed = JSON.parse(text);
+    const parsed = await generateJson<{
+      title: string;
+      idea: string;
+      hook: string;
+      targetAudience: string;
+      viralAngle: string;
+    }>(prompt);
 
     const sequence = await storage.getNextSequence("story/ideas");
     const id = generateId(AssetType.IDEA, genre, sequence);
@@ -268,11 +209,10 @@ export class IdeaGenerator {
       genre,
       targetAudience: parsed.targetAudience,
       viralAngle: parsed.viralAngle,
-      createdAt: new Date().toISOString(),
+      createdAt: now(),
     };
 
     await storage.save("story/ideas", storyIdea.id, storyIdea);
-
     return storyIdea;
   }
 }

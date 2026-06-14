@@ -1,45 +1,37 @@
-import { gemini } from "../../services/gemini.service";
 import { storage } from "../storage";
 import { deriveSceneFileId, deriveSceneId } from "../id-generator";
+import { generateJson, BaseFile, now } from "./base";
 import { StoryScript } from "./script";
 import { StoryCharacter } from "./character";
 
-export type ScenePurpose =
-  | "hook"
-  | "setup"
-  | "escalation"
-  | "climax"
-  | "ending";
+export type ScenePurpose = "hook" | "setup" | "escalation" | "climax" | "ending";
 
 export interface StoryScene {
   id: string;
   sceneNumber: number;
   purpose: ScenePurpose;
-  description: string;
-  emotion: string; // single primary emotion only
+  description: string;  // what is happening — one sentence, no camera language
+  emotion: string;      // single primary emotion — inherited from script emotionArc
   duration: number;
 }
 
-export interface StorySceneFile {
-  id: string;
-  scriptId: string;
-  title: string;
+export interface StorySceneFile extends BaseFile {
   scenes: StoryScene[];
-  createdAt: string;
 }
 
-function buildPrompt(
-  script: StoryScript,
-  characters: StoryCharacter[],
-): string {
+function buildPrompt(script: StoryScript, characters: StoryCharacter[]): string {
   const characterList = characters
-    .map((c) => `- ${c.name}: ${c.appearance}`)
+    .map((c) => `- ${c.name} (${c.role}): ${c.appearance}, ${c.clothing}`)
     .join("\n");
 
-  return `
-You are a visual scene director for short-form video content.
+  const emotionArc = script.emotionArc.length === 5
+    ? script.emotionArc
+    : ["curiosity", "unease", "tension", "shock", "grief"];
 
-Convert this narrator script into exactly 5 visual scenes for a ${script.estimatedDuration}-second video.
+  return `
+You are a visual scene director for short-form AI-generated video content.
+
+Convert this narrator script into exactly 5 visual scenes.
 
 Script:
 Hook: ${script.hook}
@@ -48,55 +40,53 @@ Escalation: ${script.escalation}
 Climax: ${script.climax}
 Ending: ${script.ending}
 
-Characters (use these exact names and descriptions — never say "a woman" or "the man"):
+Characters (use these exact names — never write "a woman", "the man", "a figure"):
 ${characterList}
 
-Rules:
-- One scene per script section: hook → setup → escalation → climax → ending
-- Describe ONLY what is visible on screen
-- Use character names, not generic references like "the woman" or "a figure"
+World Context (all scenes must stay within this world):
+Location: ${script.location}
+Time Period: ${script.timePeriod}
+Visual Style: ${script.visualStyle}
+
+Emotion Arc (assign these emotions in order — do not change them):
+1. hook       → ${emotionArc[0]}
+2. setup      → ${emotionArc[1]}
+3. escalation → ${emotionArc[2]}
+4. climax     → ${emotionArc[3]}
+5. ending     → ${emotionArc[4]}
+
+Description Rules:
+- Describe WHAT IS HAPPENING — one simple sentence
+- Use character names, never generic references
+- No camera instructions — no "close-up", "wide shot", "pan", "zoom"
 - No narration or dialogue
-- No camera instructions — do not write "close-up", "wide shot", "pan", "zoom", or any filming term
-- Keep descriptions concise, vivid, and specific — one or two sentences max
-- Assign ONE single primary emotion per scene (one word, e.g. "dread", "grief", "awe")
-- Assign duration in seconds — all 5 must sum to exactly ${script.estimatedDuration} seconds
+- Do NOT describe lighting, color, or mood
+- Simple: "Emma finds the letter on the kitchen table" not "hands trembling, Emma clutches the envelope"
+
+Duration: all 5 must sum to exactly ${script.estimatedDuration} seconds.
 
 Return ONLY valid JSON — an array of exactly 5 objects:
 [
-  { "sceneNumber": 1, "purpose": "hook",       "description": "", "emotion": "", "duration": 0 },
-  { "sceneNumber": 2, "purpose": "setup",      "description": "", "emotion": "", "duration": 0 },
-  { "sceneNumber": 3, "purpose": "escalation", "description": "", "emotion": "", "duration": 0 },
-  { "sceneNumber": 4, "purpose": "climax",     "description": "", "emotion": "", "duration": 0 },
-  { "sceneNumber": 5, "purpose": "ending",     "description": "", "emotion": "", "duration": 0 }
+  { "sceneNumber": 1, "purpose": "hook",       "description": "", "emotion": "${emotionArc[0]}", "duration": 0 },
+  { "sceneNumber": 2, "purpose": "setup",      "description": "", "emotion": "${emotionArc[1]}", "duration": 0 },
+  { "sceneNumber": 3, "purpose": "escalation", "description": "", "emotion": "${emotionArc[2]}", "duration": 0 },
+  { "sceneNumber": 4, "purpose": "climax",     "description": "", "emotion": "${emotionArc[3]}", "duration": 0 },
+  { "sceneNumber": 5, "purpose": "ending",     "description": "", "emotion": "${emotionArc[4]}", "duration": 0 }
 ]
 `.trim();
 }
 
 export class SceneGenerator {
-  async generate(
-    script: StoryScript,
-    characters: StoryCharacter[],
-  ): Promise<StorySceneFile> {
+  async generate(script: StoryScript, characters: StoryCharacter[]): Promise<StorySceneFile> {
     console.log(`🎥 Generating scenes for: ${script.title}`);
 
-    const response = await gemini.models.generateContent({
-      model: "gemini-3.1-flash-lite",
-      contents: buildPrompt(script, characters),
-      config: {
-        responseMimeType: "application/json",
-      },
-    });
-
-    const text = response.text ?? "";
-    const parsed: Array<{
+    const parsed = await generateJson<Array<{
       sceneNumber: number;
       purpose: ScenePurpose;
       description: string;
       emotion: string;
       duration: number;
-    }> = JSON.parse(text);
-
-    const fileId = deriveSceneFileId(script.id);
+    }>>(buildPrompt(script, characters));
 
     const scenes: StoryScene[] = parsed.map((raw) => ({
       id: deriveSceneId(script.id, raw.sceneNumber),
@@ -108,15 +98,14 @@ export class SceneGenerator {
     }));
 
     const sceneFile: StorySceneFile = {
-      id: fileId,
+      id: deriveSceneFileId(script.id),
       scriptId: script.id,
       title: script.title,
       scenes,
-      createdAt: new Date().toISOString(),
+      createdAt: now(),
     };
 
     await storage.save("story/scenes", sceneFile.id, sceneFile);
-
     return sceneFile;
   }
 }

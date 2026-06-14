@@ -1,8 +1,9 @@
 export enum AssetType {
   IDEA = "IDEA",
   SCRIPT = "SCR",
-  SCENE = "SCN",
   CHARACTER = "CHAR",
+  SCENE = "SCN",
+  PROMPT = "PROMPT",
   VIDEO = "VID",
   AUDIO = "AUD",
   CAPTION = "CAP",
@@ -83,6 +84,14 @@ export function deriveSceneId(scriptId: string, sceneNumber: number): string {
   const seq = String(sequence).padStart(3, "0");
   const sceneNum = String(sceneNumber).padStart(2, "0");
   return `${AssetType.SCENE}-${genre}-${date}-${seq}-${sceneNum}`;
+}
+
+// SCN-DRM-20260614-001-02 → PROMPT-DRM-20260614-001-02
+export function deriveImagePromptId(sceneId: string): string {
+  // sceneId has 5 parts: SCN-DRM-20260614-001-02
+  const parts = sceneId.split("-");
+  // replace asset type prefix, keep everything else
+  return `${AssetType.PROMPT}-${parts.slice(1).join("-")}`;
 }
 
 // SCR-DRM-20260614-001 → CHAR-DRM-20260614-001

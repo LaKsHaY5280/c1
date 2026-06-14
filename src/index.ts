@@ -2,6 +2,7 @@ import { IdeaGenerator } from "./modules/story/idea";
 import { ScriptGenerator } from "./modules/story/script";
 import { CharacterGenerator } from "./modules/story/character";
 import { SceneGenerator } from "./modules/story/scene";
+import { ImagePromptGenerator } from "./modules/media/image-prompt";
 
 async function bootstrap() {
   console.log("🚀 Started");
@@ -23,26 +24,33 @@ async function bootstrap() {
 
   console.log("\n─────────────────────────────────────────");
   console.log(`📄 Script: ${script.id}`);
-  console.log(`⏱  Duration: ~${script.estimatedDuration}s  |  🎭 ${script.emotion}  |  📂 ${script.storyType}`);
-  console.log(`\n🪝 Hook:\n   ${script.hook}`);
-  console.log(`\n📖 Setup:\n   ${script.setup}`);
-  console.log(`\n📈 Escalation:\n   ${script.escalation}`);
-  console.log(`\n💥 Climax:\n   ${script.climax}`);
-  console.log(`\n🎯 Ending:\n   ${script.ending}`);
+  console.log(`⏱  ~${script.estimatedDuration}s  |  🎭 ${script.emotion}  |  📂 ${script.storyType}`);
+  console.log(`🌊 Emotion Arc: ${script.emotionArc.join(" → ")}`);
+  console.log(`📍 ${script.location}  |  🕰  ${script.timePeriod}`);
+  console.log(`🎨 ${script.visualStyle}  |  🎞  ${script.colorMood}  |  🌤  ${script.weather}`);
+  console.log(`\n🪝 ${script.hook}`);
+  console.log(`📖 ${script.setup}`);
+  console.log(`📈 ${script.escalation}`);
+  console.log(`💥 ${script.climax}`);
+  console.log(`🎯 ${script.ending}`);
 
-  // Step 3: Characters
+  // Step 3: Characters (extract from script — do not invent)
   const characterFile = await new CharacterGenerator().generate(script);
 
   console.log("\n─────────────────────────────────────────");
   console.log(`👤 Characters: ${characterFile.id}`);
   for (const c of characterFile.characters) {
-    console.log(`\n  ${c.name}, ${c.age} (${c.gender})`);
+    console.log(`\n  [${c.role}] ${c.name}, ${c.age} (${c.gender})`);
     console.log(`  👁  ${c.appearance}`);
+    console.log(`  👗 ${c.clothing}`);
     console.log(`  💭 ${c.emotionProfile}`);
   }
 
-  // Step 4: Scenes
-  const sceneFile = await new SceneGenerator().generate(script, characterFile.characters);
+  // Step 4: Scenes (world context comes from script — no separate context file)
+  const sceneFile = await new SceneGenerator().generate(
+    script,
+    characterFile.characters,
+  );
 
   console.log("\n─────────────────────────────────────────");
   console.log(`🎥 Scenes: ${sceneFile.id}`);
@@ -50,6 +58,23 @@ async function bootstrap() {
     console.log(`\n  [${scene.sceneNumber}] ${scene.purpose.toUpperCase()} — ${scene.duration}s — ${scene.emotion}`);
     console.log(`  🆔 ${scene.id}`);
     console.log(`  📷 ${scene.description}`);
+  }
+
+  // Step 5: Image Prompts
+  const promptFile = await new ImagePromptGenerator().generate(
+    sceneFile,
+    characterFile.characters,
+    script,
+  );
+
+  console.log("\n─────────────────────────────────────────");
+  console.log(`🖼  Image Prompts: ${promptFile.id}`);
+  console.log(`🎨 Base Style: ${promptFile.baseStyle}`);
+  for (const p of promptFile.prompts) {
+    console.log(`\n  [${p.sceneNumber}] ${p.purpose.toUpperCase()} — ${p.id}`);
+    console.log(`  ✏️  ${p.prompt}`);
+    console.log(`  ✅ ${p.fullPrompt}`);
+    console.log(`  ❌ ${p.negativePrompt}`);
   }
   console.log("─────────────────────────────────────────\n");
 }
