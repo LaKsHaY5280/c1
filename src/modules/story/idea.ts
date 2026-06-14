@@ -247,7 +247,7 @@ export class IdeaGenerator {
     console.log(`🎬 Today's genre: ${genre.toUpperCase()}`);
 
     const response = await gemini.models.generateContent({
-      model: "gemini-2.5-flash-lite",
+      model: "gemini-3.1-flash-lite",
       contents: prompt,
       config: {
         responseMimeType: "application/json",

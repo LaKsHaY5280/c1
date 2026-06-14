@@ -1,13 +1,14 @@
 import { IdeaGenerator } from "./modules/story/idea";
 import { ScriptGenerator } from "./modules/story/script";
+import { CharacterGenerator } from "./modules/story/character";
+import { SceneGenerator } from "./modules/story/scene";
 
 async function bootstrap() {
   console.log("🚀 Started");
   console.log(`📅 Day: ${new Date().toLocaleDateString("en-US", { weekday: "long" })}`);
 
-  // Step 1: Generate idea
-  const ideaGenerator = new IdeaGenerator();
-  const idea = await ideaGenerator.generate();
+  // Step 1: Idea
+  const idea = await new IdeaGenerator().generate();
 
   console.log("\n─────────────────────────────────────────");
   console.log(`🎬 [${idea.genre.toUpperCase()}] ${idea.title}`);
@@ -17,23 +18,39 @@ async function bootstrap() {
   console.log(`\n🚀 Viral Angle:\n   ${idea.viralAngle}`);
   console.log(`\n👥 Target Audience: ${idea.targetAudience}`);
 
-  // Step 2: Generate script from idea
-  const scriptGenerator = new ScriptGenerator();
-  const script = await scriptGenerator.generate(idea);
+  // Step 2: Script
+  const script = await new ScriptGenerator().generate(idea);
 
   console.log("\n─────────────────────────────────────────");
   console.log(`📄 Script: ${script.id}`);
-  console.log(`⏱  Duration: ~${script.estimatedDuration}s`);
-  console.log(`🎭 Emotion: ${script.emotion}  |  📂 Type: ${script.storyType}`);
+  console.log(`⏱  Duration: ~${script.estimatedDuration}s  |  🎭 ${script.emotion}  |  📂 ${script.storyType}`);
   console.log(`\n🪝 Hook:\n   ${script.hook}`);
   console.log(`\n📖 Setup:\n   ${script.setup}`);
   console.log(`\n📈 Escalation:\n   ${script.escalation}`);
   console.log(`\n💥 Climax:\n   ${script.climax}`);
   console.log(`\n🎯 Ending:\n   ${script.ending}`);
-  console.log("\n🎥 Visual Moments:");
-  script.visualMoments.forEach((moment, i) => {
-    console.log(`   ${i + 1}. ${moment}`);
-  });
+
+  // Step 3: Characters
+  const characterFile = await new CharacterGenerator().generate(script);
+
+  console.log("\n─────────────────────────────────────────");
+  console.log(`👤 Characters: ${characterFile.id}`);
+  for (const c of characterFile.characters) {
+    console.log(`\n  ${c.name}, ${c.age} (${c.gender})`);
+    console.log(`  👁  ${c.appearance}`);
+    console.log(`  💭 ${c.emotionProfile}`);
+  }
+
+  // Step 4: Scenes
+  const sceneFile = await new SceneGenerator().generate(script, characterFile.characters);
+
+  console.log("\n─────────────────────────────────────────");
+  console.log(`🎥 Scenes: ${sceneFile.id}`);
+  for (const scene of sceneFile.scenes) {
+    console.log(`\n  [${scene.sceneNumber}] ${scene.purpose.toUpperCase()} — ${scene.duration}s — ${scene.emotion}`);
+    console.log(`  🆔 ${scene.id}`);
+    console.log(`  📷 ${scene.description}`);
+  }
   console.log("─────────────────────────────────────────\n");
 }
 

@@ -2,6 +2,7 @@ export enum AssetType {
   IDEA = "IDEA",
   SCRIPT = "SCR",
   SCENE = "SCN",
+  CHARACTER = "CHAR",
   VIDEO = "VID",
   AUDIO = "AUD",
   CAPTION = "CAP",
@@ -67,4 +68,26 @@ export function parseId(id: string) {
     date,
     sequence: Number(sequence),
   };
+}
+
+// SCR-DRM-20260614-001 → SCN-DRM-20260614-001  (the scene collection file)
+export function deriveSceneFileId(scriptId: string): string {
+  const { genre, date, sequence } = parseId(scriptId);
+  const seq = String(sequence).padStart(3, "0");
+  return `${AssetType.SCENE}-${genre}-${date}-${seq}`;
+}
+
+// SCR-DRM-20260614-001 + sceneNumber 2 → SCN-DRM-20260614-001-02
+export function deriveSceneId(scriptId: string, sceneNumber: number): string {
+  const { genre, date, sequence } = parseId(scriptId);
+  const seq = String(sequence).padStart(3, "0");
+  const sceneNum = String(sceneNumber).padStart(2, "0");
+  return `${AssetType.SCENE}-${genre}-${date}-${seq}-${sceneNum}`;
+}
+
+// SCR-DRM-20260614-001 → CHAR-DRM-20260614-001
+export function deriveCharacterId(scriptId: string): string {
+  const { genre, date, sequence } = parseId(scriptId);
+  const seq = String(sequence).padStart(3, "0");
+  return `${AssetType.CHARACTER}-${genre}-${date}-${seq}`;
 }

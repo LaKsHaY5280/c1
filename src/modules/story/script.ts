@@ -78,7 +78,7 @@ export class ScriptGenerator {
     console.log(`📝 Generating script for: ${idea.title}`);
 
     const response = await gemini.models.generateContent({
-      model: "gemini-2.5-flash-lite",
+      model: "gemini-3.1-flash-lite",
       contents: buildPrompt(idea),
       config: {
         responseMimeType: "application/json",
