@@ -1,0 +1,168 @@
+import fs from "fs";
+import { mkdir } from "fs/promises";
+import path from "path";
+import wav from "wav";
+import { GoogleGenAI, type GenerateContentResponse } from "@google/genai";
+import { storage } from "../storage";
+import { deriveAudioId } from "../id-generator";
+import { now } from "../story/base";
+import { type StoryScript } from "../story/script";
+import { env } from "../../config/env";
+
+const TTS_MODEL = "gemini-3.1-flash-tts-preview";
+
+// Voice name used for narration — firm, clear tone suits shorts storytelling
+const VOICE_NAME = "Kore";
+
+// Gemini TTS returns raw PCM: mono, 24 kHz, 16-bit signed little-endian
+const SAMPLE_RATE = 24000;
+const CHANNELS = 1;
+const BIT_DEPTH = 16;
+const MIME_TYPE = "audio/l16";
+
+const AUDIO_DIR = path.join(process.cwd(), "data", "assets", "audio");
+
+export interface VoiceFile {
+  id: string;
+  scriptId: string;
+  title: string;
+  narration: string;
+  voice: string;
+  audioPath: string;
+  duration?: number;     // seconds — populated once we know PCM byte length
+  mimeType: string;      // raw format from TTS provider e.g. "audio/l16"
+  sampleRate: number;
+  channels: number;
+  createdAt: string;
+}
+
+/**
+ * Wraps raw PCM bytes in a proper RIFF/WAV container and writes to disk.
+ * Gemini TTS returns raw PCM — this adds the RIFF header + format chunk.
+ */
+function saveWaveFile(filename: string, pcmData: Buffer): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const writer = new wav.FileWriter(filename, {
+      channels: CHANNELS,
+      sampleRate: SAMPLE_RATE,
+      bitDepth: BIT_DEPTH,
+    });
+
+    writer.on("finish", resolve);
+    writer.on("error", reject);
+
+    writer.write(pcmData);
+    writer.end();
+  });
+}
+
+export class VoiceGenerator {
+  private gemini: GoogleGenAI;
+
+  constructor() {
+    this.gemini = new GoogleGenAI({ apiKey: env.geminiApiKey });
+  }
+
+  /**
+   * Joins the 5 script sections into a single narration string.
+   * Kept private so future changes (pauses, genre pacing) don't touch the public API.
+   */
+  private buildNarration(script: StoryScript): string {
+    return [
+      script.hook,
+      script.setup,
+      script.escalation,
+      script.climax,
+      script.ending,
+    ].join("\n\n");
+  }
+
+  /**
+   * Builds a structured TTS prompt that steers delivery style from the
+   * script's dominant emotion, color mood, and weather.
+   */
+  private buildTtsPrompt(script: StoryScript, narration: string): string {
+    return `
+# AUDIO PROFILE: Narrator
+## "${script.title}"
+
+### DIRECTOR'S NOTES
+
+Style: ${script.emotion} short-form narrator for YouTube Shorts. Gripping and cinematic.
+Keep the listener on edge. Every sentence should make them need to hear the next.
+
+Pacing: Measured but urgent. Pause slightly between sections to let tension breathe.
+Never rush — let the weight of each line land before moving on.
+
+Tone: Matches the visual mood — ${script.colorMood}, ${script.weather}.
+
+### TRANSCRIPT
+
+${narration}
+`.trim();
+  }
+
+  async generate(script: StoryScript): Promise<VoiceFile> {
+    console.log(`🎙  Generating voice for: ${script.title}`);
+
+    const id = deriveAudioId(script.id);
+    const narration = this.buildNarration(script);
+    const prompt = this.buildTtsPrompt(script, narration);
+
+    // Call Gemini TTS — returns raw PCM, not a WAV file
+    const response: GenerateContentResponse =
+      await this.gemini.models.generateContent({
+        model: TTS_MODEL,
+        contents: prompt,
+        config: {
+          responseModalities: ["AUDIO"],
+          speechConfig: {
+            voiceConfig: {
+              prebuiltVoiceConfig: {
+                voiceName: VOICE_NAME,
+              },
+            },
+          },
+        },
+      });
+
+    const audioData =
+      response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+
+    if (!audioData) {
+      throw new Error(`TTS returned no audio data for ${id}`);
+    }
+
+    // Decode base64 → raw PCM buffer
+    const pcmBuffer = Buffer.from(audioData, "base64");
+
+    // PCM duration: bytes / (sampleRate * channels * bytesPerSample)
+    const duration = pcmBuffer.byteLength / (SAMPLE_RATE * CHANNELS * (BIT_DEPTH / 8));
+
+    // Write a valid WAV file (RIFF header + PCM data) to data/assets/audio/
+    await mkdir(AUDIO_DIR, { recursive: true });
+    const audioPath = path.join(AUDIO_DIR, `${id}.wav`);
+    await saveWaveFile(audioPath, pcmBuffer);
+
+    console.log(`✅ Audio saved: ${audioPath} (${duration.toFixed(1)}s)`);
+
+    const voiceFile: VoiceFile = {
+      id,
+      scriptId: script.id,
+      title: script.title,
+      narration,
+      voice: VOICE_NAME,
+      audioPath,
+      duration,
+      mimeType: MIME_TYPE,
+      sampleRate: SAMPLE_RATE,
+      channels: CHANNELS,
+      createdAt: now(),
+    };
+
+    // Save JSON metadata to data/media/audio/
+    await storage.save("media/audio", id, voiceFile);
+
+    return voiceFile;
+  }
+}

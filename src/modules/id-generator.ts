@@ -100,3 +100,10 @@ export function deriveCharacterId(scriptId: string): string {
   const seq = String(sequence).padStart(3, "0");
   return `${AssetType.CHARACTER}-${genre}-${date}-${seq}`;
 }
+
+// SCR-DRM-20260614-001 → AUD-DRM-20260614-001
+export function deriveAudioId(scriptId: string): string {
+  const { genre, date, sequence } = parseId(scriptId);
+  const seq = String(sequence).padStart(3, "0");
+  return `${AssetType.AUDIO}-${genre}-${date}-${seq}`;
+}

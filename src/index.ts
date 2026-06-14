@@ -2,7 +2,10 @@ import { IdeaGenerator } from "./modules/story/idea";
 import { ScriptGenerator } from "./modules/story/script";
 import { CharacterGenerator } from "./modules/story/character";
 import { SceneGenerator } from "./modules/story/scene";
-import { ImagePromptGenerator } from "./modules/media/image-prompt";
+import { VisualSearchGenerator } from "./modules/media/visual-search";
+import { pexels } from "./modules/media/pexels";
+import { downloader } from "./modules/media/downloader";
+import { VoiceGenerator } from "./modules/media/voice";
 
 async function bootstrap() {
   console.log("🚀 Started");
@@ -34,7 +37,7 @@ async function bootstrap() {
   console.log(`💥 ${script.climax}`);
   console.log(`🎯 ${script.ending}`);
 
-  // Step 3: Characters (extract from script — do not invent)
+  // Step 3: Characters
   const characterFile = await new CharacterGenerator().generate(script);
 
   console.log("\n─────────────────────────────────────────");
@@ -46,36 +49,105 @@ async function bootstrap() {
     console.log(`  💭 ${c.emotionProfile}`);
   }
 
-  // Step 4: Scenes (world context comes from script — no separate context file)
-  const sceneFile = await new SceneGenerator().generate(
-    script,
-    characterFile.characters,
-  );
+  // Step 4: Scenes
+  const sceneFile = await new SceneGenerator().generate(script, characterFile.characters);
 
   console.log("\n─────────────────────────────────────────");
   console.log(`🎥 Scenes: ${sceneFile.id}`);
   for (const scene of sceneFile.scenes) {
     console.log(`\n  [${scene.sceneNumber}] ${scene.purpose.toUpperCase()} — ${scene.duration}s — ${scene.emotion}`);
     console.log(`  🆔 ${scene.id}`);
+    console.log(`  🎞  ${scene.preferredMediaType}`);
     console.log(`  📷 ${scene.description}`);
   }
 
-  // Step 5: Image Prompts
-  const promptFile = await new ImagePromptGenerator().generate(
-    sceneFile,
-    characterFile.characters,
-    script,
-  );
+  // Step 5: Visual Search Queries
+  const queries = await new VisualSearchGenerator().generate(sceneFile.scenes);
 
   console.log("\n─────────────────────────────────────────");
-  console.log(`🖼  Image Prompts: ${promptFile.id}`);
-  console.log(`🎨 Base Style: ${promptFile.baseStyle}`);
-  for (const p of promptFile.prompts) {
-    console.log(`\n  [${p.sceneNumber}] ${p.purpose.toUpperCase()} — ${p.id}`);
-    console.log(`  ✏️  ${p.prompt}`);
-    console.log(`  ✅ ${p.fullPrompt}`);
-    console.log(`  ❌ ${p.negativePrompt}`);
+  console.log(`🔍 Search Queries`);
+  for (const q of queries) {
+    console.log(`\n  [${q.sceneNumber}] ${q.purpose.toUpperCase()}`);
+    console.log(`  🔎 "${q.query}"`);
   }
+
+  // Step 6: Pexels Search + Download
+  console.log("\n─────────────────────────────────────────");
+  console.log(`📦 Fetching assets from Pexels`);
+
+  const sceneById = new Map(sceneFile.scenes.map((scene) => [scene.id, scene]));
+  const downloadedAssets = [];
+
+  for (const q of queries) {
+    const scene = sceneById.get(q.sceneId);
+    if (!scene) {
+      console.log(`  ⚠️  Scene not found for query "${q.query}" — skipping`);
+      continue;
+    }
+
+    console.log(`\n  Searching (${scene.preferredMediaType}): "${q.query}"`);
+
+    if (scene.preferredMediaType === "video") {
+      const videos = await pexels.searchVideos(q.query, 5);
+
+      if (videos.length === 0 || !videos[0]?.videoUrl) {
+        console.log(`  ⚠️  No usable video results for "${q.query}" — skipping`);
+        continue;
+      }
+
+      const best = videos[0];
+      console.log(`  🎬 ${best.videographer} — ${best.url}`);
+
+      const downloaded = await downloader.download({
+        sceneId: q.sceneId,
+        url: best.videoUrl,
+        ext: "mp4",
+        mediaType: "video",
+        pexelsId: best.id,
+        credit: best.videographer,
+        pexelsUrl: best.url,
+      });
+
+      downloadedAssets.push(downloaded);
+      continue;
+    }
+
+    const photos = await pexels.searchPhotos(q.query, 5);
+
+    if (photos.length === 0) {
+      console.log(`  ⚠️  No photo results for "${q.query}" — skipping`);
+      continue;
+    }
+
+    const best = photos[0];
+    console.log(`  📸 ${best.photographer} — ${best.url}`);
+
+    const downloaded = await downloader.download({
+      sceneId: q.sceneId,
+      url: best.imageUrl,
+      ext: "jpg",
+      mediaType: "photo",
+      pexelsId: best.id,
+      credit: best.photographer,
+      pexelsUrl: best.url,
+    });
+
+    downloadedAssets.push(downloaded);
+  }
+
+  await downloader.saveManifest(sceneFile.id, downloadedAssets);
+
+  console.log("\n─────────────────────────────────────────");
+  console.log(`✅ Assets saved to data/assets/`);
+
+  // Step 9: Voice
+  const voiceFile = await new VoiceGenerator().generate(script);
+
+  console.log("\n─────────────────────────────────────────");
+  console.log(`🎙  Voice: ${voiceFile.id}`);
+  console.log(`🔊 Voice: ${voiceFile.voice}`);
+  console.log(`📁 Audio: ${voiceFile.audioPath}`);
+  console.log(`\n📝 Narration:\n${voiceFile.narration.split("\n\n").map((s, i) => `   [${i + 1}] ${s}`).join("\n")}`);
   console.log("─────────────────────────────────────────\n");
 }
 

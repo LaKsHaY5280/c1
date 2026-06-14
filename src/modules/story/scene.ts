@@ -5,14 +5,16 @@ import { StoryScript } from "./script";
 import { StoryCharacter } from "./character";
 
 export type ScenePurpose = "hook" | "setup" | "escalation" | "climax" | "ending";
+export type MediaType = "photo" | "video";
 
 export interface StoryScene {
   id: string;
   sceneNumber: number;
   purpose: ScenePurpose;
-  description: string;  // what is happening — one sentence, no camera language
-  emotion: string;      // single primary emotion — inherited from script emotionArc
+  description: string;        // what is happening — one sentence, no camera language
+  emotion: string;            // single primary emotion — inherited from script emotionArc
   duration: number;
+  preferredMediaType: MediaType; // "photo" for static moments, "video" for action/motion
 }
 
 export interface StorySceneFile extends BaseFile {
@@ -63,15 +65,20 @@ Description Rules:
 - Do NOT describe lighting, color, or mood
 - Simple: "Emma finds the letter on the kitchen table" not "hands trembling, Emma clutches the envelope"
 
+preferredMediaType Rules:
+- "video" if the scene has movement, action, or transition (walking, running, opening, searching)
+- "photo" if the scene is a still emotional moment (staring, holding, sitting, crying)
+- Default to "photo" when unsure
+
 Duration: all 5 must sum to exactly ${script.estimatedDuration} seconds.
 
 Return ONLY valid JSON — an array of exactly 5 objects:
 [
-  { "sceneNumber": 1, "purpose": "hook",       "description": "", "emotion": "${emotionArc[0]}", "duration": 0 },
-  { "sceneNumber": 2, "purpose": "setup",      "description": "", "emotion": "${emotionArc[1]}", "duration": 0 },
-  { "sceneNumber": 3, "purpose": "escalation", "description": "", "emotion": "${emotionArc[2]}", "duration": 0 },
-  { "sceneNumber": 4, "purpose": "climax",     "description": "", "emotion": "${emotionArc[3]}", "duration": 0 },
-  { "sceneNumber": 5, "purpose": "ending",     "description": "", "emotion": "${emotionArc[4]}", "duration": 0 }
+  { "sceneNumber": 1, "purpose": "hook",       "description": "", "emotion": "${emotionArc[0]}", "duration": 0, "preferredMediaType": "photo" },
+  { "sceneNumber": 2, "purpose": "setup",      "description": "", "emotion": "${emotionArc[1]}", "duration": 0, "preferredMediaType": "photo" },
+  { "sceneNumber": 3, "purpose": "escalation", "description": "", "emotion": "${emotionArc[2]}", "duration": 0, "preferredMediaType": "video" },
+  { "sceneNumber": 4, "purpose": "climax",     "description": "", "emotion": "${emotionArc[3]}", "duration": 0, "preferredMediaType": "photo" },
+  { "sceneNumber": 5, "purpose": "ending",     "description": "", "emotion": "${emotionArc[4]}", "duration": 0, "preferredMediaType": "photo" }
 ]
 `.trim();
 }
@@ -86,6 +93,7 @@ export class SceneGenerator {
       description: string;
       emotion: string;
       duration: number;
+      preferredMediaType: MediaType;
     }>>(buildPrompt(script, characters));
 
     const scenes: StoryScene[] = parsed.map((raw) => ({
@@ -95,6 +103,7 @@ export class SceneGenerator {
       description: raw.description,
       emotion: raw.emotion,
       duration: raw.duration,
+      preferredMediaType: raw.preferredMediaType ?? "photo",
     }));
 
     const sceneFile: StorySceneFile = {
