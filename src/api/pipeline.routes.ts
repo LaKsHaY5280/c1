@@ -13,8 +13,8 @@ router.post("/start", async (_req: Request, res: Response) => {
   const run = await runService.create();
   res.status(202).json({ runId: run.id, message: "Pipeline started" });
 
-  // Run in background — do not await so the response returns immediately
-  runPipeline().catch((err) => {
+  // Pass the pre-created run so runPipeline() does not create a second one
+  runPipeline(run).catch((err) => {
     console.error(`Background pipeline failed: ${(err as Error).message}`);
   });
 });

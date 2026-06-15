@@ -1,4 +1,4 @@
-import { STEP_ORDER } from "./pipeline-context";
+import { STEP_ORDER, type RunRecord } from "./pipeline-context";
 import { STEP_REGISTRY, type PipelineContext } from "./step-registry";
 import { runStep } from "./run-step";
 import { runService } from "../services/run.service";
@@ -6,11 +6,11 @@ import { createLogger } from "../services/log.service";
 
 /**
  * Runs the full 13-step pipeline from start to finish.
- * Creates a RunRecord, iterates STEP_ORDER, wraps each step with runStep(),
- * and persists status after every transition.
+ * If an existing RunRecord is passed (from the API), it is reused.
+ * Otherwise a new one is created (CLI path).
  */
-export async function runPipeline(): Promise<void> {
-  const run = await runService.create();
+export async function runPipeline(existingRun?: RunRecord): Promise<void> {
+  const run = existingRun ?? await runService.create();
   const log = createLogger(run.id);
 
   log.info(`Pipeline started — run ${run.id}`);
