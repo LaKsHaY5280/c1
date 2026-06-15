@@ -1,6 +1,6 @@
 import { gemini } from "../../services/gemini.service";
 
-const MODEL = "gemini-2.5-flash";
+const MODEL = "gemini-3.1-flash-lite";
 
 // Retry config for transient Gemini errors (503, 429, 500)
 const RETRYABLE_CODES = new Set([429, 500, 503]);

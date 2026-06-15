@@ -114,3 +114,17 @@ export function deriveCaptionId(scriptId: string): string {
   const seq = String(sequence).padStart(3, "0");
   return `${AssetType.CAPTION}-${genre}-${date}-${seq}`;
 }
+
+// SCR-DRM-20260614-001 → VID-DRM-20260614-001
+export function deriveVideoId(scriptId: string): string {
+  const { genre, date, sequence } = parseId(scriptId);
+  const seq = String(sequence).padStart(3, "0");
+  return `${AssetType.VIDEO}-${genre}-${date}-${seq}`;
+}
+
+// SCR-DRM-20260614-001 → META-DRM-20260614-001
+export function deriveMetadataId(scriptId: string): string {
+  const { genre, date, sequence } = parseId(scriptId);
+  const seq = String(sequence).padStart(3, "0");
+  return `${AssetType.METADATA}-${genre}-${date}-${seq}`;
+}

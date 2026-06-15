@@ -10,11 +10,11 @@ Run with `npm start`.
 ### Pipeline Overview
 
 ```
-Idea → Script → Characters → Scenes → Visual Search → Pexels Assets → Manifest → Voice → Captions
-  1        2          3          4           5               6–7          8          9        10
+Idea → Script → Characters → Scenes → Visual Search → Pexels Assets → Manifest → Voice → Captions → Render → Metadata → Upload
+  1        2          3          4           5               6–7          8          9        10         11        12        13
 ```
 
-All 10 steps are implemented and wired in `src/index.ts`.
+All 13 steps are implemented and wired in `src/index.ts`.
 
 ---
 
@@ -170,6 +170,100 @@ JSON metadata: `data/media/captions/CAP-HOR-YYYYMMDD-001.json`
 
 ---
 
+### Step 11 — Renderer
+**Files:** `src/modules/media/renderer.ts`, `src/modules/media/ffmpeg-utils.ts`
+
+Takes all pipeline assets and produces the final vertical MP4.
+Uses `@ffmpeg-installer/ffmpeg` — no system ffmpeg install required.
+
+Input:
+- `AssetManifest` — which file path to use per scene
+- `Map<sceneId, duration>` — how long each scene plays
+- `VoiceFile` — narration WAV path
+- `CaptionFile` — SRT path
+
+Render pipeline:
+1. Sort assets by scene order (`-01` through `-05`)
+2. Per scene: `photoToClip` (Ken Burns slow zoom) or `videoToClip` (trim + 9:16 crop) → silent clip
+3. `concatenateClips` — joins all clips via ffmpeg concat demuxer (stream copy, no re-encode)
+4. `burnCaptionsAndMuxAudio` — burns SRT subtitles, muxes narration WAV as AAC
+5. Temp clips in `data/tmp/VID-*/` always cleaned up in a `finally` block
+
+Video output: `output/videos/VID-HOR-YYYYMMDD-001.mp4`
+JSON metadata: `data/media/videos/VID-HOR-YYYYMMDD-001.json`
+
+---
+
+### Step 12 — Metadata
+**File:** `src/modules/media/metadata.ts`
+
+Generates all YouTube publishing metadata in a single Gemini call.
+Designed to be the single source of truth for `youtube.ts`, thumbnail generation, and A/B testing.
+
+Input: `StoryIdea` + `StoryScript` + `VideoFile`
+
+Gemini generates 10 title options, a description, and 10 tags. The module then:
+- Enforces the 60-character title limit (truncates if needed)
+- Picks `bestTitle` as the first option, stores all 10 in `alternativeTitles`
+- Applies genre-specific hashtag sets from a preset map (no AI for hashtags)
+- Clamps `uploadPriority` to 0–100
+- Assigns `category` from a genre → YouTube category name map
+
+Hard limits frozen in constants so downstream tools can rely on them:
+
+| Field | Limit |
+|-------|-------|
+| `title` | 60 chars max |
+| `alternativeTitles` | 10 entries |
+| `hashtags` | 5 (genre preset) |
+| `tags` | 10 |
+| `description` | 500 chars max |
+| `language` | `"en"` |
+
+Output: `data/media/metadata/META-HOR-YYYYMMDD-001.json`
+
+---
+
+### Step 13 — YouTube Upload
+**Files:** `src/modules/youtube/youtube.ts`, `src/modules/youtube/uploader.ts`, `src/modules/youtube/client.ts`
+
+Uploads the final MP4 to YouTube as a private video using the OAuth refresh token.
+Private by default — change visibility only after manual review.
+
+Authentication flow (one-time setup):
+```
+npx tsx src/modules/youtube/auth.ts
+```
+Uses `localhost:3000` as the redirect URI (the deprecated `oob` flow no longer works).
+Before running, add `http://localhost:3000/callback` to your OAuth client's authorized redirect URIs
+in Google Cloud Console → APIs & Services → Credentials.
+
+The script starts a local HTTP server, opens the browser automatically, catches the authorization
+code from the callback, and exchanges it for tokens without any copy-pasting.
+Refresh token is printed to the terminal — copy it to `.env` as `YOUTUBE_REFRESH_TOKEN`.
+After that the pipeline authenticates silently on every run.
+
+Upload flow:
+1. `client.ts` creates an authenticated YouTube client from stored credentials
+2. `uploader.ts` calls `youtube.videos.insert()` with title, description, tags, category, mp4 stream
+3. Description field = `metadata.description` + hashtags joined on a new line
+4. Category name is mapped to YouTube's numeric category ID
+5. `youtube.ts` saves the result and returns an `UploadFile` record
+
+Output: `data/media/uploads/UPL-HOR-YYYYMMDD-001.json`
+
+```json
+{
+  "id": "UPL-HOR-20260615-001",
+  "youtubeId": "dQw4w9WgXcQ",
+  "url": "https://youtube.com/watch?v=dQw4w9WgXcQ",
+  "visibility": "private",
+  "title": "The Baby Monitor Had a Second Viewer"
+}
+```
+
+---
+
 ## ID Lineage
 
 Every asset in a pipeline run shares the same genre, date, and sequence number.
@@ -181,6 +275,8 @@ IDEA-HOR-20260615-001
         ├── CHAR-HOR-20260615-001
         ├── AUD-HOR-20260615-001
         ├── CAP-HOR-20260615-001
+        ├── VID-HOR-20260615-001
+        ├── META-HOR-20260615-001
         └── SCN-HOR-20260615-001
               ├── SCN-HOR-20260615-001-01  → data/assets/SCN-HOR-20260615-001-01.jpg/.mp4
               ├── SCN-HOR-20260615-001-02  → data/assets/SCN-HOR-20260615-001-02.jpg/.mp4
@@ -196,6 +292,8 @@ Derivation functions in `src/modules/id-generator.ts`:
 - `deriveSceneId`     SCR-* + N → SCN-*-NN
 - `deriveAudioId`     SCR-*  → AUD-*
 - `deriveCaptionId`   SCR-*  → CAP-*
+- `deriveVideoId`     SCR-*  → VID-*
+- `deriveMetadataId`  SCR-*  → META-*
 
 ---
 
@@ -211,6 +309,9 @@ data/
   media/
     audio/          AUD-*.json         (voice metadata)
     captions/       CAP-*.json         (caption metadata)
+    videos/         VID-*.json         (video metadata)
+    metadata/       META-*.json        (publishing metadata)
+    uploads/        UPL-*.json         (YouTube upload records)
   assets/
     SCN-*-NN.jpg                       (Pexels photos)
     SCN-*-NN.mp4                       (Pexels videos)
@@ -219,9 +320,11 @@ data/
       AUD-*.wav                        (narration audio)
     captions/
       CAP-*.srt                        (caption file)
+  tmp/
+    VID-*/                             (scene clips during rendering, auto-deleted)
 
 output/
-  (reserved for final rendered videos — nothing written here yet)
+  videos/           VID-*.mp4          (final rendered Shorts)
 ```
 
 ---
@@ -230,11 +333,7 @@ output/
 
 | Module | Purpose | Notes |
 |--------|---------|-------|
-| `ffmpeg.ts` | Compose scenes + audio + captions into final video | Depends on all assets being ready |
-| `thumbnail.ts` | Generate thumbnail image | Can be parallelized with ffmpeg |
-| `metadata.ts` | YouTube title, description, tags | Can be generated from script fields |
-
-The next logical step is ffmpeg composition — all inputs are now ready: scenes, audio, and captions.
+| `thumbnail.ts` | Generate a thumbnail image | Can be built from script fields + first scene asset |
 
 ---
 
@@ -245,17 +344,24 @@ The next logical step is ffmpeg composition — all inputs are now ready: scenes
 | `@google/genai` | ^2.8.0 | Gemini API — story generation + TTS |
 | `dotenv` | ^17.4.2 | Load `.env` |
 | `wav` | 1.0.2 | Wrap raw PCM in RIFF/WAV container |
+| `fluent-ffmpeg` | 2.1.3 | ffmpeg TypeScript wrapper |
+| `@ffmpeg-installer/ffmpeg` | 1.1.0 | Bundled ffmpeg binary — no system install needed |
 | `uuid` | ^14.0.0 | Installed, not currently used |
 | `tsx` | ^4.22.4 | Run TypeScript directly |
 | `typescript` | ^6.0.3 | Compiler |
 | `@types/node` | ^25.9.3 | Node type definitions |
 | `@types/wav` | 1.0.4 | Type definitions for wav |
+| `@types/fluent-ffmpeg` | 2.1.28 | Type definitions for fluent-ffmpeg |
+| `googleapis` | 173.0.0 | Google APIs client — YouTube Data API v3 |
 
 ---
 
 ## Environment Variables
 
 ```
-GEMINI_API_KEY   — required for all AI generation steps (story + TTS)
-PEXELS_API_KEY   — required for photo/video search and download
+GEMINI_API_KEY          — required for all AI generation steps (story + TTS)
+PEXELS_API_KEY          — required for photo/video search and download
+YOUTUBE_CLIENT_ID       — OAuth client ID from Google Cloud Console
+YOUTUBE_CLIENT_SECRET   — OAuth client secret from Google Cloud Console
+YOUTUBE_REFRESH_TOKEN   — generated once by running: npx tsx src/modules/youtube/auth.ts
 ```
