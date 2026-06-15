@@ -107,3 +107,10 @@ export function deriveAudioId(scriptId: string): string {
   const seq = String(sequence).padStart(3, "0");
   return `${AssetType.AUDIO}-${genre}-${date}-${seq}`;
 }
+
+// SCR-DRM-20260614-001 → CAP-DRM-20260614-001
+export function deriveCaptionId(scriptId: string): string {
+  const { genre, date, sequence } = parseId(scriptId);
+  const seq = String(sequence).padStart(3, "0");
+  return `${AssetType.CAPTION}-${genre}-${date}-${seq}`;
+}

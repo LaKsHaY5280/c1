@@ -6,6 +6,7 @@ import { VisualSearchGenerator } from "./modules/media/visual-search";
 import { pexels } from "./modules/media/pexels";
 import { downloader } from "./modules/media/downloader";
 import { VoiceGenerator } from "./modules/media/voice";
+import { CaptionGenerator } from "./modules/media/caption";
 
 async function bootstrap() {
   console.log("🚀 Started");
@@ -148,6 +149,19 @@ async function bootstrap() {
   console.log(`🔊 Voice: ${voiceFile.voice}`);
   console.log(`📁 Audio: ${voiceFile.audioPath}`);
   console.log(`\n📝 Narration:\n${voiceFile.narration.split("\n\n").map((s, i) => `   [${i + 1}] ${s}`).join("\n")}`);
+
+  // Step 10: Captions
+  const captionFile = await new CaptionGenerator().generate(voiceFile);
+
+  console.log("\n─────────────────────────────────────────");
+  console.log(`💬 Captions: ${captionFile.id}`);
+  console.log(`📄 SRT: ${captionFile.srtPath}`);
+  console.log(`🔢 Segments: ${captionFile.segments.length}`);
+  for (const seg of captionFile.segments) {
+    const start = seg.start.toFixed(1).padStart(5);
+    const end = seg.end.toFixed(1).padStart(5);
+    console.log(`   [${start}s → ${end}s] ${seg.text}`);
+  }
   console.log("─────────────────────────────────────────\n");
 }
 

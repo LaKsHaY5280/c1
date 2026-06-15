@@ -32,21 +32,34 @@ function deriveScriptId(ideaId: string): string {
 
 function buildPrompt(idea: StoryIdea): string {
   return `
-You are an expert YouTube Shorts storyteller.
+You are a YouTube Shorts script writer. Your scripts are spoken aloud by a narrator.
+The video is 45–55 seconds long. Every word costs screen time. Cut ruthlessly.
 
-Convert the provided story idea into a highly engaging 60-second narrator-style script
-optimized for retention, emotional impact, and visual storytelling.
+HARD RULES — violating any of these will break the video:
+- Each section (hook, setup, escalation, climax, ending) must be 1–3 sentences MAX
+- Each sentence must be short — 10 words or fewer when possible, 15 absolute maximum
+- No filler phrases: "little did they know", "suddenly", "as if", "it seemed like"
+- No describing emotions — show the action, let the viewer feel it
+- No repeating the same tension beat twice — every sentence must advance the story
+- The hook must work as a standalone line that stops someone mid-scroll
+- The ending must land in ONE sentence — a twist, a reveal, or a gut-punch
 
-Requirements:
-- Narrator style only. No dialogue unless absolutely necessary.
-- Hook viewers within the first 3 seconds. Create curiosity immediately.
-- Escalate tension throughout the story.
-- Every section must naturally lead into the next.
-- The ending must create a strong emotional reaction: surprise, shock, sadness, fear, or awe.
-- Easy to understand when heard only once.
-- Keep language simple and conversational.
-- Each section should contain clear visual moments that become separate video scenes.
-- Target duration: 45–60 seconds.
+PACING MODEL — read this aloud and time it:
+hook:        5–8 seconds   (1–2 sentences)
+setup:       8–12 seconds  (2–3 sentences)
+escalation:  10–12 seconds (2–3 sentences)
+climax:      8–10 seconds  (1–2 sentences)
+ending:      5–8 seconds   (1 sentence)
+total:       ~45–50 seconds
+
+BAD example (too long, too even):
+"She opened the door slowly and stepped inside the dark room.
+The air was cold and smelled like something old and forgotten.
+She looked around, feeling deeply unsettled by what she saw."
+
+GOOD example (tight, punchy, visual):
+"She opened the door. The room was wrong.
+Everything was exactly how she'd left it — except the chair faced the wall."
 
 Story Idea:
 Title: ${idea.title}
@@ -69,7 +82,7 @@ Return ONLY valid JSON:
   "visualStyle": "cinematic look and feel e.g. cinematic realistic drama, dark atmospheric horror",
   "colorMood": "dominant color palette e.g. muted and melancholic, cold blue tones, warm golden hour",
   "weather": "weather that reflects emotional tone e.g. overcast, night rain, harsh daylight",
-  "estimatedDuration": 60,
+  "estimatedDuration": 50,
   "visualMoments": ["", "", "", "", ""]
 }
 `.trim();

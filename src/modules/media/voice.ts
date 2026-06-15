@@ -1,4 +1,3 @@
-import fs from "fs";
 import { mkdir } from "fs/promises";
 import path from "path";
 import wav from "wav";
@@ -21,6 +20,10 @@ const BIT_DEPTH = 16;
 const MIME_TYPE = "audio/l16";
 
 const AUDIO_DIR = path.join(process.cwd(), "data", "assets", "audio");
+
+// Retry config — TTS has a known ~small% rate of 500 errors and can timeout
+const MAX_RETRIES = 3;
+const BASE_DELAY_MS = 2000;
 
 export interface VoiceFile {
   id: string;
@@ -60,7 +63,12 @@ export class VoiceGenerator {
   private gemini: GoogleGenAI;
 
   constructor() {
-    this.gemini = new GoogleGenAI({ apiKey: env.geminiApiKey });
+    // TTS audio generation takes longer than text calls.
+    // Default undici timeout is too short — set 120s to avoid UND_ERR_HEADERS_TIMEOUT.
+    this.gemini = new GoogleGenAI({
+      apiKey: env.geminiApiKey,
+      httpOptions: { timeout: 120_000 },
+    });
   }
 
   /**
@@ -110,27 +118,47 @@ ${narration}
     const prompt = this.buildTtsPrompt(script, narration);
 
     // Call Gemini TTS — returns raw PCM, not a WAV file
-    const response: GenerateContentResponse =
-      await this.gemini.models.generateContent({
-        model: TTS_MODEL,
-        contents: prompt,
-        config: {
-          responseModalities: ["AUDIO"],
-          speechConfig: {
-            voiceConfig: {
-              prebuiltVoiceConfig: {
-                voiceName: VOICE_NAME,
+    // Retries on timeout and transient server errors
+    let audioData: string | undefined;
+    let lastError: unknown;
+
+    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+      if (attempt > 0) {
+        const delay = BASE_DELAY_MS * 2 ** (attempt - 1);
+        console.log(`  ⟳ TTS retry ${attempt}/${MAX_RETRIES} after ${delay}ms...`);
+        await new Promise((r) => setTimeout(r, delay));
+      }
+
+      try {
+        const response: GenerateContentResponse =
+          await this.gemini.models.generateContent({
+            model: TTS_MODEL,
+            contents: prompt,
+            config: {
+              responseModalities: ["AUDIO"],
+              speechConfig: {
+                voiceConfig: {
+                  prebuiltVoiceConfig: {
+                    voiceName: VOICE_NAME,
+                  },
+                },
               },
             },
-          },
-        },
-      });
+          });
 
-    const audioData =
-      response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+        audioData = response.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+        if (audioData) break;
+
+        // Model returned no data — treat as retryable
+        lastError = new Error(`TTS returned no audio data on attempt ${attempt + 1}`);
+      } catch (err) {
+        lastError = err;
+        if (attempt === MAX_RETRIES) break;
+      }
+    }
 
     if (!audioData) {
-      throw new Error(`TTS returned no audio data for ${id}`);
+      throw lastError ?? new Error(`TTS returned no audio data for ${id}`);
     }
 
     // Decode base64 → raw PCM buffer

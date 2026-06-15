@@ -106,7 +106,8 @@ src/
         ├── pexels.ts           Step 6 — searches Pexels photos and videos based on scene mediaType
         ├── downloader.ts       Step 7 — downloads assets to data/assets/
         ├── manifest.ts         Step 8 — creates asset manifest with chosen Pexels assets
-        ├── voice.ts            Step 9 — generates narration audio via Gemini TTS
+        ├── voice.ts            Step 9  — generates narration audio via Gemini TTS
+        ├── caption.ts          Step 10 — splits narration into timed caption segments + SRT
         └── image-prompt.ts     (reference only — AI image prompt generation, not in active pipeline)
 ```
 
@@ -118,7 +119,7 @@ src/
 
 ### `src/index.ts`
 
-Entry point. Runs the full pipeline sequentially in 9 steps.
+Entry point. Runs the full pipeline sequentially in 10 steps.
 
 ```
 bootstrap()   async — orchestrates all pipeline steps in order
@@ -134,6 +135,7 @@ bootstrap()   async — orchestrates all pipeline steps in order
 7. `downloader.download(sceneId, url)` per scene
 8. Generate asset manifest with chosen Pexels assets
 9. `VoiceGenerator.generate(script)` — narration audio via Gemini TTS
+10. `CaptionGenerator.generate(voiceFile)` — caption segments + SRT file
 
 ---
 
@@ -208,6 +210,7 @@ deriveSceneId(scriptId, n)      SCR-* + scene number → SCN-*-02  (individual s
 deriveImagePromptId(sceneId)    SCN-*-02 → PROMPT-*-02
 deriveCharacterId(scriptId)     SCR-* → CHAR-*
 deriveAudioId(scriptId)         SCR-* → AUD-*
+deriveCaptionId(scriptId)       SCR-* → CAP-*
 ```
 
 ---
@@ -217,7 +220,7 @@ deriveAudioId(scriptId)         SCR-* → AUD-*
 Shared utilities imported by every story and media generator.
 
 ```
-const MODEL             "gemini-2.5-flash-lite" — single place to change the model
+const MODEL             "gemini-2.5-flash" — single place to change the model
 
 generateJson<T>(prompt) async — sends prompt to Gemini, parses JSON response, returns T
 
@@ -595,6 +598,55 @@ class VoiceGenerator
 **Storage:**
 - JSON: `data/media/audio/AUD-*.json`
 - WAV:  `data/assets/audio/AUD-*.wav`
+
+---
+
+### `src/modules/media/caption.ts`
+
+Step 10 — Splits narration into timed caption segments and writes an SRT file.
+No transcription, no audio upload. The narration text is already known from the voice step.
+Gemini splits the text into 3–8 word chunks and distributes timestamps across the audio duration.
+SRT formatting is pure TypeScript — no AI involved.
+
+**Approach:** narration text + audio duration → Gemini → segments → `toSrt()` → `.srt` file
+
+**Interfaces**
+
+```
+interface CaptionSegment
+  text    string   caption line (3–8 words)
+  start   number   seconds
+  end     number   seconds
+
+interface CaptionFile
+  id        string   CAP-GEN-DATE-SEQ
+  scriptId  string
+  audioId   string   links back to AUD-* for the same run
+  title     string
+  segments  CaptionSegment[]
+  srtPath   string   absolute path to .srt file
+  createdAt string
+```
+
+**Internal**
+
+```
+buildPrompt(narration, duration)   instructs Gemini to split text into 3–8 word segments
+                                   spanning the full audio duration, max 4s per segment
+toSrt(segments)                    converts segments to SRT format — pure arithmetic, no AI
+formatSrtTime(seconds)             e.g. 8.5 → "00:00:08,500"
+```
+
+**Exports**
+
+```
+class CaptionGenerator
+  generate(voiceFile)   async → CaptionFile
+```
+
+**Storage:**
+- JSON: `data/media/captions/CAP-*.json`
+- SRT:  `data/assets/captions/CAP-*.srt`
 
 ---
 
