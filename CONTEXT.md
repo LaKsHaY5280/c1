@@ -87,9 +87,9 @@ c1/
 
 ```
 src/
-├── index.ts                    Entry point — runs the full pipeline
+├── index.ts                    Entry point — calls runPipeline() and exits
 ├── config/
-│   └── env.ts                  Loads .env, exports env.geminiApiKey + env.pexelsApiKey
+│   └── env.ts                  Loads .env, exports all credentials
 ├── services/
 │   └── gemini.service.ts       Instantiates GoogleGenAI client
 └── modules/
@@ -117,6 +117,23 @@ src/
         ├── client.ts           Creates authenticated YouTube API client from stored credentials
         ├── uploader.ts         Calls youtube.videos.insert() — uploads MP4 stream
         └── youtube.ts          Step 13 — orchestrates upload, saves UploadFile record
+└── pipeline/                   v1.5 — run lifecycle and orchestration
+    ├── pipeline-context.ts     RunRecord, StepRecord, StepEvent types + STEP_ORDER
+    ├── run-step.ts             Step wrapper — marks running/completed/failed, persists after each
+    ├── step-registry.ts        Maps StepName → module function (only file that knows this mapping)
+    └── run-pipeline.ts         Iterates STEP_ORDER, wraps each with runStep(), marks run done/failed
+└── services/                   v1.5 — shared service layer
+    ├── run.service.ts          CRUD for RunRecord in data/runs/
+    ├── log.service.ts          NDJSON structured logger — appends to data/logs/, also prints terminal
+    ├── asset.service.ts        List wrappers for ideas/scripts/videos/uploads/metadata
+    ├── settings.service.ts     Read/write data/config/settings.json with typed defaults
+    └── gemini.service.ts       Shared Gemini client singleton
+└── api/                        v1.5 — Express API layer
+    ├── server.ts               Express app on port 3001
+    ├── runs.routes.ts          GET /runs, GET /runs/:id
+    ├── pipeline.routes.ts      POST /pipeline/start, POST /pipeline/step/:step
+    ├── assets.routes.ts        GET /assets /ideas /videos /uploads, GET|PUT /settings
+    └── logs.routes.ts          GET /logs/:runId
 ```
 
 ---
@@ -155,7 +172,13 @@ bootstrap()   async — orchestrates all pipeline steps in order
 Loads `.env` via dotenv and exports typed config.
 
 ```
-env   const — { geminiApiKey: string | undefined, pexelsApiKey: string | undefined }
+env   const — {
+  geminiApiKey:        string | undefined
+  pexelsApiKey:        string | undefined
+  youtubeClientId:     string | undefined
+  youtubeClientSecret: string | undefined
+  youtubeRefreshToken: string | undefined
+}
 ```
 
 ---

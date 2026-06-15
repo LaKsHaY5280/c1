@@ -236,6 +236,8 @@ Models used:
 | Scheduling | Run automatically at a set time each day |
 | Analytics ingestion | Pull view/retention data back into the system |
 
+See `RELEASE-v1.5-PLAN.md` for the full dashboard-ready backend design.
+
 ---
 
 ## How to Run
