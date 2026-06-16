@@ -4,6 +4,7 @@ import { storage } from "../storage";
 import { deriveCaptionId } from "../id-generator";
 import { generateJson, now } from "../story/base";
 import { type VoiceFile } from "./voice";
+import { settingsService } from "../../services/settings.service";
 
 const CAPTION_DIR = path.join(process.cwd(), "data", "assets", "captions");
 
@@ -23,12 +24,12 @@ export interface CaptionFile {
   createdAt: string;
 }
 
-function buildPrompt(narration: string, duration: number): string {
+function buildPrompt(narration: string, duration: number, maxWords: number): string {
   return `
 Split this narration into short caption segments for a YouTube Shorts video.
 
 Rules:
-- 3 to 8 words per segment
+- 3 to ${maxWords} words per segment
 - Maximum 2 lines on screen at once
 - Dramatic pacing — match the emotional rhythm of the text
 - Assign timestamps that span the full ${duration.toFixed(1)} seconds
@@ -77,11 +78,14 @@ export class CaptionGenerator {
   async generate(voiceFile: VoiceFile): Promise<CaptionFile> {
     console.log(`📝 Generating captions for: ${voiceFile.title}`);
 
+    const settings = await settingsService.read();
+    const maxWords = settings.captionMaxWordsPerSegment ?? 8;
+
     const duration = voiceFile.duration ?? 60;
     const id = deriveCaptionId(voiceFile.scriptId);
 
     const segments = await generateJson<CaptionSegment[]>(
-      buildPrompt(voiceFile.narration, duration),
+      buildPrompt(voiceFile.narration, duration, maxWords),
     );
 
     // Write SRT file

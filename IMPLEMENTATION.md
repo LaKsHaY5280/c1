@@ -47,7 +47,7 @@ src/api/        — Express API the dashboard calls
 | `src/api/server.ts` | Express app on port 3001, mounts all routers |
 | `src/api/runs.routes.ts` | `GET /runs`, `GET /runs/:id` |
 | `src/api/pipeline.routes.ts` | `POST /pipeline/start`, `POST /pipeline/step/:step` |
-| `src/api/assets.routes.ts` | `GET /assets`, `/ideas`, `/videos`, `/uploads`, `GET\|PUT /settings` |
+| `src/api/assets.routes.ts` | `GET /assets`, `/assets/ideas`, `/assets/videos`, `/assets/uploads`, `GET\|PUT /assets/settings` |
 | `src/api/logs.routes.ts` | `GET /logs/:runId` |
 
 ### Run Record
@@ -454,4 +454,95 @@ PEXELS_API_KEY          — required for photo/video search and download
 YOUTUBE_CLIENT_ID       — OAuth client ID from Google Cloud Console
 YOUTUBE_CLIENT_SECRET   — OAuth client secret from Google Cloud Console
 YOUTUBE_REFRESH_TOKEN   — generated once by running: npx tsx src/modules/youtube/auth.ts
+```
+
+---
+
+## v1.6 Patch — Stability & Integration
+
+**Date:** 2026-06-16
+Applied on top of v1.5. All changes are in `src/pipeline/` and `src/api/`.
+Core modules (`src/modules/`) remain untouched.
+
+### 1. Step Retry Context Hydration
+
+**File:** `src/pipeline/hydrate-context.ts` (new)
+
+Before this fix, `POST /pipeline/step/:step` started with an empty context, so any step that depended on earlier outputs (e.g. `render` needs `sceneFile`, `manifest`, `voiceFile`, `captionFile`) would immediately throw.
+
+`hydrateContext(run)` rebuilds the full `PipelineContext` from disk:
+1. Loads idea and script from `run.steps[...].outputId`
+2. Derives all downstream IDs from `ctx.script.id` using id-generator functions
+3. Loads manifest from `data/assets/SCN-*.manifest.json` (separate from storage collection)
+4. Logs a summary line showing ✓/✗ per field
+
+Updated `pipeline.routes.ts` to call `hydrateContext(run)` before every `runStep()` invocation.
+
+### 2. Concurrent Run Protection
+
+**File:** `src/api/pipeline.routes.ts` (updated)
+
+`POST /pipeline/start` now calls `runService.getActiveRun()` before creating a new run. If a run with status `"running"` or `"pending"` exists, it returns:
+```json
+{ "error": "Pipeline already running", "runId": "RUN-...", "status": 409 }
+```
+
+Added `getActiveRun()` to `src/services/run.service.ts` — scans all run records and returns the first active one.
+
+### 3. Settings Wired to All Modules
+
+`voice.ts`, `caption.ts`, and the `upload` step in `step-registry.ts` now all call `settingsService.read()` at runtime instead of using hardcoded defaults:
+
+| Module | Setting Used | Old Default |
+|--------|-------------|-------------|
+| `voice.ts` | `settings.ttsVoice` | hardcoded `"Kore"` |
+| `caption.ts` | `settings.captionMaxWordsPerSegment` | hardcoded `8` |
+| `step-registry.ts` upload step | `settings.defaultVisibility` | already correct in v1.5 |
+
+### 4. Missing Asset Endpoints
+
+**File:** `src/api/assets.routes.ts` (updated)
+
+Added six missing endpoints to match all 9 data collections:
+- `GET /assets/scripts` → `assetService.listScripts()`
+- `GET /assets/characters` → `assetService.listCharacters()`
+- `GET /assets/scenes` → `assetService.listScenes()`
+- `GET /assets/audio` → `assetService.listAudio()`
+- `GET /assets/captions` → `assetService.listCaptions()`
+- `GET /assets/metadata` → `assetService.listMetadata()`
+
+All collection routes live under `/assets/*` so they never conflict with the static `/videos` file server.
+
+Updated `src/services/asset.service.ts` to expose all 9 list functions.
+
+### 5. Static Video Serving
+
+**File:** `src/api/server.ts` (updated)
+
+```typescript
+app.use("/videos", express.static(path.join(process.cwd(), "output", "videos")));
+```
+
+Dashboard can now stream `GET /videos/VID-HOR-20260615-001.mp4` directly in a `<video>` element.
+
+### 6. Cancel Endpoint
+
+**File:** `src/api/pipeline.routes.ts` (updated)
+
+```
+POST /pipeline/cancel/:runId
+```
+
+- Validates that the run exists and is active (returns 409 if already completed/failed)
+- Calls `runService.markRunFailed(run, "Cancelled by user")`
+- Does not interrupt in-flight OS processes (ffmpeg, Gemini API calls continue until they finish)
+- Returns `{ runId, message: "Run marked as cancelled" }`
+
+### TypeScript Verification
+
+Both projects compile clean after all changes:
+
+```bash
+cd Backend && npx tsc --noEmit   # Exit 0
+cd Dashboard && npx tsc --noEmit # Exit 0
 ```

@@ -147,11 +147,21 @@ async function markRunFailed(run: RunRecord, error: string): Promise<RunRecord> 
   return run;
 }
 
+/**
+ * Returns the first run with status "running" or "pending", or null if none.
+ * Used by the /pipeline/start endpoint to enforce single-run concurrency.
+ */
+async function getActiveRun(): Promise<RunRecord | null> {
+  const runs = await list();
+  return runs.find((r) => r.status === "running" || r.status === "pending") ?? null;
+}
+
 export const runService = {
   create,
   load,
   list,
   save,
+  getActiveRun,
   markStepStarted,
   markStepCompleted,
   markStepFailed,

@@ -7,11 +7,12 @@ import { deriveAudioId } from "../id-generator";
 import { now } from "../story/base";
 import { type StoryScript } from "../story/script";
 import { env } from "../../config/env";
+import { settingsService } from "../../services/settings.service";
 
 const TTS_MODEL = "gemini-3.1-flash-tts-preview";
 
-// Voice name used for narration — firm, clear tone suits shorts storytelling
-const VOICE_NAME = "Kore";
+// Default voice — overridden at runtime by settings.ttsVoice
+const DEFAULT_VOICE_NAME = "Kore";
 
 // Gemini TTS returns raw PCM: mono, 24 kHz, 16-bit signed little-endian
 const SAMPLE_RATE = 24000;
@@ -113,6 +114,10 @@ ${narration}
   async generate(script: StoryScript): Promise<VoiceFile> {
     console.log(`🎙  Generating voice for: ${script.title}`);
 
+    // Read voice name from settings at runtime so the user can change it
+    const settings = await settingsService.read();
+    const voiceName = settings.ttsVoice || DEFAULT_VOICE_NAME;
+
     const id = deriveAudioId(script.id);
     const narration = this.buildNarration(script);
     const prompt = this.buildTtsPrompt(script, narration);
@@ -139,7 +144,7 @@ ${narration}
               speechConfig: {
                 voiceConfig: {
                   prebuiltVoiceConfig: {
-                    voiceName: VOICE_NAME,
+                    voiceName: voiceName,
                   },
                 },
               },
@@ -179,7 +184,7 @@ ${narration}
       scriptId: script.id,
       title: script.title,
       narration,
-      voice: VOICE_NAME,
+      voice: voiceName,
       audioPath,
       duration,
       mimeType: MIME_TYPE,

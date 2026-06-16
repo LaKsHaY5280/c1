@@ -26,6 +26,22 @@ async function listScripts() {
   return listCollection("story/scripts");
 }
 
+async function listCharacters() {
+  return listCollection("story/characters");
+}
+
+async function listScenes() {
+  return listCollection("story/scenes");
+}
+
+async function listAudio() {
+  return listCollection("media/audio");
+}
+
+async function listCaptions() {
+  return listCollection("media/captions");
+}
+
 async function listVideos() {
   return listCollection("media/videos");
 }
@@ -51,6 +67,10 @@ async function listAssetFiles(): Promise<string[]> {
 export const assetService = {
   listIdeas,
   listScripts,
+  listCharacters,
+  listScenes,
+  listAudio,
+  listCaptions,
   listVideos,
   listUploads,
   listMetadata,

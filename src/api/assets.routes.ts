@@ -4,37 +4,55 @@ import { settingsService } from "../services/settings.service";
 
 const router = Router();
 
-// GET /assets — list raw asset files (jpg/mp4) in data/assets/
+// ─── Raw asset files (jpg/mp4) in data/assets/ ───────────────────────────────
 router.get("/", async (_req: Request, res: Response) => {
   const files = await assetService.listAssetFiles();
   res.json(files);
 });
 
-// GET /ideas
+// ─── Story collections ────────────────────────────────────────────────────────
 router.get("/ideas", async (_req: Request, res: Response) => {
-  const ideas = await assetService.listIdeas();
-  res.json(ideas);
+  res.json(await assetService.listIdeas());
 });
 
-// GET /videos
+router.get("/scripts", async (_req: Request, res: Response) => {
+  res.json(await assetService.listScripts());
+});
+
+router.get("/characters", async (_req: Request, res: Response) => {
+  res.json(await assetService.listCharacters());
+});
+
+router.get("/scenes", async (_req: Request, res: Response) => {
+  res.json(await assetService.listScenes());
+});
+
+// ─── Media collections ────────────────────────────────────────────────────────
+router.get("/audio", async (_req: Request, res: Response) => {
+  res.json(await assetService.listAudio());
+});
+
+router.get("/captions", async (_req: Request, res: Response) => {
+  res.json(await assetService.listCaptions());
+});
+
 router.get("/videos", async (_req: Request, res: Response) => {
-  const videos = await assetService.listVideos();
-  res.json(videos);
+  res.json(await assetService.listVideos());
 });
 
-// GET /uploads
 router.get("/uploads", async (_req: Request, res: Response) => {
-  const uploads = await assetService.listUploads();
-  res.json(uploads);
+  res.json(await assetService.listUploads());
 });
 
-// GET /settings
+router.get("/metadata", async (_req: Request, res: Response) => {
+  res.json(await assetService.listMetadata());
+});
+
+// ─── Settings ─────────────────────────────────────────────────────────────────
 router.get("/settings", async (_req: Request, res: Response) => {
-  const settings = await settingsService.read();
-  res.json(settings);
+  res.json(await settingsService.read());
 });
 
-// PUT /settings — merge partial update into existing settings
 router.put("/settings", async (req: Request, res: Response) => {
   const updated = await settingsService.update(req.body);
   res.json(updated);

@@ -1,7 +1,7 @@
 # Release v1.5 — Dashboard-Ready Backend
 
 **Date:** 2026-06-15
-**Status:** Complete. All phases 1–7 implemented. Phase 8 (Vite dashboard) is v2.
+**Status:** Complete. All phases 1–7 implemented. Updated to v1.6 patch.
 **Built on top of:** v1 — all 13 pipeline steps untouched.
 
 ---
@@ -35,7 +35,7 @@ src/api/        HTTP bridge   (v1.5 — new)
 
 ---
 
-## What Was Built
+## What Was Built (v1.5 + v1.6 patch)
 
 ### Phase 1 — Run Model
 
@@ -85,13 +85,20 @@ Replaces bare `console.log()` throughout the pipeline with structured events:
 
 **`src/pipeline/step-registry.ts`**
 
-The only file that maps step names to module functions. `STEP_REGISTRY` is a `Record<StepName, StepFn>`. Adding a new step in the future = one entry here.
+The only file that maps step names to module functions. `STEP_REGISTRY` is a `Record<StepName, StepFn>`.
 
-Carries state between steps via `PipelineContext` — a shared object built up as the pipeline runs.
+Settings wired in:
+- `voice` step reads `settings.ttsVoice` at runtime — no hardcoded voice name
+- `captions` step reads `settings.captionMaxWordsPerSegment` at runtime
+- `upload` step reads `settings.defaultVisibility` at runtime
 
 **`src/pipeline/run-pipeline.ts`**
 
 Creates a `RunRecord`, iterates `STEP_ORDER`, calls `runStep()` for each entry in `STEP_REGISTRY`, marks run `completed` or `failed` at the end.
+
+**`src/pipeline/hydrate-context.ts`** (v1.6)
+
+Rebuilds a complete `PipelineContext` from disk for single-step retry. Loads every available artifact (idea, script, characters, scenes, manifest, voice, captions, video, metadata) using IDs stored in the run's step records. Steps that haven't run yet are left `undefined` — the step validator throws a proper error if a required predecessor is absent.
 
 **`src/index.ts`** (updated — was 150+ lines, now 4)
 
@@ -106,32 +113,41 @@ runPipeline().catch((err) => { console.error(err); process.exit(1); });
 
 **`src/api/server.ts`** — Express on port 3001
 
+Static video serving:
+```typescript
+app.use("/videos", express.static(path.join(process.cwd(), "output", "videos")));
+```
+
 All API routes:
 
 | Method | Path | Description |
 |--------|------|-------------|
 | `GET` | `/runs` | List all runs, newest first |
 | `GET` | `/runs/:id` | Full run record with steps + history |
-| `POST` | `/pipeline/start` | Start full pipeline run (async, returns `runId` immediately) |
-| `POST` | `/pipeline/step/:step` | Run one step — body: `{ runId }` |
-| `GET` | `/assets` | List asset files in `data/assets/` |
-| `GET` | `/ideas` | List all idea JSON files |
-| `GET` | `/videos` | List all video JSON files |
-| `GET` | `/uploads` | List all upload records |
-| `GET` | `/settings` | Read current settings |
-| `PUT` | `/settings` | Update settings (partial merge) |
+| `POST` | `/pipeline/start` | Start full pipeline run (rejects 409 if run already active) |
+| `POST` | `/pipeline/step/:step` | Run one step with hydrated context — body: `{ runId }` |
+| `POST` | `/pipeline/cancel/:runId` | Cancel a running/pending run |
+| `GET` | `/assets` | List raw asset files in `data/assets/` |
+| `GET` | `/assets/ideas` | List all idea JSON files |
+| `GET` | `/assets/scripts` | List all script JSON files |
+| `GET` | `/assets/characters` | List all character JSON files |
+| `GET` | `/assets/scenes` | List all scene JSON files |
+| `GET` | `/assets/audio` | List all voice JSON files |
+| `GET` | `/assets/captions` | List all caption JSON files |
+| `GET` | `/assets/videos` | List all video JSON files |
+| `GET` | `/assets/uploads` | List all upload records |
+| `GET` | `/assets/metadata` | List all metadata JSON files |
+| `GET` | `/assets/settings` | Read current settings |
+| `PUT` | `/assets/settings` | Update settings (partial merge) |
 | `GET` | `/logs/:runId` | All log events for a run |
 | `GET` | `/health` | Server health check |
-
-Route files: `runs.routes.ts`, `pipeline.routes.ts`, `assets.routes.ts`, `logs.routes.ts`
+| `GET` | `/videos/:filename` | Static MP4 file serving |
 
 ---
 
 ### Phase 6 — Settings File
 
 **`src/services/settings.service.ts`** + **`data/config/settings.json`**
-
-Moves hardcoded values out of modules into an editable config:
 
 ```json
 {
@@ -144,7 +160,12 @@ Moves hardcoded values out of modules into an editable config:
 ```
 
 `settingsService.read()` merges file with defaults — safe if file is missing.
-`PUT /settings` writes partial updates via the API.
+`PUT /assets/settings` writes partial updates via the API.
+
+All three settings are now consumed at runtime:
+- `ttsVoice` → `voice.ts` reads it before every TTS call
+- `captionMaxWordsPerSegment` → `caption.ts` reads it before every caption call
+- `defaultVisibility` → `step-registry.ts` upload step reads it before every upload
 
 ---
 
@@ -152,10 +173,24 @@ Moves hardcoded values out of modules into an editable config:
 
 | File | Purpose |
 |------|---------|
-| `src/services/run.service.ts` | CRUD for `RunRecord` — create, load, list, all state transitions |
+| `src/services/run.service.ts` | CRUD for `RunRecord` — create, load, list, all state transitions, `getActiveRun()` |
 | `src/services/log.service.ts` | Logger factory + log file reader |
-| `src/services/asset.service.ts` | List wrappers for ideas, scripts, videos, uploads, raw assets |
+| `src/services/asset.service.ts` | List wrappers for all 9 asset collections |
 | `src/services/settings.service.ts` | Read/write typed settings with defaults |
+
+---
+
+## v1.6 Patch — Stability Fixes
+
+| Fix | Details |
+|-----|---------|
+| Step retry context hydration | `hydrateContext(run)` loads all disk artifacts before single-step retry — retry now works correctly for any step, not just step 1 |
+| Concurrent run protection | `POST /pipeline/start` calls `runService.getActiveRun()` first; returns 409 if a run is already active |
+| Settings wired to all modules | `voice.ts`, `caption.ts`, and the `upload` step all read from `settingsService.read()` instead of hardcoded defaults |
+| Missing asset endpoints added | `/assets/scripts`, `/assets/characters`, `/assets/scenes`, `/assets/audio`, `/assets/captions`, `/assets/metadata` added to `assets.routes.ts`. All collection routes now live under `/assets/*` to avoid shadowing the static `/videos` middleware. |
+| Static video serving | `app.use("/videos", express.static(...))` added to `server.ts` so the dashboard can stream MP4 files |
+| Cancel endpoint | `POST /pipeline/cancel/:runId` marks a running/pending run as failed immediately |
+| `getActiveRun()` added to run.service | Used by concurrent run protection and Topbar active run indicator |
 
 ---
 
@@ -189,36 +224,7 @@ npm run server:dev  # API with auto-restart on file changes
 
 ---
 
-## How to Use the API
-
-```bash
-# Start the API server
-npm run server
-
-# Start a pipeline run
-curl -X POST http://localhost:3001/pipeline/start
-# → { "runId": "RUN-20260615-001", "message": "Pipeline started" }
-
-# Poll run status while it runs
-curl http://localhost:3001/runs/RUN-20260615-001
-
-# See live logs
-curl http://localhost:3001/logs/RUN-20260615-001
-
-# Retry a failed step
-curl -X POST http://localhost:3001/pipeline/step/voice \
-  -H "Content-Type: application/json" \
-  -d '{"runId":"RUN-20260615-001"}'
-
-# Browse outputs
-curl http://localhost:3001/ideas
-curl http://localhost:3001/videos
-curl http://localhost:3001/uploads
-```
-
----
-
-## New Dependencies Added
+## New Dependencies Added (v1.5)
 
 | Package | Version | Purpose |
 |---------|---------|---------|
@@ -229,15 +235,12 @@ curl http://localhost:3001/uploads
 
 ---
 
-## Known Issues (v1.5)
-
-All v1 known issues carry over. Additional v1.5 notes:
+## Known Issues (v1.5 / v1.6)
 
 | # | Issue | Notes |
 |---|-------|-------|
-| 1 | `POST /pipeline/step/:step` does not restore prior step context | Single-step retry works but context is empty — earlier step outputs not reloaded from disk |
-| 2 | `POST /pipeline/start` creates a new run even if one is already running | No guard against concurrent runs — safe for single-user local use |
-| 3 | Dashboard (Phase 8) not built | Vite frontend is v2 — API is ready for it |
+| 1 | Cancel does not interrupt in-flight ffmpeg or Gemini | The run record is immediately marked failed but active OS processes continue to completion. Will improve with `AbortController` in a future release. |
+| 2 | Dashboard (Phase 8) is separate project | Vite frontend is its own repo. All API endpoints it needs are ready. |
 
 ---
 
@@ -245,150 +248,8 @@ All v1 known issues carry over. Additional v1.5 notes:
 
 | Item | Notes |
 |------|-------|
-| Vite dashboard | Phase 8 — all API endpoints it needs are ready |
-| Rerun / resume from checkpoint | Skip completed steps when retrying — planned for v1.6 |
 | `thumbnail.ts` | Generate thumbnail from script + first scene asset |
-
----
-
-## Full Folder Structure (v1.5)
-
-```
-c1/
-├── .env                          API keys + OAuth credentials (gitignored)
-├── .gitignore
-├── package.json
-├── tsconfig.json
-├── content.md                    Original pipeline design notes
-├── CONTEXT.md                    Full technical reference for all modules
-├── IMPLEMENTATION.md             Step-by-step build record
-├── RELEASE-v1.md                 v1 snapshot
-├── RELEASE-v1.5-PLAN.md          v1.5 design document
-├── RELEASE-v1.5.md               This file
-│
-├── data/                         All generated assets (gitignored)
-│   ├── runs/                     RUN-*.json — one per pipeline execution
-│   ├── logs/                     RUN-*.log.ndjson — structured log events
-│   ├── config/
-│   │   └── settings.json         Editable pipeline settings
-│   ├── story/
-│   │   ├── ideas/                IDEA-*.json
-│   │   ├── scripts/              SCR-*.json
-│   │   ├── characters/           CHAR-*.json
-│   │   └── scenes/               SCN-*.json
-│   ├── media/
-│   │   ├── audio/                AUD-*.json
-│   │   ├── captions/             CAP-*.json
-│   │   ├── videos/               VID-*.json
-│   │   ├── metadata/             META-*.json
-│   │   └── uploads/              UPL-*.json
-│   ├── assets/
-│   │   ├── SCN-*-NN.jpg/.mp4     Pexels scene assets
-│   │   ├── SCN-*.manifest.json   Asset manifest per run
-│   │   ├── audio/                AUD-*.wav
-│   │   └── captions/             CAP-*.srt
-│   └── tmp/                      Scene clips during render (auto-deleted)
-│
-├── output/
-│   └── videos/                   VID-*.mp4 — final rendered Shorts
-│
-└── src/
-    ├── index.ts                  Entry point — calls runPipeline(), 4 lines
-    ├── config/
-    │   └── env.ts                Typed env config (all 5 credentials)
-    ├── pipeline/                 v1.5 — orchestration layer
-    │   ├── pipeline-context.ts   Types: RunRecord, StepRecord, StepEvent, STEP_ORDER
-    │   ├── run-step.ts           Step wrapper — tracks status, persists after each transition
-    │   ├── step-registry.ts      Maps StepName → module function (STEP_REGISTRY)
-    │   └── run-pipeline.ts       Full run orchestrator
-    ├── services/                 v1.5 — shared service layer
-    │   ├── run.service.ts        CRUD for RunRecord
-    │   ├── log.service.ts        NDJSON logger + reader
-    │   ├── asset.service.ts      List wrappers for all asset collections
-    │   └── settings.service.ts   Read/write settings.json
-    ├── api/                      v1.5 — Express API
-    │   ├── server.ts             Express app, port 3001
-    │   ├── runs.routes.ts        /runs
-    │   ├── pipeline.routes.ts    /pipeline
-    │   ├── assets.routes.ts      /assets /ideas /videos /uploads /settings
-    │   └── logs.routes.ts        /logs
-    ├── services/
-    │   └── gemini.service.ts     Shared Gemini client singleton
-    └── modules/                  v1 — engine (untouched)
-        ├── storage.ts
-        ├── id-generator.ts
-        ├── story/
-        │   ├── base.ts, idea.ts, script.ts, character.ts, scene.ts
-        └── media/
-        │   ├── visual-search.ts, pexels.ts, downloader.ts
-        │   ├── voice.ts, caption.ts, renderer.ts, ffmpeg-utils.ts
-        │   ├── metadata.ts, image-prompt.ts (reference only)
-        └── youtube/
-            ├── auth.ts, client.ts, uploader.ts, youtube.ts
-```
-
----
-
-## Run Record Lifecycle
-
-```
-POST /pipeline/start
-        ↓
-runService.create()  →  RUN-*.json written (status: "running", all steps: "pending")
-        ↓
-for each step in STEP_ORDER:
-  runStep()
-    ├── markStepStarted()   → step: "running",   history: [{event: "started"}]
-    ├── STEP_REGISTRY[step](ctx)
-    └── on success: markStepCompleted() → step: "completed", history: [{event: "completed", outputId}]
-        on failure: markStepFailed()    → step: "failed",    history: [{event: "failed", error}]
-                                          run stops, remaining steps stay "pending"
-        ↓
-markRunCompleted()  →  status: "completed", finishedAt set
-  or
-markRunFailed()     →  status: "failed",    error set
-```
-
-The dashboard polls `GET /runs/:id` every few seconds. It reads `steps` for the progress
-table and `history` for the event timeline. Logs come from `GET /logs/:runId`.
-
----
-
-## Environment Variables
-
-All in `.env` at the project root:
-
-```
-# Gemini — story generation + TTS
-GEMINI_API_KEY=
-
-# Pexels — stock photo and video search
-PEXELS_API_KEY=
-
-# YouTube — OAuth credentials from Google Cloud Console
-YOUTUBE_CLIENT_ID=
-YOUTUBE_CLIENT_SECRET=
-YOUTUBE_REFRESH_TOKEN=
-```
-
-No new env vars in v1.5. The API server reads from the same `.env`.
-
----
-
-## v1 → v1.5 Migration
-
-If you were running v1 and pull v1.5:
-
-| What | Status | Action needed |
-|------|--------|---------------|
-| `npm start` | ✅ unchanged | None — still runs the full pipeline |
-| `src/modules/` | ✅ unchanged | None |
-| `src/index.ts` | ⚠️ changed | Now calls `runPipeline()` — same behavior, different entry |
-| `data/` structure | ⚠️ new dirs | `data/runs/`, `data/logs/`, `data/config/` created automatically on first run |
-| `npm install` | required | `express` and `cors` added — run once |
-
-Nothing breaks. The pipeline produces the same outputs as before. The new
-directories are created automatically by the services on first use.
+| Rerun / resume from checkpoint | Skip already-completed steps on retry — planned for v2 |
 
 ---
 

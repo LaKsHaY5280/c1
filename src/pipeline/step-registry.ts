@@ -20,6 +20,7 @@ import { CaptionGenerator } from "../modules/media/caption";
 import { Renderer } from "../modules/media/renderer";
 import { MetadataGenerator } from "../modules/media/metadata";
 import { publishVideo } from "../modules/youtube/youtube";
+import { settingsService } from "../services/settings.service";
 
 import { type StepName } from "./pipeline-context";
 import { type Logger } from "../services/log.service";
@@ -179,7 +180,9 @@ export const STEP_REGISTRY: Record<StepName, StepFn> = {
     if (!ctx.videoFile || !ctx.metadataFile) {
       throw new Error("upload is missing required context (video, metadata)");
     }
-    const uploadFile = await publishVideo(ctx.videoFile, ctx.metadataFile, "private");
+    const settings = await settingsService.read();
+    const visibility = settings.defaultVisibility ?? "private";
+    const uploadFile = await publishVideo(ctx.videoFile, ctx.metadataFile, visibility);
     ctx.log.info(`Uploaded: ${uploadFile.url}`);
     return uploadFile.id;
   },

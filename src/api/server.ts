@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
 import runsRouter from "./runs.routes";
 import pipelineRouter from "./pipeline.routes";
 import assetsRouter from "./assets.routes";
@@ -13,11 +14,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Static video serving — GET /videos/VID-HOR-20260615-001.mp4
+app.use("/videos", express.static(path.join(process.cwd(), "output", "videos")));
+
 // Routes
 app.use("/runs",     runsRouter);
 app.use("/pipeline", pipelineRouter);
-app.use("/assets",   assetsRouter);   // GET /assets
-app.use("/",         assetsRouter);   // GET /ideas, /videos, /uploads, GET|PUT /settings
+app.use("/assets",   assetsRouter);   // GET /assets         → raw file list
+                                      // GET /assets/ideas   /scripts /characters /scenes
+                                      // GET /assets/audio   /captions /videos /uploads /metadata
+                                      // GET|PUT /assets/settings
+
 app.use("/logs",     logsRouter);
 
 // Health check
@@ -31,12 +38,12 @@ app.listen(PORT, () => {
   console.log(`   GET  /runs/:id`);
   console.log(`   POST /pipeline/start`);
   console.log(`   POST /pipeline/step/:step`);
-  console.log(`   GET  /assets`);
-  console.log(`   GET  /ideas`);
-  console.log(`   GET  /videos`);
-  console.log(`   GET  /uploads`);
-  console.log(`   GET  /settings`);
-  console.log(`   PUT  /settings`);
+  console.log(`   POST /pipeline/cancel/:runId`);
+  console.log(`   GET  /assets               (raw file list)`);
+  console.log(`   GET  /assets/ideas | /assets/scripts | /assets/characters | /assets/scenes`);
+  console.log(`   GET  /assets/audio | /assets/captions | /assets/videos | /assets/uploads | /assets/metadata`);
+  console.log(`   GET|PUT /assets/settings`);
+  console.log(`   GET  /videos/:filename      (static MP4 serving)`);
   console.log(`   GET  /logs/:runId`);
   console.log(`   GET  /health`);
 });
