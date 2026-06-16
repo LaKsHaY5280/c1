@@ -4,6 +4,7 @@ import { now } from "../story/base";
 import { uploadVideo, type Visibility } from "./uploader";
 import { type VideoFile } from "../media/renderer";
 import { type MetadataFile } from "../media/metadata";
+import { analyticsService } from "../../services/analytics.service";
 
 export interface UploadFile {
   id: string;           // UPL-GEN-DATE-SEQ — reuses META id with UPL prefix
@@ -46,6 +47,21 @@ export async function publishVideo(
   };
 
   await storage.save("media/uploads", uploadId, uploadFile);
+
+  // Create an analytics record so this video can be tracked over time.
+  // Stats start at zero — POST /analytics/refresh will populate them.
+  await analyticsService.create({
+    runId:       undefined,   // not available here — can be back-filled via the queue
+    videoId:     video.id,
+    youtubeId:   result.youtubeId,
+    thumbnailId: undefined,   // back-filled by the queue when the run completes
+    genre:       metadata.category, // closest available field — genre stored here
+    title:       metadata.title,
+    publishedAt: result.uploadedAt,
+  }).catch((err) => {
+    // Non-fatal — analytics record creation failing should not fail the upload
+    console.warn(`[analytics] Failed to create record for ${result.youtubeId}: ${(err as Error).message}`);
+  });
 
   return uploadFile;
 }
