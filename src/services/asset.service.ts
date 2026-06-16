@@ -54,6 +54,10 @@ async function listMetadata() {
   return listCollection("media/metadata");
 }
 
+async function listThumbnails() {
+  return listCollection("media/thumbnails");
+}
+
 async function listAssetFiles(): Promise<string[]> {
   const assetsDir = path.join(process.cwd(), "data", "assets");
   try {
@@ -74,5 +78,6 @@ export const assetService = {
   listVideos,
   listUploads,
   listMetadata,
+  listThumbnails,
   listAssetFiles,
 };

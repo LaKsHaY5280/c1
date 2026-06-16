@@ -4,12 +4,21 @@
  * Design:
  *  - runPipeline() creates a token, registers it, and checks it between steps.
  *  - run-step checks it before invoking the step function.
- *  - POST /pipeline/cancel/:runId calls registry.cancel(runId), which flips the
- *    token flag. The next inter-step check throws CancelledError, unwinding the
- *    pipeline loop cleanly without leaving any step in "running" state.
- *  - In-flight Gemini/ffmpeg work for the CURRENT step will still run to
- *    completion (Node.js has no preemptive kill), but no subsequent step starts.
+ *  - POST /pipeline/cancel/:runId calls registry.cancel(runId), which:
+ *      1. Aborts the token's AbortController — any in-flight fetch() that
+ *         received the signal will throw AbortError immediately.
+ *      2. Kills any registered ffmpeg child process.
+ *      3. Flips the cancelled flag so the next inter-step check throws CancelledError.
+ *
+ * Gemini API calls accept an AbortSignal via httpOptions. Pass token.signal
+ * to the Gemini client constructor or generateContent call to get true mid-call
+ * cancellation rather than just between-step cancellation.
+ *
+ * ffmpeg processes are registered via token.setFfmpegProcess(). The renderer
+ * calls this before each ffmpeg operation and clears it after.
  */
+
+import type { FfmpegCommand } from "fluent-ffmpeg";
 
 export class CancelledError extends Error {
   constructor(runId: string) {
@@ -21,40 +30,57 @@ export class CancelledError extends Error {
 export interface CancellationToken {
   readonly runId: string;
   readonly cancelled: boolean;
-  /** Flip the flag. Idempotent. */
+  /** AbortSignal to pass to fetch / Gemini API calls for mid-request cancellation. */
+  readonly signal: AbortSignal;
+  /** Flip the flag, abort the signal, and kill any registered ffmpeg process. */
   cancel(): void;
   /** Throw CancelledError if cancel() has been called. */
   throwIfCancelled(): void;
+  /** Register the current ffmpeg command so it can be killed on cancel. */
+  setFfmpegProcess(cmd: FfmpegCommand | null): void;
 }
 
 function createToken(runId: string): CancellationToken {
   let cancelled = false;
+  let ffmpegCmd: FfmpegCommand | null = null;
+  const controller = new AbortController();
+
   return {
-    get runId() { return runId; },
+    get runId()    { return runId; },
     get cancelled() { return cancelled; },
-    cancel() { cancelled = true; },
+    get signal()   { return controller.signal; },
+
+    cancel() {
+      if (cancelled) return; // idempotent
+      cancelled = true;
+      controller.abort();
+      if (ffmpegCmd) {
+        try { ffmpegCmd.kill("SIGKILL"); } catch { /* ignore */ }
+        ffmpegCmd = null;
+      }
+    },
+
     throwIfCancelled() {
       if (cancelled) throw new CancelledError(runId);
+    },
+
+    setFfmpegProcess(cmd: FfmpegCommand | null) {
+      ffmpegCmd = cmd;
     },
   };
 }
 
-// ─── In-memory registry ───────────────────────────────────────────────────────
-// One token per active run. Cleared when the run finishes (success, fail, cancel).
-// A Map is safe for single-process use; replace with Redis if you ever run multiple
-// server instances.
+// ─── In-memory registry ────────────────────────────────────────────────────────
 
 const tokens = new Map<string, CancellationToken>();
 
 export const cancellationRegistry = {
-  /** Create and register a token for a new run. */
   register(runId: string): CancellationToken {
     const token = createToken(runId);
     tokens.set(runId, token);
     return token;
   },
 
-  /** Cancel a run by ID. Returns true if a token was found and cancelled. */
   cancel(runId: string): boolean {
     const token = tokens.get(runId);
     if (!token) return false;
@@ -62,13 +88,15 @@ export const cancellationRegistry = {
     return true;
   },
 
-  /** Remove the token when a run finishes (success, fail, or cancel). */
   unregister(runId: string): void {
     tokens.delete(runId);
   },
 
-  /** Check whether a run has been cancelled (used in tests / manual checks). */
   isCancelled(runId: string): boolean {
     return tokens.get(runId)?.cancelled ?? false;
+  },
+
+  getToken(runId: string): CancellationToken | undefined {
+    return tokens.get(runId);
   },
 };

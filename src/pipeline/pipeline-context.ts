@@ -12,7 +12,8 @@ export type StepName =
   | "captions"
   | "render"
   | "metadata"
-  | "upload";
+  | "upload"
+  | "thumbnail";
 
 export const STEP_ORDER: StepName[] = [
   "idea",
@@ -27,6 +28,7 @@ export const STEP_ORDER: StepName[] = [
   "render",
   "metadata",
   "upload",
+  "thumbnail",
 ];
 
 export interface StepRecord {

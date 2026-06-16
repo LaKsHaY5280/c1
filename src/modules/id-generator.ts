@@ -9,6 +9,9 @@ export enum AssetType {
   CAPTION = "CAP",
   THUMBNAIL = "THM",
   METADATA = "META",
+  UPLOAD = "UPL",
+  QUEUE = "QUEUE",
+  ANALYTICS = "ANL",
 }
 
 export const GENRE_CODES: Record<string, string> = {
@@ -127,4 +130,23 @@ export function deriveMetadataId(scriptId: string): string {
   const { genre, date, sequence } = parseId(scriptId);
   const seq = String(sequence).padStart(3, "0");
   return `${AssetType.METADATA}-${genre}-${date}-${seq}`;
+}
+
+// SCR-DRM-20260614-001 → THM-DRM-20260614-001
+export function deriveThumbnailId(scriptId: string): string {
+  const { genre, date, sequence } = parseId(scriptId);
+  const seq = String(sequence).padStart(3, "0");
+  return `${AssetType.THUMBNAIL}-${genre}-${date}-${seq}`;
+}
+
+// Generic date-stamped ID for queue items, analytics, etc.
+// e.g. QUEUE-20260620-001
+export function generateTypedId(type: AssetType, sequence: number): string {
+  const now = new Date();
+  const date =
+    now.getFullYear().toString() +
+    String(now.getMonth() + 1).padStart(2, "0") +
+    String(now.getDate()).padStart(2, "0");
+  const seq = String(sequence).padStart(3, "0");
+  return `${type}-${date}-${seq}`;
 }

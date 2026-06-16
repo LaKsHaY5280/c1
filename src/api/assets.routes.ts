@@ -48,6 +48,10 @@ router.get("/metadata", async (_req: Request, res: Response) => {
   res.json(await assetService.listMetadata());
 });
 
+router.get("/thumbnails", async (_req: Request, res: Response) => {
+  res.json(await assetService.listThumbnails());
+});
+
 // ─── Settings ─────────────────────────────────────────────────────────────────
 router.get("/settings", async (_req: Request, res: Response) => {
   res.json(await settingsService.read());

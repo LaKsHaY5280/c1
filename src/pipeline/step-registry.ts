@@ -19,6 +19,7 @@ import { VoiceGenerator } from "../modules/media/voice";
 import { CaptionGenerator } from "../modules/media/caption";
 import { Renderer } from "../modules/media/renderer";
 import { MetadataGenerator } from "../modules/media/metadata";
+import { ThumbnailGenerator } from "../modules/media/thumbnail";
 import { publishVideo } from "../modules/youtube/youtube";
 import { settingsService } from "../services/settings.service";
 
@@ -33,10 +34,12 @@ import type { VoiceFile } from "../modules/media/voice";
 import type { CaptionFile } from "../modules/media/caption";
 import type { VideoFile } from "../modules/media/renderer";
 import type { MetadataFile } from "../modules/media/metadata";
+import type { ThumbnailFile } from "../modules/media/thumbnail";
 
 // Shared context passed between steps — built up as the pipeline runs
 export interface PipelineContext {
   log: Logger;
+  token?: import("./cancellation").CancellationToken; // optional — only present for API-triggered runs
   idea?: StoryIdea;
   script?: StoryScript;
   characterFile?: StoryCharacterFile;
@@ -46,6 +49,7 @@ export interface PipelineContext {
   captionFile?: CaptionFile;
   videoFile?: VideoFile;
   metadataFile?: MetadataFile;
+  thumbnailFile?: ThumbnailFile;
 }
 
 // Step function type — returns the outputId string if one was created
@@ -162,7 +166,9 @@ export const STEP_REGISTRY: Record<StepName, StepFn> = {
       throw new Error("render is missing required context (scenes, manifest, voice, captions)");
     }
     const sceneMap = new Map(ctx.sceneFile.scenes.map((s) => [s.id, s.duration]));
-    ctx.videoFile = await new Renderer().render(ctx.manifest, sceneMap, ctx.voiceFile, ctx.captionFile);
+    ctx.videoFile = await new Renderer().render(
+      ctx.manifest, sceneMap, ctx.voiceFile, ctx.captionFile, ctx.token,
+    );
     ctx.log.info(`Rendered: ${ctx.videoFile.videoPath}`);
     return ctx.videoFile.id;
   },
@@ -185,5 +191,14 @@ export const STEP_REGISTRY: Record<StepName, StepFn> = {
     const uploadFile = await publishVideo(ctx.videoFile, ctx.metadataFile, visibility);
     ctx.log.info(`Uploaded: ${uploadFile.url}`);
     return uploadFile.id;
+  },
+
+  thumbnail: async (ctx) => {
+    if (!ctx.videoFile || !ctx.metadataFile) {
+      throw new Error("thumbnail is missing required context (video, metadata)");
+    }
+    ctx.thumbnailFile = await new ThumbnailGenerator().generate(ctx.videoFile, ctx.metadataFile);
+    ctx.log.info(`Thumbnail: ${ctx.thumbnailFile.thumbnailPath}`);
+    return ctx.thumbnailFile.id;
   },
 };

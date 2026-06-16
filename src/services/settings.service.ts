@@ -9,6 +9,7 @@ export interface Settings {
   captionMaxWordsPerSegment: number;
   genreSchedule: Record<string, string>;
   autoPublish: boolean;
+  schedulerEnabled: boolean;  // whether the scheduler auto-starts on server boot
 }
 
 const DEFAULTS: Settings = {
@@ -25,6 +26,7 @@ const DEFAULTS: Settings = {
     "6": "romance",
   },
   autoPublish: false,
+  schedulerEnabled: true,  // on by default — toggle off in settings to pause
 };
 
 async function read(): Promise<Settings> {

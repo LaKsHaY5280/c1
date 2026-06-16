@@ -14,21 +14,33 @@ const router = Router();
 // Kick off a full pipeline run in the background.
 // Rejects with 409 if a run is already in-progress.
 router.post("/start", async (_req: Request, res: Response) => {
-  // Concurrent run protection
-  const active = await runService.getActiveRun();
-  if (active) {
+  let createdRun: import("../pipeline/pipeline-context").RunRecord | null = null;
+
+  const lockResult = await runService.withLock(async () => {
+    const active = await runService.getActiveRun();
+    if (active) return active.id; // return existing runId as string = conflict signal
+    createdRun = await runService.create();
+    return null;                  // null = success
+  });
+
+  if (lockResult === null && createdRun === null) {
+    // Lock not acquired
+    res.status(409).json({ error: "Another start is already in progress — try again in a moment" });
+    return;
+  }
+  if (typeof lockResult === "string") {
+    // Lock acquired but active run found
     res.status(409).json({
       error: "Pipeline already running",
-      runId: active.id,
-      message: `Run ${active.id} is currently ${active.status}. Wait for it to finish before starting a new one.`,
+      runId: lockResult,
+      message: `Run ${lockResult} is currently active.`,
     });
     return;
   }
 
-  const run = await runService.create();
+  // createdRun is guaranteed non-null here
+  const run = createdRun!;
   res.status(202).json({ runId: run.id, message: "Pipeline started" });
-
-  // Pass the pre-created run so runPipeline() does not create a second one
   runPipeline(run).catch((err) => {
     console.error(`Background pipeline failed: ${(err as Error).message}`);
   });

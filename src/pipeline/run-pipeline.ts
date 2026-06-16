@@ -6,7 +6,7 @@ import { createLogger } from "../services/log.service";
 import { cancellationRegistry, CancelledError } from "./cancellation";
 
 /**
- * Runs the full 12-step pipeline from start to finish.
+ * Runs the full 13-step pipeline from start to finish.
  * If an existing RunRecord is passed (from the API), it is reused.
  * Otherwise a new one is created (CLI path).
  *
@@ -23,7 +23,7 @@ export async function runPipeline(existingRun?: RunRecord): Promise<void> {
   log.info(`Pipeline started — run ${run.id}`);
   log.info(`Day: ${new Date().toLocaleDateString("en-US", { weekday: "long" })}`);
 
-  const ctx: PipelineContext = { log };
+  const ctx: PipelineContext = { log, token };
 
   try {
     for (const stepName of STEP_ORDER) {

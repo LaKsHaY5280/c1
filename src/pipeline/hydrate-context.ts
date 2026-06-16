@@ -22,6 +22,7 @@ import {
   deriveSceneFileId,
   deriveVideoId,
   deriveMetadataId,
+  deriveThumbnailId,
 } from "../modules/id-generator";
 import { readFile } from "fs/promises";
 import path from "path";
@@ -36,6 +37,7 @@ import type { VoiceFile } from "../modules/media/voice";
 import type { CaptionFile } from "../modules/media/caption";
 import type { VideoFile } from "../modules/media/renderer";
 import type { MetadataFile } from "../modules/media/metadata";
+import type { ThumbnailFile } from "../modules/media/thumbnail";
 
 /**
  * Load a manifest from the on-disk JSON file (stored in data/assets/, not
@@ -149,12 +151,23 @@ export async function hydrateContext(run: RunRecord): Promise<PipelineContext> {
     }
   }
 
+  // ── thumbnail ─────────────────────────────────────────────────────────────
+  if (ctx.script) {
+    const thumbnailId = deriveThumbnailId(ctx.script.id);
+    ctx.thumbnailFile = (await storage.load<ThumbnailFile>("media/thumbnails", thumbnailId)) ?? undefined;
+  } else {
+    const thumbnailStep = run.steps["thumbnail"];
+    if (thumbnailStep?.outputId) {
+      ctx.thumbnailFile = (await storage.load<ThumbnailFile>("media/thumbnails", thumbnailStep.outputId)) ?? undefined;
+    }
+  }
+
   log.info(
     `Context hydrated — idea:${ctx.idea ? "✓" : "✗"} script:${ctx.script ? "✓" : "✗"} ` +
     `chars:${ctx.characterFile ? "✓" : "✗"} scenes:${ctx.sceneFile ? "✓" : "✗"} ` +
     `manifest:${ctx.manifest ? "✓" : "✗"} voice:${ctx.voiceFile ? "✓" : "✗"} ` +
     `captions:${ctx.captionFile ? "✓" : "✗"} video:${ctx.videoFile ? "✓" : "✗"} ` +
-    `metadata:${ctx.metadataFile ? "✓" : "✗"}`,
+    `metadata:${ctx.metadataFile ? "✓" : "✗"} thumbnail:${ctx.thumbnailFile ? "✓" : "✗"}`,
   );
 
   return ctx;
