@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-15
 **Status:** Complete. All phases 1–7 implemented. Updated to v1.6 patch.
-**Built on top of:** v1 — all 13 pipeline steps untouched.
+**Built on top of:** v1 — all 13 pipeline modules in `src/modules/` untouched.
 
 ---
 
@@ -10,7 +10,7 @@
 
 v1 was a CLI script:
 ```
-npm start → runs 13 steps → exits
+npm start → runs 12 steps → exits
 ```
 
 v1.5 adds a control layer around the same engine:
@@ -216,7 +216,7 @@ output/
 ## Scripts
 
 ```bash
-npm start           # CLI — full 13-step pipeline run, no server needed
+npm start           # CLI — full 12-step pipeline run, no server needed
 npm run dev         # CLI with auto-restart on file changes
 npm run server      # Start API on port 3001
 npm run server:dev  # API with auto-restart on file changes
@@ -239,7 +239,7 @@ npm run server:dev  # API with auto-restart on file changes
 
 | # | Issue | Notes |
 |---|-------|-------|
-| 1 | Cancel does not interrupt in-flight ffmpeg or Gemini | The run record is immediately marked failed but active OS processes continue to completion. Will improve with `AbortController` in a future release. |
+| 1 | Cancel does not interrupt in-flight processes | Current step runs to completion before the pipeline stops. The token stops the loop at the next inter-step boundary. True mid-step interruption of ffmpeg/Gemini is not implemented. |
 | 2 | Dashboard (Phase 8) is separate project | Vite frontend is its own repo. All API endpoints it needs are ready. |
 
 ---

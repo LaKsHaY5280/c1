@@ -10,11 +10,17 @@ Run with `npm start`.
 ### Pipeline Overview
 
 ```
-Idea → Script → Characters → Scenes → Visual Search → Pexels Assets → Manifest → Voice → Captions → Render → Metadata → Upload
-  1        2          3          4           5               6–7          8          9        10         11        12        13
+Idea → Script → Characters → Scenes → VisualSearch → Pexels → Manifest → Voice → Captions → Render → Metadata → Upload
+  1        2          3          4           5            6        7          8        9         10        11        12
 ```
 
-All 13 steps are implemented and wired in `src/index.ts`.
+12 executable steps tracked by the runtime (`STEP_ORDER` in `pipeline-context.ts`).
+
+> Note: the original CLI docs counted 13 steps by numbering Pexels search (6), asset download (7),
+> and manifest (8) separately. In v1.5 the registry combines search+download into one `pexels` step,
+> making `manifest` step 7 and collapsing the total to 12. The underlying modules are unchanged.
+
+All steps are implemented and wired through `src/pipeline/run-pipeline.ts`.
 
 > **v1.5 update:** `src/index.ts` is now a thin 4-line entry point that calls `runPipeline()`.
 > The full orchestration lives in `src/pipeline/run-pipeline.ts`.
@@ -23,7 +29,7 @@ All 13 steps are implemented and wired in `src/index.ts`.
 
 ## v1.5 — Control Layer
 
-The v1.5 upgrade wraps the 13-step engine in a control layer for dashboard visibility.
+The v1.5 upgrade wraps the 12-step engine in a control layer for dashboard visibility.
 Core modules are untouched. New layers added:
 
 ```
@@ -180,7 +186,7 @@ Not persisted to disk — passed directly to the next step.
 
 ---
 
-### Steps 6 & 7 — Pexels Search + Asset Download
+### Step 6 — Pexels Search + Asset Download (`pexels` step)
 **Files:** `src/modules/media/pexels.ts`, `src/modules/media/downloader.ts`
 
 For each scene, calls either `searchPhotos()` or `searchVideos()` based on `preferredMediaType`.
@@ -192,9 +198,12 @@ Video → saved as `SCN-*-NN.mp4`
 
 Downloads land in: `data/assets/`
 
+> In the v1.5 registry, Pexels search and asset download are handled together inside the single
+> `pexels` StepName entry. The underlying modules (`pexels.ts`, `downloader.ts`) are unchanged.
+
 ---
 
-### Step 8 — Asset Manifest
+### Step 7 — Asset Manifest (`manifest` step)
 **File:** `src/modules/media/downloader.ts` (`saveManifest`)
 
 After all downloads complete, writes a JSON manifest recording:
@@ -206,7 +215,7 @@ Output: `data/assets/SCN-HOR-YYYYMMDD-001.manifest.json`
 
 ---
 
-### Step 9 — Voice / Narration Audio
+### Step 8 — Voice / Narration Audio
 **File:** `src/modules/media/voice.ts`
 
 Builds narration by joining the 5 script sections with paragraph breaks.
@@ -227,7 +236,7 @@ JSON metadata: `data/media/audio/AUD-HOR-YYYYMMDD-001.json`
 
 ---
 
-### Step 10 — Captions
+### Step 9 — Captions
 **File:** `src/modules/media/caption.ts`
 
 No transcription, no audio upload. The narration text is already known from the voice step,
@@ -252,7 +261,7 @@ JSON metadata: `data/media/captions/CAP-HOR-YYYYMMDD-001.json`
 
 ---
 
-### Step 11 — Renderer
+### Step 10 — Renderer
 **Files:** `src/modules/media/renderer.ts`, `src/modules/media/ffmpeg-utils.ts`
 
 Takes all pipeline assets and produces the final vertical MP4.
@@ -276,7 +285,7 @@ JSON metadata: `data/media/videos/VID-HOR-YYYYMMDD-001.json`
 
 ---
 
-### Step 12 — Metadata
+### Step 11 — Metadata
 **File:** `src/modules/media/metadata.ts`
 
 Generates all YouTube publishing metadata in a single Gemini call.
@@ -306,7 +315,7 @@ Output: `data/media/metadata/META-HOR-YYYYMMDD-001.json`
 
 ---
 
-### Step 13 — YouTube Upload
+### Step 12 — YouTube Upload (`upload` step)
 **Files:** `src/modules/youtube/youtube.ts`, `src/modules/youtube/uploader.ts`, `src/modules/youtube/client.ts`
 
 Uploads the final MP4 to YouTube as a private video using the OAuth refresh token.

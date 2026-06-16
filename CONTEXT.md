@@ -110,10 +110,11 @@ src/
 │   └── gemini.service.ts       Shared Gemini client singleton
 ├── pipeline/
 │   ├── pipeline-context.ts     RunRecord, StepRecord, StepEvent types + STEP_ORDER
-│   ├── run-step.ts             Step wrapper — marks running/completed/failed, persists after each
+│   ├── cancellation.ts         CancellationToken + in-memory registry — wires cancel to the pipeline loop
+│   ├── run-step.ts             Step wrapper — checks token, marks running/completed/failed, persists after each
 │   ├── step-registry.ts        Maps StepName → module function (STEP_REGISTRY) + PipelineContext
 │   ├── hydrate-context.ts      Rebuilds PipelineContext from disk for single-step retry
-│   └── run-pipeline.ts         Iterates STEP_ORDER, wraps each with runStep(), marks run done/failed
+│   └── run-pipeline.ts         Iterates STEP_ORDER, registers cancellation token, marks run done/failed
 ├── api/
 │   ├── server.ts               Express app on port 3001, CORS, static /videos serving
 │   ├── runs.routes.ts          GET /runs, GET /runs/:id
@@ -134,19 +135,19 @@ src/
     │   └── scene.ts            Step 4 — converts script into 5 visual scenes
     └── media/
     │   ├── visual-search.ts    Step 5 — converts scene descriptions to Pexels search queries
-    │   ├── pexels.ts           Step 6 — searches Pexels photos and videos based on scene mediaType
-    │   ├── downloader.ts       Step 7+8 — downloads assets + saves manifest
-    │   ├── voice.ts            Step 9  — generates narration audio via Gemini TTS (reads settings.ttsVoice)
-    │   ├── caption.ts          Step 10 — splits narration into timed caption segments + SRT (reads settings.captionMaxWordsPerSegment)
-    │   ├── renderer.ts         Step 11 — composes scene clips + audio + captions into final MP4
-    │   ├── metadata.ts         Step 12 — generates title, description, hashtags, tags, upload priority
+    │   ├── pexels.ts           Step 6 (search) — searches Pexels photos and videos based on scene mediaType
+    │   ├── downloader.ts       Step 6 (download) + Step 7 — downloads assets + saves manifest
+    │   ├── voice.ts            Step 8  — generates narration audio via Gemini TTS (reads settings.ttsVoice)
+    │   ├── caption.ts          Step 9  — splits narration into timed caption segments + SRT (reads settings.captionMaxWordsPerSegment)
+    │   ├── renderer.ts         Step 10 — composes scene clips + audio + captions into final MP4
+    │   ├── metadata.ts         Step 11 — generates title, description, hashtags, tags, upload priority
     │   ├── ffmpeg-utils.ts     ffmpeg helpers: photoToClip, videoToClip, concatenate, burnCaptions
     │   └── image-prompt.ts     (reference only — AI image prompt generation, not in active pipeline)
     └── youtube/
         ├── auth.ts             One-time OAuth setup — run manually to generate refresh token
         ├── client.ts           Creates authenticated YouTube API client from stored credentials
         ├── uploader.ts         Calls youtube.videos.insert() — uploads MP4 stream
-        └── youtube.ts          Step 13 — orchestrates upload, saves UploadFile record (reads settings.defaultVisibility)
+        └── youtube.ts          upload step — orchestrates upload, saves UploadFile record (reads settings.defaultVisibility)
 ```
 
 ---
@@ -314,8 +315,9 @@ Three endpoints:
 - Runs the single step in background
 
 **POST /pipeline/cancel/:runId**
-- Marks running/pending run as failed with message "Cancelled by user"
-- Does not interrupt in-flight OS processes (ffmpeg, Gemini)
+- Calls `cancellationRegistry.cancel(runId)` — flips the in-memory token so the pipeline loop stops at the next inter-step boundary (current step still finishes)
+- Also marks the `RunRecord` as failed on disk immediately so the dashboard reflects the intent without waiting for the current step to complete
+- If the run is not in this process's registry (e.g. server restarted mid-run), only the disk update happens
 
 ---
 
@@ -430,7 +432,7 @@ IDEA-HOR-20260615-001
 ## Scripts
 
 ```
-npm start           # CLI — full 13-step pipeline, no server needed
+npm start           # CLI — full 12-step pipeline, no server needed
 npm run dev         # CLI with auto-restart
 npm run server      # Express API on port 3001
 npm run server:dev  # API with auto-restart

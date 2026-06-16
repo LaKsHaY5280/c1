@@ -6,6 +6,7 @@ import { type StepName, STEP_ORDER } from "../pipeline/pipeline-context";
 import { runService } from "../services/run.service";
 import { createLogger } from "../services/log.service";
 import { hydrateContext } from "../pipeline/hydrate-context";
+import { cancellationRegistry } from "../pipeline/cancellation";
 
 const router = Router();
 
@@ -71,10 +72,16 @@ router.post("/step/:step", async (req: Request, res: Response) => {
 });
 
 // ─── POST /pipeline/cancel/:runId ────────────────────────────────────────────
-// Marks a running run as failed/cancelled.
-// Note: this does not interrupt in-flight ffmpeg/Gemini calls — those will
-// continue until they finish or time out.  The run record is immediately
-// marked failed so the dashboard reflects the intent.
+// Cancels an active run.
+//
+// Two-layer stop:
+//  1. In-memory: calls cancellationRegistry.cancel(runId) so the pipeline loop
+//     stops at the next inter-step boundary (current step still finishes).
+//  2. Disk: marks the RunRecord as failed so the dashboard reflects the intent
+//     immediately, even before the current step completes.
+//
+// If the run is not in this process's registry (e.g. server restarted), only
+// the disk update happens — same behaviour as before.
 router.post("/cancel/:runId", async (req: Request, res: Response) => {
   const { runId } = req.params;
   const runIdStr = String(runId);
@@ -92,8 +99,18 @@ router.post("/cancel/:runId", async (req: Request, res: Response) => {
     return;
   }
 
+  // Signal the pipeline loop to stop between steps
+  const wasInMemory = cancellationRegistry.cancel(runIdStr);
+
+  // Always update the run record on disk so the dashboard sees it immediately
   await runService.markRunFailed(run, "Cancelled by user");
-  res.json({ runId: runIdStr, message: "Run marked as cancelled" });
+
+  res.json({
+    runId: runIdStr,
+    message: wasInMemory
+      ? "Run cancelled — current step will finish, no further steps will start"
+      : "Run marked as cancelled (pipeline not active in this process)",
+  });
 });
 
 export default router;
