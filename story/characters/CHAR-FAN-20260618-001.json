@@ -1,0 +1,26 @@
+{
+  "id": "CHAR-FAN-20260618-001",
+  "scriptId": "SCR-FAN-20260618-001",
+  "title": "The Memory Debt",
+  "characters": [
+    {
+      "name": "Kaelen",
+      "role": "protagonist",
+      "age": 28,
+      "gender": "non-binary",
+      "appearance": "shoulder-length dark messy hair, sharp jawline, pale skin, amber eyes, lean athletic build",
+      "clothing": "tattered linen tunic with leather forearm bracers",
+      "emotionProfile": "desperate, conflicted, and hollowed by grief"
+    },
+    {
+      "name": "Elara",
+      "role": "sister",
+      "age": 22,
+      "gender": "female",
+      "appearance": "long flowing auburn hair, soft facial features, pale complexion, slender build",
+      "clothing": "simple long silk slip dress",
+      "emotionProfile": "weak, dying, and fading from consciousness"
+    }
+  ],
+  "createdAt": "2026-06-18T20:15:58.454Z"
+}

@@ -1,0 +1,53 @@
+{
+  "id": "SCN-FAN-20260618-001",
+  "scriptId": "SCR-FAN-20260618-001",
+  "title": "The Memory Debt",
+  "scenes": [
+    {
+      "id": "SCN-FAN-20260618-001-01",
+      "sceneNumber": 1,
+      "purpose": "hook",
+      "description": "Kaelen stands in the center of the stone meditation chamber reading a glowing ancient text.",
+      "emotion": "intrigue",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-FAN-20260618-001-02",
+      "sceneNumber": 2,
+      "purpose": "setup",
+      "description": "Elara lies motionless on the cold stone floor while Kaelen kneels beside her holding her hand.",
+      "emotion": "anxiety",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-FAN-20260618-001-03",
+      "sceneNumber": 3,
+      "purpose": "escalation",
+      "description": "Kaelen holds the ancient text toward a brazier to burn the pages as magical sparks rise into the air.",
+      "emotion": "dread",
+      "duration": 10,
+      "preferredMediaType": "video"
+    },
+    {
+      "id": "SCN-FAN-20260618-001-04",
+      "sceneNumber": 4,
+      "purpose": "climax",
+      "description": "Kaelen raises both hands over Elara as her physical form dissolves into shimmering translucent static.",
+      "emotion": "despair",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-FAN-20260618-001-05",
+      "sceneNumber": 5,
+      "purpose": "ending",
+      "description": "Kaelen turns away from Elara who sits up on the floor staring at him with no recognition in her eyes.",
+      "emotion": "melancholy",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    }
+  ],
+  "createdAt": "2026-06-18T20:16:00.048Z"
+}

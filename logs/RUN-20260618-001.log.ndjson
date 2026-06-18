@@ -1,0 +1,48 @@
+{"runId":"RUN-20260618-001","level":"info","message":"Pipeline started — run RUN-20260618-001","timestamp":"2026-06-18T20:15:54.057Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Day: Thursday","timestamp":"2026-06-18T20:15:54.070Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: idea","timestamp":"2026-06-18T20:15:54.071Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"[FANTASY] The Memory Debt","timestamp":"2026-06-18T20:15:55.525Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: idea → IDEA-FAN-20260618-001","timestamp":"2026-06-18T20:15:55.526Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: script","timestamp":"2026-06-18T20:15:55.526Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Script: SCR-FAN-20260618-001 | ~50s | longing","timestamp":"2026-06-18T20:15:57.275Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: script → SCR-FAN-20260618-001","timestamp":"2026-06-18T20:15:57.276Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: characters","timestamp":"2026-06-18T20:15:57.277Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Characters: Kaelen, Elara","timestamp":"2026-06-18T20:15:58.455Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: characters → CHAR-FAN-20260618-001","timestamp":"2026-06-18T20:15:58.455Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: scenes","timestamp":"2026-06-18T20:15:58.456Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Scenes: 5 scenes generated","timestamp":"2026-06-18T20:16:00.049Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: scenes → SCN-FAN-20260618-001","timestamp":"2026-06-18T20:16:00.049Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: visualSearch","timestamp":"2026-06-18T20:16:00.050Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Visual search: 5 queries generated","timestamp":"2026-06-18T20:16:17.318Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: visualSearch","timestamp":"2026-06-18T20:16:17.319Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: pexels","timestamp":"2026-06-18T20:16:17.320Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Searching (photo): \"person reading glowing book\"","timestamp":"2026-06-18T20:16:17.320Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Searching (photo): \"man holding woman hand\"","timestamp":"2026-06-18T20:16:18.464Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Searching (video): \"burning pages with sparks\"","timestamp":"2026-06-18T20:16:18.747Z"}
+{"runId":"RUN-20260618-001","level":"warn","message":"No video results for \"burning pages with sparks\" — skipping","timestamp":"2026-06-18T20:16:19.240Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Searching (photo): \"glowing magical light effect\"","timestamp":"2026-06-18T20:16:19.240Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Searching (photo): \"woman looking confused\"","timestamp":"2026-06-18T20:16:20.172Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Downloaded 4 assets","timestamp":"2026-06-18T20:16:20.547Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: pexels","timestamp":"2026-06-18T20:16:20.547Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: manifest","timestamp":"2026-06-18T20:16:20.548Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Manifest saved: 4 assets recorded","timestamp":"2026-06-18T20:16:20.549Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: manifest","timestamp":"2026-06-18T20:16:20.549Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: voice","timestamp":"2026-06-18T20:16:20.550Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Voice: AUD-FAN-20260618-001 (43.6s)","timestamp":"2026-06-18T20:16:40.369Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: voice → AUD-FAN-20260618-001","timestamp":"2026-06-18T20:16:40.370Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: captions","timestamp":"2026-06-18T20:16:40.370Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Captions: 13 segments","timestamp":"2026-06-18T20:16:42.210Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: captions → CAP-FAN-20260618-001","timestamp":"2026-06-18T20:16:42.211Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: render","timestamp":"2026-06-18T20:16:42.212Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Rendered: /home/runner/work/c1/c1/repo/output/videos/VID-FAN-20260618-001.mp4","timestamp":"2026-06-18T20:17:33.185Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: render → VID-FAN-20260618-001","timestamp":"2026-06-18T20:17:33.186Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: metadata","timestamp":"2026-06-18T20:17:33.186Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Metadata: \"The cost of becoming a god.\" (priority: 85)","timestamp":"2026-06-18T20:17:34.598Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: metadata → META-FAN-20260618-001","timestamp":"2026-06-18T20:17:34.599Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: upload","timestamp":"2026-06-18T20:17:34.599Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Uploaded: https://youtube.com/watch?v=8E2HWE7mmmQ","timestamp":"2026-06-18T20:17:36.381Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: upload → UPL-FAN-20260618-001","timestamp":"2026-06-18T20:17:36.381Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Starting step: thumbnail","timestamp":"2026-06-18T20:17:36.382Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Thumbnail: /home/runner/work/c1/c1/repo/output/thumbnails/THM-FAN-20260618-001.jpg","timestamp":"2026-06-18T20:17:36.670Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Completed step: thumbnail → THM-FAN-20260618-001","timestamp":"2026-06-18T20:17:36.671Z"}
+{"runId":"RUN-20260618-001","level":"info","message":"Pipeline completed — run RUN-20260618-001","timestamp":"2026-06-18T20:17:36.671Z"}

@@ -1,0 +1,75 @@
+{
+  "id": "CAP-FAN-20260618-001",
+  "scriptId": "SCR-FAN-20260618-001",
+  "audioId": "AUD-FAN-20260618-001",
+  "title": "The Memory Debt",
+  "segments": [
+    {
+      "text": "The most powerful sorcerers",
+      "start": 0,
+      "end": 2.5
+    },
+    {
+      "text": "in history are hollow.",
+      "start": 2.5,
+      "end": 5
+    },
+    {
+      "text": "My sister lies dying,",
+      "start": 5,
+      "end": 8.5
+    },
+    {
+      "text": "on the cold stone floor.",
+      "start": 8.5,
+      "end": 12
+    },
+    {
+      "text": "One spell can mend her.",
+      "start": 12,
+      "end": 15.5
+    },
+    {
+      "text": "The ancient text demands sacrifice.",
+      "start": 15.5,
+      "end": 19.5
+    },
+    {
+      "text": "I must burn every memory,",
+      "start": 19.5,
+      "end": 23.5
+    },
+    {
+      "text": "to fuel the light.",
+      "start": 23.5,
+      "end": 27.5
+    },
+    {
+      "text": "I raise my hands.",
+      "start": 27.5,
+      "end": 30.5
+    },
+    {
+      "text": "Her image blurs to static.",
+      "start": 30.5,
+      "end": 34.5
+    },
+    {
+      "text": "I save her,",
+      "start": 34.5,
+      "end": 37
+    },
+    {
+      "text": "but I walk home,",
+      "start": 37,
+      "end": 40
+    },
+    {
+      "text": "a stranger to her now.",
+      "start": 40,
+      "end": 43.6
+    }
+  ],
+  "srtPath": "/home/runner/work/c1/c1/repo/data/assets/captions/CAP-FAN-20260618-001.srt",
+  "createdAt": "2026-06-18T20:16:42.210Z"
+}

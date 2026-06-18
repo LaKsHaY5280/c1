@@ -1,0 +1,33 @@
+{
+  "id": "SCR-FAN-20260618-001",
+  "ideaId": "IDEA-FAN-20260618-001",
+  "title": "The Memory Debt",
+  "hook": "The most powerful sorcerers in history are completely hollow.",
+  "setup": "My sister lies dying on the stone floor. One spell can mend her broken heart.",
+  "escalation": "The ancient text demands a sacrifice. I must burn every memory of her to fuel the light.",
+  "climax": "I raise my hands. Her image begins to blur into static.",
+  "ending": "I save her, but I walk home a stranger to the person I just rescued.",
+  "emotion": "longing",
+  "emotionArc": [
+    "intrigue",
+    "anxiety",
+    "dread",
+    "despair",
+    "melancholy"
+  ],
+  "storyType": "tragic-sacrifice",
+  "location": "stone meditation chamber",
+  "timePeriod": "ancient fantasy setting",
+  "visualStyle": "cinematic dark fantasy",
+  "colorMood": "fading gold into deep gray",
+  "weather": "static magical storm",
+  "estimatedDuration": 50,
+  "visualMoments": [
+    "Close-up of a hollow, glowing rune",
+    "Sister pale and motionless on cold stone",
+    "Protagonist's hands trembling with violet light",
+    "Faces of the sister dissolving like ash in the air",
+    "Protagonist staring at a healed sister with blank eyes"
+  ],
+  "createdAt": "2026-06-18T20:15:57.275Z"
+}

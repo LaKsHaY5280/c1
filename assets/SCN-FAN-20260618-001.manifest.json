@@ -1,0 +1,42 @@
+{
+  "runId": "SCN-FAN-20260618-001",
+  "assets": [
+    {
+      "sceneId": "SCN-FAN-20260618-001-01",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-FAN-20260618-001-01.jpg",
+      "mediaType": "photo",
+      "pexelsId": 1900184,
+      "credit": "Toni Ferreira",
+      "pexelsUrl": "https://www.pexels.com/photo/woman-reading-harry-potter-book-while-lying-in-bed-1900184/",
+      "createdAt": "2026-06-18T20:16:18.464Z"
+    },
+    {
+      "sceneId": "SCN-FAN-20260618-001-02",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-FAN-20260618-001-02.jpg",
+      "mediaType": "photo",
+      "pexelsId": 33124439,
+      "credit": "Alexander Mass",
+      "pexelsUrl": "https://www.pexels.com/photo/tender-touch-of-a-couple-outdoors-33124439/",
+      "createdAt": "2026-06-18T20:16:18.747Z"
+    },
+    {
+      "sceneId": "SCN-FAN-20260618-001-04",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-FAN-20260618-001-04.jpg",
+      "mediaType": "photo",
+      "pexelsId": 2880900,
+      "credit": "Toni Ferreira",
+      "pexelsUrl": "https://www.pexels.com/photo/woman-holding-glass-jar-with-light-2880900/",
+      "createdAt": "2026-06-18T20:16:20.172Z"
+    },
+    {
+      "sceneId": "SCN-FAN-20260618-001-05",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-FAN-20260618-001-05.jpg",
+      "mediaType": "photo",
+      "pexelsId": 8727517,
+      "credit": "Tima Miroshnichenko",
+      "pexelsUrl": "https://www.pexels.com/photo/woman-in-green-shirt-thinking-8727517/",
+      "createdAt": "2026-06-18T20:16:20.547Z"
+    }
+  ],
+  "createdAt": "2026-06-18T20:16:20.548Z"
+}
