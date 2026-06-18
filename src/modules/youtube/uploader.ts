@@ -31,7 +31,7 @@ export interface UploadResult {
 export async function uploadVideo(
   video: VideoFile,
   metadata: MetadataFile,
-  visibility: Visibility = "private",
+  visibility: Visibility = "public",
 ): Promise<UploadResult> {
   const youtube = createYouTubeClient();
 
