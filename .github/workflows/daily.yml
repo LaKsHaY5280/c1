@@ -1,0 +1,148 @@
+name: Daily Video Generation
+
+on:
+  schedule:
+    # Runs at 06:00 UTC every day
+    - cron: "0 6 * * *"
+  # Allow manual trigger from the Actions tab
+  workflow_dispatch:
+    inputs:
+      genre_override:
+        description: "Override genre (horror/mystery/scifi/fantasy/thriller/romance/drama). Leave blank to use today's schedule."
+        required: false
+        default: ""
+
+jobs:
+  generate:
+    name: Generate & Upload Video
+    runs-on: ubuntu-latest
+    timeout-minutes: 90        # pipeline typically takes 10-30 min; 90 is a safe ceiling
+
+    steps:
+      # ── 1. Checkout source code (main branch) ────────────────────────────────
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          path: repo
+
+      # ── 2. Checkout data branch into repo/data ───────────────────────────────
+      #    Creates the data branch on first run if it doesn't exist yet.
+      - name: Checkout data branch
+        uses: actions/checkout@v4
+        with:
+          ref: data
+          path: repo/data
+          # If the data branch doesn't exist yet this step will fail.
+          # The next step handles that by creating the branch.
+        continue-on-error: true
+
+      - name: Create data branch if it doesn't exist
+        working-directory: repo
+        run: |
+          if [ ! -d "data/.git" ]; then
+            echo "Data branch not found — creating it."
+            git clone --no-local . data-tmp
+            cd data-tmp
+            git checkout --orphan data
+            git rm -rf . --quiet
+            mkdir -p data/config data/runs data/queue data/media data/logs data/analytics data/assets/audio data/assets/captions
+            cp ../data/config/settings.json data/config/settings.json 2>/dev/null || echo '{}' > data/config/settings.json
+            git add .
+            git -c user.name="github-actions[bot]" -c user.email="github-actions[bot]@users.noreply.github.com" \
+              commit -m "chore: initialise data branch" --allow-empty
+            git push origin data
+            cd ..
+            rm -rf data-tmp
+            # Now check it out properly
+            git -C . worktree add data data 2>/dev/null || true
+          else
+            echo "Data branch already checked out."
+          fi
+
+      # ── 3. Set up Node.js ─────────────────────────────────────────────────────
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: repo/package-lock.json
+
+      # ── 4. Install dependencies ───────────────────────────────────────────────
+      - name: Install dependencies
+        working-directory: repo
+        run: npm ci
+
+      # ── 5. Write .env from GitHub secrets ────────────────────────────────────
+      - name: Write .env
+        working-directory: repo
+        run: |
+          cat > .env << 'EOF'
+          GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}
+          PEXELS_API_KEY=${{ secrets.PEXELS_API_KEY }}
+          YOUTUBE_CLIENT_ID=${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET=${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN=${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          EOF
+
+      # ── 6. Run the pipeline ───────────────────────────────────────────────────
+      - name: Run pipeline
+        working-directory: repo
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          GENRE_OVERRIDE: ${{ github.event.inputs.genre_override }}
+        run: npx tsx src/ci-runner.ts
+
+      # ── 7. Clean up large binary assets before committing ────────────────────
+      #    Downloaded stock footage and audio are transient — they were already
+      #    used during rendering and uploaded to YouTube. No need to store them.
+      - name: Remove transient binary assets
+        working-directory: repo
+        run: |
+          rm -f data/assets/**/*.mp4
+          rm -f data/assets/**/*.wav
+          rm -f data/assets/**/*.jpg
+          rm -f data/assets/**/*.png
+          # Keep manifest JSONs and all other JSON data
+          echo "Binary assets cleaned up."
+
+      # ── 8. Commit data back to the data branch ────────────────────────────────
+      - name: Commit & push data
+        working-directory: repo/data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          # Only commit if there are changes
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            DATE=$(date -u +"%Y-%m-%d %H:%M UTC")
+            git commit -m "data: daily run ${DATE}"
+            git push origin data
+          fi
+
+      # ── 9. Upload the rendered video as a workflow artifact (optional backup) ─
+      #    This lets you download the MP4 directly from the Actions run page
+      #    even though it isn't stored in git. Kept for 7 days.
+      - name: Upload video artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-video-${{ github.run_number }}
+          path: repo/output/videos/*.mp4
+          retention-days: 7
+          if-no-files-found: ignore
+
+      # ── 10. Upload run log as artifact ────────────────────────────────────────
+      - name: Upload run logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-logs-${{ github.run_number }}
+          path: repo/data/logs/*.ndjson
+          retention-days: 30
+          if-no-files-found: ignore

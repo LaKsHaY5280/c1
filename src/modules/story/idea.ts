@@ -181,9 +181,19 @@ export function getTodaysGenre(): string {
   return DAY_SCHEDULE[new Date().getDay()];
 }
 
+/**
+ * Resolves the genre to use for the current run.
+ * Priority: GENRE_OVERRIDE env var (set by CI / workflow_dispatch) → day-of-week schedule.
+ */
+export function resolveGenre(): string {
+  const override = process.env.GENRE_OVERRIDE?.trim().toLowerCase();
+  if (override && GENRE_PROMPTS[override]) return override;
+  return getTodaysGenre();
+}
+
 export class IdeaGenerator {
   async generate(genreOverride?: string): Promise<StoryIdea> {
-    const genre = genreOverride ?? getTodaysGenre();
+    const genre = genreOverride ?? resolveGenre();
     const prompt = GENRE_PROMPTS[genre];
 
     if (!prompt) throw new Error(`No prompt found for genre: ${genre}`);

@@ -1,4 +1,13 @@
 node_modules
 .env
 output
-data
+
+# data/ is tracked in a separate 'data' branch via git worktree.
+# Exclude it from the main branch only — do NOT add data/ here,
+# as the worktree checkout needs the directory to exist.
+
+# Never commit downloaded stock footage or TTS audio to any branch
+data/assets/**/*.mp4
+data/assets/**/*.wav
+data/assets/**/*.jpg
+data/assets/**/*.png
