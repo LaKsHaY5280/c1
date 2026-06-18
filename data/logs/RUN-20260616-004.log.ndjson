@@ -1,0 +1,47 @@
+{"runId":"RUN-20260616-004","level":"info","message":"Pipeline started — run RUN-20260616-004","timestamp":"2026-06-16T13:48:15.036Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Day: Tuesday","timestamp":"2026-06-16T13:48:15.039Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: idea","timestamp":"2026-06-16T13:48:15.061Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"[MYSTERY] The Infinite Staircase Photograph","timestamp":"2026-06-16T13:48:17.290Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: idea → IDEA-MYS-20260616-004","timestamp":"2026-06-16T13:48:17.300Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: script","timestamp":"2026-06-16T13:48:17.326Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Script: SCR-MYS-20260616-004 | ~50s | dread","timestamp":"2026-06-16T13:48:25.573Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: script → SCR-MYS-20260616-004","timestamp":"2026-06-16T13:48:25.576Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: characters","timestamp":"2026-06-16T13:48:25.593Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Characters: Arthur, The Lurker","timestamp":"2026-06-16T13:48:27.067Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: characters → CHAR-MYS-20260616-004","timestamp":"2026-06-16T13:48:27.076Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: scenes","timestamp":"2026-06-16T13:48:27.097Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Scenes: 5 scenes generated","timestamp":"2026-06-16T13:48:34.851Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: scenes → SCN-MYS-20260616-004","timestamp":"2026-06-16T13:48:34.856Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: visualSearch","timestamp":"2026-06-16T13:48:34.877Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Visual search: 5 queries generated","timestamp":"2026-06-16T13:48:36.353Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: visualSearch","timestamp":"2026-06-16T13:48:36.361Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: pexels","timestamp":"2026-06-16T13:48:36.389Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Searching (photo): \"man holding vintage photograph\"","timestamp":"2026-06-16T13:48:36.391Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Searching (photo): \"person standing on stairs\"","timestamp":"2026-06-16T13:48:37.639Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Searching (video): \"scrolling smartphone map interface\"","timestamp":"2026-06-16T13:48:39.037Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Searching (photo): \"person under concrete stairs\"","timestamp":"2026-06-16T13:48:39.899Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Searching (photo): \"silhouette under stairs sunset\"","timestamp":"2026-06-16T13:48:42.931Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Downloaded 5 assets","timestamp":"2026-06-16T13:48:44.394Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: pexels","timestamp":"2026-06-16T13:48:44.411Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: manifest","timestamp":"2026-06-16T13:48:44.436Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Manifest saved: 5 assets recorded","timestamp":"2026-06-16T13:48:44.443Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: manifest","timestamp":"2026-06-16T13:48:44.456Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: voice","timestamp":"2026-06-16T13:48:44.479Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Voice: AUD-MYS-20260616-004 (41.4s)","timestamp":"2026-06-16T13:49:12.090Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: voice → AUD-MYS-20260616-004","timestamp":"2026-06-16T13:49:12.101Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: captions","timestamp":"2026-06-16T13:49:12.128Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Captions: 15 segments","timestamp":"2026-06-16T13:49:14.084Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: captions → CAP-MYS-20260616-004","timestamp":"2026-06-16T13:49:14.090Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: render","timestamp":"2026-06-16T13:49:14.116Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Rendered: D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\output\\videos\\VID-MYS-20260616-004.mp4","timestamp":"2026-06-16T13:49:56.159Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: render → VID-MYS-20260616-004","timestamp":"2026-06-16T13:49:56.163Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: metadata","timestamp":"2026-06-16T13:49:56.187Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Metadata: \"The photo my grandfather should have burned.\" (priority: 95)","timestamp":"2026-06-16T13:49:58.035Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: metadata → META-MYS-20260616-004","timestamp":"2026-06-16T13:49:58.039Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: upload","timestamp":"2026-06-16T13:49:58.059Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Uploaded: https://youtube.com/watch?v=RCtXAshpSg4","timestamp":"2026-06-16T13:50:02.392Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: upload → UPL-MYS-20260616-004","timestamp":"2026-06-16T13:50:02.396Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Starting step: thumbnail","timestamp":"2026-06-16T13:50:02.420Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Thumbnail: D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\output\\thumbnails\\THM-MYS-20260616-004.jpg","timestamp":"2026-06-16T13:50:02.634Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Completed step: thumbnail → THM-MYS-20260616-004","timestamp":"2026-06-16T13:50:02.636Z"}
+{"runId":"RUN-20260616-004","level":"info","message":"Pipeline completed — run RUN-20260616-004","timestamp":"2026-06-16T13:50:02.659Z"}

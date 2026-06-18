@@ -1,0 +1,85 @@
+{
+  "id": "CAP-MYS-20260616-004",
+  "scriptId": "SCR-MYS-20260616-004",
+  "audioId": "AUD-MYS-20260616-004",
+  "title": "The Infinite Staircase Photograph",
+  "segments": [
+    {
+      "text": "I found this 1954 photo",
+      "start": 0,
+      "end": 2.5
+    },
+    {
+      "text": "of my grandfather.",
+      "start": 2.5,
+      "end": 4.5
+    },
+    {
+      "text": "Look at the background.",
+      "start": 4.5,
+      "end": 7
+    },
+    {
+      "text": "He is in a park.",
+      "start": 7,
+      "end": 10
+    },
+    {
+      "text": "Behind him, stairs",
+      "start": 10,
+      "end": 12.5
+    },
+    {
+      "text": "lead into thin air.",
+      "start": 12.5,
+      "end": 15
+    },
+    {
+      "text": "They stop at a",
+      "start": 15,
+      "end": 17.5
+    },
+    {
+      "text": "solid brick wall.",
+      "start": 17.5,
+      "end": 20
+    },
+    {
+      "text": "I checked Google Street View.",
+      "start": 20,
+      "end": 24
+    },
+    {
+      "text": "The stairs are still there.",
+      "start": 24,
+      "end": 27.5
+    },
+    {
+      "text": "They lead absolutely nowhere.",
+      "start": 27.5,
+      "end": 31
+    },
+    {
+      "text": "Boost the brightness here.",
+      "start": 31,
+      "end": 34
+    },
+    {
+      "text": "See the figure",
+      "start": 34,
+      "end": 36.5
+    },
+    {
+      "text": "standing beneath the steps?",
+      "start": 36.5,
+      "end": 39
+    },
+    {
+      "text": "They haven't moved in seventy years.",
+      "start": 39,
+      "end": 41.4
+    }
+  ],
+  "srtPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\captions\\CAP-MYS-20260616-004.srt",
+  "createdAt": "2026-06-16T13:49:14.081Z"
+}

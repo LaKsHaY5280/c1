@@ -1,0 +1,53 @@
+{
+  "id": "SCN-MYS-20260616-003",
+  "scriptId": "SCR-MYS-20260616-003",
+  "title": "The Glitch in the Family Photo",
+  "scenes": [
+    {
+      "id": "SCN-MYS-20260616-003-01",
+      "sceneNumber": 1,
+      "purpose": "hook",
+      "description": "Alex holds a vintage polaroid print between thumb and forefinger in the living room.",
+      "emotion": "curiosity",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-MYS-20260616-003-02",
+      "sceneNumber": 2,
+      "purpose": "setup",
+      "description": "Alex turns the pages of a wedding album featuring Father and Mother smiling at a restaurant table.",
+      "emotion": "nostalgia",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-MYS-20260616-003-03",
+      "sceneNumber": 3,
+      "purpose": "escalation",
+      "description": "Alex traces the background of the photograph where a man stands wearing modern wireless earbuds.",
+      "emotion": "confusion",
+      "duration": 10,
+      "preferredMediaType": "video"
+    },
+    {
+      "id": "SCN-MYS-20260616-003-04",
+      "sceneNumber": 4,
+      "purpose": "climax",
+      "description": "Alex presses a magnifying loupe against the physical photograph to examine the blurred face of the man.",
+      "emotion": "shock",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-MYS-20260616-003-05",
+      "sceneNumber": 5,
+      "purpose": "ending",
+      "description": "Alex drops the polaroid onto the couch and stares blankly at the wall.",
+      "emotion": "unease",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    }
+  ],
+  "createdAt": "2026-06-16T13:38:24.602Z"
+}

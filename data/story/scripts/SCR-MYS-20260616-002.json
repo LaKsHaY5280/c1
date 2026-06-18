@@ -1,0 +1,33 @@
+{
+  "id": "SCR-MYS-20260616-002",
+  "ideaId": "IDEA-MYS-20260616-002",
+  "title": "The Tenant Who Never Existed",
+  "hook": "Do not buy a house until you check behind the mirror. I just found out I’m not the only one living here.",
+  "setup": "I pulled back the master bedroom glass. Behind it sat a hidden cabinet packed with decades of Polaroids.",
+  "escalation": "Each photo shows the same man in my living room. The wallpaper changes, the furniture shifts, but he never ages.",
+  "climax": "The final photo shows him holding a modern iPhone. The film is yellowed, yet the screen light is blindingly bright.",
+  "ending": "I checked the blueprints, but this room was never built.",
+  "emotion": "dread",
+  "emotionArc": [
+    "curiosity",
+    "intrigue",
+    "unease",
+    "horror",
+    "dread"
+  ],
+  "storyType": "haunted-place",
+  "location": "suburban family home",
+  "timePeriod": "modern day",
+  "visualStyle": "found-footage gritty",
+  "colorMood": "faded sepia and cold digital white",
+  "weather": "overcast",
+  "estimatedDuration": 50,
+  "visualMoments": [
+    "POV of hands pulling a heavy mirror off a wall frame",
+    "Close up of dusty Polaroid stack being fanned out",
+    "Quick cuts of shifting living room decor through decades",
+    "Macro shot of a man holding a glowing modern phone in a grainy 70s photo",
+    "Static shot of the empty hidden room with the blueprints on the floor"
+  ],
+  "createdAt": "2026-06-16T13:23:45.327Z"
+}

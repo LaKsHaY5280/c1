@@ -1,0 +1,12 @@
+{
+  "id": "QUEUE-20260616-001",
+  "genre": "mystery",
+  "scheduledFor": "2026-06-16T13:38:00.000Z",
+  "status": "generated",
+  "createdAt": "2026-06-16T13:34:54.614Z",
+  "updatedAt": "2026-06-16T13:40:25.095Z",
+  "runId": "RUN-20260616-003",
+  "videoId": "VID-MYS-20260616-003",
+  "metadataId": "META-MYS-20260616-003",
+  "thumbnailId": "THM-MYS-20260616-003"
+}

@@ -1,0 +1,51 @@
+{
+  "runId": "SCN-MYS-20260616-001",
+  "assets": [
+    {
+      "sceneId": "SCN-MYS-20260616-001-01",
+      "assetPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\SCN-MYS-20260616-001-01.jpg",
+      "mediaType": "photo",
+      "pexelsId": 9558718,
+      "credit": "MART  PRODUCTION",
+      "pexelsUrl": "https://www.pexels.com/photo/woman-in-black-crew-neck-shirt-holding-a-cellphone-9558718/",
+      "createdAt": "2026-06-16T13:17:52.849Z"
+    },
+    {
+      "sceneId": "SCN-MYS-20260616-001-02",
+      "assetPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\SCN-MYS-20260616-001-02.jpg",
+      "mediaType": "photo",
+      "pexelsId": 4049582,
+      "credit": "KATRIN  BOLOVTSOVA",
+      "pexelsUrl": "https://www.pexels.com/photo/photo-of-man-using-laptop-4049582/",
+      "createdAt": "2026-06-16T13:17:53.812Z"
+    },
+    {
+      "sceneId": "SCN-MYS-20260616-001-03",
+      "assetPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\SCN-MYS-20260616-001-03.mp4",
+      "mediaType": "video",
+      "pexelsId": 15439746,
+      "credit": "Pachon in Motion",
+      "pexelsUrl": "https://www.pexels.com/video/a-3d-luminous-geometric-pattern-in-motion-15439746/",
+      "createdAt": "2026-06-16T13:17:54.956Z"
+    },
+    {
+      "sceneId": "SCN-MYS-20260616-001-04",
+      "assetPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\SCN-MYS-20260616-001-04.jpg",
+      "mediaType": "photo",
+      "pexelsId": 10617272,
+      "credit": "cottonbro studio",
+      "pexelsUrl": "https://www.pexels.com/photo/person-hands-making-prints-on-papers-on-wall-10617272/",
+      "createdAt": "2026-06-16T13:17:56.412Z"
+    },
+    {
+      "sceneId": "SCN-MYS-20260616-001-05",
+      "assetPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\SCN-MYS-20260616-001-05.jpg",
+      "mediaType": "photo",
+      "pexelsId": 36598736,
+      "credit": "Jakub Zerdzicki",
+      "pexelsUrl": "https://www.pexels.com/photo/secure-lockers-in-a-modern-indoor-facility-36598736/",
+      "createdAt": "2026-06-16T13:17:57.302Z"
+    }
+  ],
+  "createdAt": "2026-06-16T13:17:57.304Z"
+}

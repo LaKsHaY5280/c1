@@ -1,0 +1,33 @@
+{
+  "id": "SCR-MYS-20260616-003",
+  "ideaId": "IDEA-MYS-20260616-003",
+  "title": "The Glitch in the Family Photo",
+  "hook": "I found a 1994 polaroid of my parents that breaks reality.",
+  "setup": "They were at a restaurant. I was flipping through the wedding album when the background caught my eye.",
+  "escalation": "A man stands behind them. He is wearing sleek, modern wireless earbuds. They didn't exist thirty years ago.",
+  "climax": "I checked the physical print with a loupe. The man's face is blurred, like a corrupted digital file on paper.",
+  "ending": "Tell me how a physical 1994 print has a digital rendering glitch.",
+  "emotion": "dread",
+  "emotionArc": [
+    "curiosity",
+    "nostalgia",
+    "confusion",
+    "shock",
+    "unease"
+  ],
+  "storyType": "time-slip-mystery",
+  "location": "suburban living room",
+  "timePeriod": "modern day",
+  "visualStyle": "documentary style close-ups",
+  "colorMood": "sepia and high-contrast digital",
+  "weather": "overcast",
+  "estimatedDuration": 50,
+  "visualMoments": [
+    "Hand flipping through aged, yellowing photo album pages",
+    "Close-up of the original polaroid in soft light",
+    "Extreme digital zoom on the man in the background",
+    "Magnifying glass moving over the distorted, pixelated face",
+    "Creator looking directly into camera with intense expression"
+  ],
+  "createdAt": "2026-06-16T13:38:20.586Z"
+}

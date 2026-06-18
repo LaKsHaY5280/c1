@@ -1,0 +1,26 @@
+{
+  "id": "CHAR-MYS-20260616-002",
+  "scriptId": "SCR-MYS-20260616-002",
+  "title": "The Tenant Who Never Existed",
+  "characters": [
+    {
+      "name": "Alex",
+      "role": "protagonist",
+      "age": 28,
+      "gender": "non-binary",
+      "appearance": "short messy dark hair, pale skin, sharp facial features, medium build",
+      "clothing": "grey oversized hoodie and black joggers",
+      "emotionProfile": "initially curious then increasingly terrified"
+    },
+    {
+      "name": "The Observer",
+      "role": "antagonist",
+      "age": 35,
+      "gender": "male",
+      "appearance": "tall and gaunt, receding dark hairline, deep-set hollow eyes, clean-shaven",
+      "clothing": "1970s style beige button-down shirt with wide collars",
+      "emotionProfile": "emotionless and predatory"
+    }
+  ],
+  "createdAt": "2026-06-16T13:23:48.064Z"
+}

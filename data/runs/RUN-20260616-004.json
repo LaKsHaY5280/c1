@@ -1,0 +1,238 @@
+{
+  "id": "RUN-20260616-004",
+  "status": "completed",
+  "startedAt": "2026-06-16T13:48:15.031Z",
+  "steps": {
+    "idea": {
+      "step": "idea",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:48:15.040Z",
+      "finishedAt": "2026-06-16T13:48:17.297Z",
+      "outputId": "IDEA-MYS-20260616-004"
+    },
+    "script": {
+      "step": "script",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:48:17.302Z",
+      "finishedAt": "2026-06-16T13:48:25.574Z",
+      "outputId": "SCR-MYS-20260616-004"
+    },
+    "characters": {
+      "step": "characters",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:48:25.577Z",
+      "finishedAt": "2026-06-16T13:48:27.069Z",
+      "outputId": "CHAR-MYS-20260616-004"
+    },
+    "scenes": {
+      "step": "scenes",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:48:27.080Z",
+      "finishedAt": "2026-06-16T13:48:34.853Z",
+      "outputId": "SCN-MYS-20260616-004"
+    },
+    "visualSearch": {
+      "step": "visualSearch",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:48:34.857Z",
+      "finishedAt": "2026-06-16T13:48:36.354Z"
+    },
+    "pexels": {
+      "step": "pexels",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:48:36.369Z",
+      "finishedAt": "2026-06-16T13:48:44.397Z"
+    },
+    "manifest": {
+      "step": "manifest",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:48:44.418Z",
+      "finishedAt": "2026-06-16T13:48:44.448Z"
+    },
+    "voice": {
+      "step": "voice",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:48:44.459Z",
+      "finishedAt": "2026-06-16T13:49:12.092Z",
+      "outputId": "AUD-MYS-20260616-004"
+    },
+    "captions": {
+      "step": "captions",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:49:12.108Z",
+      "finishedAt": "2026-06-16T13:49:14.088Z",
+      "outputId": "CAP-MYS-20260616-004"
+    },
+    "render": {
+      "step": "render",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:49:14.094Z",
+      "finishedAt": "2026-06-16T13:49:56.160Z",
+      "outputId": "VID-MYS-20260616-004"
+    },
+    "metadata": {
+      "step": "metadata",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:49:56.164Z",
+      "finishedAt": "2026-06-16T13:49:58.037Z",
+      "outputId": "META-MYS-20260616-004"
+    },
+    "upload": {
+      "step": "upload",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:49:58.040Z",
+      "finishedAt": "2026-06-16T13:50:02.393Z",
+      "outputId": "UPL-MYS-20260616-004"
+    },
+    "thumbnail": {
+      "step": "thumbnail",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:50:02.398Z",
+      "finishedAt": "2026-06-16T13:50:02.635Z",
+      "outputId": "THM-MYS-20260616-004"
+    }
+  },
+  "history": [
+    {
+      "step": "idea",
+      "event": "started",
+      "timestamp": "2026-06-16T13:48:15.040Z"
+    },
+    {
+      "step": "idea",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:48:17.297Z",
+      "outputId": "IDEA-MYS-20260616-004"
+    },
+    {
+      "step": "script",
+      "event": "started",
+      "timestamp": "2026-06-16T13:48:17.302Z"
+    },
+    {
+      "step": "script",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:48:25.574Z",
+      "outputId": "SCR-MYS-20260616-004"
+    },
+    {
+      "step": "characters",
+      "event": "started",
+      "timestamp": "2026-06-16T13:48:25.577Z"
+    },
+    {
+      "step": "characters",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:48:27.069Z",
+      "outputId": "CHAR-MYS-20260616-004"
+    },
+    {
+      "step": "scenes",
+      "event": "started",
+      "timestamp": "2026-06-16T13:48:27.080Z"
+    },
+    {
+      "step": "scenes",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:48:34.853Z",
+      "outputId": "SCN-MYS-20260616-004"
+    },
+    {
+      "step": "visualSearch",
+      "event": "started",
+      "timestamp": "2026-06-16T13:48:34.857Z"
+    },
+    {
+      "step": "visualSearch",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:48:36.354Z"
+    },
+    {
+      "step": "pexels",
+      "event": "started",
+      "timestamp": "2026-06-16T13:48:36.369Z"
+    },
+    {
+      "step": "pexels",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:48:44.397Z"
+    },
+    {
+      "step": "manifest",
+      "event": "started",
+      "timestamp": "2026-06-16T13:48:44.418Z"
+    },
+    {
+      "step": "manifest",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:48:44.448Z"
+    },
+    {
+      "step": "voice",
+      "event": "started",
+      "timestamp": "2026-06-16T13:48:44.459Z"
+    },
+    {
+      "step": "voice",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:49:12.092Z",
+      "outputId": "AUD-MYS-20260616-004"
+    },
+    {
+      "step": "captions",
+      "event": "started",
+      "timestamp": "2026-06-16T13:49:12.108Z"
+    },
+    {
+      "step": "captions",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:49:14.088Z",
+      "outputId": "CAP-MYS-20260616-004"
+    },
+    {
+      "step": "render",
+      "event": "started",
+      "timestamp": "2026-06-16T13:49:14.094Z"
+    },
+    {
+      "step": "render",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:49:56.160Z",
+      "outputId": "VID-MYS-20260616-004"
+    },
+    {
+      "step": "metadata",
+      "event": "started",
+      "timestamp": "2026-06-16T13:49:56.164Z"
+    },
+    {
+      "step": "metadata",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:49:58.037Z",
+      "outputId": "META-MYS-20260616-004"
+    },
+    {
+      "step": "upload",
+      "event": "started",
+      "timestamp": "2026-06-16T13:49:58.040Z"
+    },
+    {
+      "step": "upload",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:50:02.393Z",
+      "outputId": "UPL-MYS-20260616-004"
+    },
+    {
+      "step": "thumbnail",
+      "event": "started",
+      "timestamp": "2026-06-16T13:50:02.398Z"
+    },
+    {
+      "step": "thumbnail",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:50:02.635Z",
+      "outputId": "THM-MYS-20260616-004"
+    }
+  ],
+  "finishedAt": "2026-06-16T13:50:02.637Z"
+}

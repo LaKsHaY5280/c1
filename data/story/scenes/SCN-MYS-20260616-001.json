@@ -1,0 +1,53 @@
+{
+  "id": "SCN-MYS-20260616-001",
+  "scriptId": "SCR-MYS-20260616-001",
+  "title": "The Silent Visitor in My Baby Monitor",
+  "scenes": [
+    {
+      "id": "SCN-MYS-20260616-001-01",
+      "sceneNumber": 1,
+      "purpose": "hook",
+      "description": "Alex points at a smartphone screen displaying a grainy video feed from the guest room.",
+      "emotion": "curiosity",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-MYS-20260616-001-02",
+      "sceneNumber": 2,
+      "purpose": "setup",
+      "description": "Alex sits on the edge of the guest room bed and monitors the bedside clock at 3:14 AM.",
+      "emotion": "unease",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-MYS-20260616-001-03",
+      "sceneNumber": 3,
+      "purpose": "escalation",
+      "description": "Alex watches glowing geometric shapes move across the blank bedroom wall.",
+      "emotion": "confusion",
+      "duration": 10,
+      "preferredMediaType": "video"
+    },
+    {
+      "id": "SCN-MYS-20260616-001-04",
+      "sceneNumber": 4,
+      "purpose": "climax",
+      "description": "Alex presses a hand against the wall as the plaster ripples and buckles.",
+      "emotion": "dread",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-MYS-20260616-001-05",
+      "sceneNumber": 5,
+      "purpose": "ending",
+      "description": "Alex pulls back a piece of loose drywall to reveal an etched metallic map buried in the wood studs.",
+      "emotion": "terror",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    }
+  ],
+  "createdAt": "2026-06-16T13:17:50.610Z"
+}

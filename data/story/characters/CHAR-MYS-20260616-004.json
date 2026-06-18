@@ -1,0 +1,26 @@
+{
+  "id": "CHAR-MYS-20260616-004",
+  "scriptId": "SCR-MYS-20260616-004",
+  "title": "The Infinite Staircase Photograph",
+  "characters": [
+    {
+      "name": "Arthur",
+      "role": "grandfather",
+      "age": 25,
+      "gender": "male",
+      "appearance": "short dark hair, clean-shaven, athletic build, fair skin",
+      "clothing": "1954 style vintage wool trousers, tucked in crisp white button-down shirt",
+      "emotionProfile": "relaxed and unaware"
+    },
+    {
+      "name": "The Lurker",
+      "role": "mysterious figure",
+      "age": 40,
+      "gender": "non-binary",
+      "appearance": "tall and gaunt, obscured facial features, shadow-drenched complexion",
+      "clothing": "tattered dark hooded cloak and charcoal grey tunic",
+      "emotionProfile": "motionless and ominous"
+    }
+  ],
+  "createdAt": "2026-06-16T13:48:27.065Z"
+}

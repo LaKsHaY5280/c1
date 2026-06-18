@@ -1,0 +1,47 @@
+{"runId":"RUN-20260616-002","level":"info","message":"Pipeline started — run RUN-20260616-002","timestamp":"2026-06-16T13:23:37.984Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Day: Tuesday","timestamp":"2026-06-16T13:23:38.007Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: idea","timestamp":"2026-06-16T13:23:38.011Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"[MYSTERY] The Tenant Who Never Existed","timestamp":"2026-06-16T13:23:40.521Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: idea → IDEA-MYS-20260616-002","timestamp":"2026-06-16T13:23:40.525Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: script","timestamp":"2026-06-16T13:23:40.550Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Script: SCR-MYS-20260616-002 | ~50s | dread","timestamp":"2026-06-16T13:23:45.329Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: script → SCR-MYS-20260616-002","timestamp":"2026-06-16T13:23:45.330Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: characters","timestamp":"2026-06-16T13:23:45.331Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Characters: Alex, The Observer","timestamp":"2026-06-16T13:23:48.066Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: characters → CHAR-MYS-20260616-002","timestamp":"2026-06-16T13:23:48.067Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: scenes","timestamp":"2026-06-16T13:23:48.085Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Scenes: 5 scenes generated","timestamp":"2026-06-16T13:23:50.119Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: scenes → SCN-MYS-20260616-002","timestamp":"2026-06-16T13:23:50.121Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: visualSearch","timestamp":"2026-06-16T13:23:50.144Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Visual search: 5 queries generated","timestamp":"2026-06-16T13:23:51.257Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: visualSearch","timestamp":"2026-06-16T13:23:51.259Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: pexels","timestamp":"2026-06-16T13:23:51.261Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Searching (photo): \"person touching bathroom mirror\"","timestamp":"2026-06-16T13:23:51.262Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Searching (photo): \"hidden wall safe photos\"","timestamp":"2026-06-16T13:23:52.052Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Searching (video): \"person looking at polaroids\"","timestamp":"2026-06-16T13:23:53.325Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Searching (photo): \"hand holding polaroid photo\"","timestamp":"2026-06-16T13:23:55.140Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Searching (photo): \"person reading floor plans\"","timestamp":"2026-06-16T13:23:57.098Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Downloaded 5 assets","timestamp":"2026-06-16T13:23:59.316Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: pexels","timestamp":"2026-06-16T13:23:59.316Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: manifest","timestamp":"2026-06-16T13:23:59.317Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Manifest saved: 5 assets recorded","timestamp":"2026-06-16T13:23:59.318Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: manifest","timestamp":"2026-06-16T13:23:59.325Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: voice","timestamp":"2026-06-16T13:23:59.342Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Voice: AUD-MYS-20260616-002 (47.9s)","timestamp":"2026-06-16T13:25:40.429Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: voice → AUD-MYS-20260616-002","timestamp":"2026-06-16T13:25:40.432Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: captions","timestamp":"2026-06-16T13:25:40.434Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Captions: 17 segments","timestamp":"2026-06-16T13:25:44.621Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: captions → CAP-MYS-20260616-002","timestamp":"2026-06-16T13:25:44.622Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: render","timestamp":"2026-06-16T13:25:44.623Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Rendered: D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\output\\videos\\VID-MYS-20260616-002.mp4","timestamp":"2026-06-16T13:26:15.329Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: render → VID-MYS-20260616-002","timestamp":"2026-06-16T13:26:15.330Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: metadata","timestamp":"2026-06-16T13:26:15.331Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Metadata: \"Check behind your master bedroom mirror.\" (priority: 95)","timestamp":"2026-06-16T13:26:17.287Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: metadata → META-MYS-20260616-002","timestamp":"2026-06-16T13:26:17.290Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: upload","timestamp":"2026-06-16T13:26:17.292Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Uploaded: https://youtube.com/watch?v=IhdC7q08oks","timestamp":"2026-06-16T13:26:21.212Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: upload → UPL-MYS-20260616-002","timestamp":"2026-06-16T13:26:21.213Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Starting step: thumbnail","timestamp":"2026-06-16T13:26:21.213Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Thumbnail: D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\output\\thumbnails\\THM-MYS-20260616-002.jpg","timestamp":"2026-06-16T13:26:24.081Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Completed step: thumbnail → THM-MYS-20260616-002","timestamp":"2026-06-16T13:26:24.082Z"}
+{"runId":"RUN-20260616-002","level":"info","message":"Pipeline completed — run RUN-20260616-002","timestamp":"2026-06-16T13:26:24.096Z"}

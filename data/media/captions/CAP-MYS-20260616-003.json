@@ -1,0 +1,85 @@
+{
+  "id": "CAP-MYS-20260616-003",
+  "scriptId": "SCR-MYS-20260616-003",
+  "audioId": "AUD-MYS-20260616-003",
+  "title": "The Glitch in the Family Photo",
+  "segments": [
+    {
+      "text": "I found a 1994 polaroid",
+      "start": 0,
+      "end": 2.5
+    },
+    {
+      "text": "that breaks reality.",
+      "start": 2.5,
+      "end": 4.8
+    },
+    {
+      "text": "They were at a restaurant.",
+      "start": 4.8,
+      "end": 7.5
+    },
+    {
+      "text": "I was flipping through",
+      "start": 7.5,
+      "end": 9.8
+    },
+    {
+      "text": "the wedding album,",
+      "start": 9.8,
+      "end": 12
+    },
+    {
+      "text": "the background caught my eye.",
+      "start": 12,
+      "end": 15.5
+    },
+    {
+      "text": "A man stands behind them.",
+      "start": 15.5,
+      "end": 19
+    },
+    {
+      "text": "He wears modern wireless earbuds.",
+      "start": 19,
+      "end": 23
+    },
+    {
+      "text": "They didn't exist thirty years ago.",
+      "start": 23,
+      "end": 27
+    },
+    {
+      "text": "I checked the print",
+      "start": 27,
+      "end": 29.5
+    },
+    {
+      "text": "with a magnifying loupe.",
+      "start": 29.5,
+      "end": 32.5
+    },
+    {
+      "text": "His face is blurred,",
+      "start": 32.5,
+      "end": 35.5
+    },
+    {
+      "text": "like a corrupted digital file.",
+      "start": 35.5,
+      "end": 39
+    },
+    {
+      "text": "How does a print",
+      "start": 39,
+      "end": 41
+    },
+    {
+      "text": "have a digital glitch?",
+      "start": 41,
+      "end": 43
+    }
+  ],
+  "srtPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\captions\\CAP-MYS-20260616-003.srt",
+  "createdAt": "2026-06-16T13:39:30.693Z"
+}

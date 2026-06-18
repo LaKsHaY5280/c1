@@ -1,0 +1,17 @@
+{
+  "id": "CHAR-MYS-20260616-001",
+  "scriptId": "SCR-MYS-20260616-001",
+  "title": "The Silent Visitor in My Baby Monitor",
+  "characters": [
+    {
+      "name": "Alex",
+      "role": "protagonist",
+      "age": 32,
+      "gender": "non-binary",
+      "appearance": "short messy dark hair, pale skin, sharp facial features, lean build, light brown eyes",
+      "clothing": "charcoal gray hooded sweatshirt and dark joggers",
+      "emotionProfile": "increasingly paranoid and unsettled"
+    }
+  ],
+  "createdAt": "2026-06-16T13:17:48.578Z"
+}

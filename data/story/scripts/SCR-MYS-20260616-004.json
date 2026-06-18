@@ -1,0 +1,33 @@
+{
+  "id": "SCR-MYS-20260616-004",
+  "ideaId": "IDEA-MYS-20260616-004",
+  "title": "The Infinite Staircase Photograph",
+  "hook": "I found this 1954 photo of my grandfather. Look at the background.",
+  "setup": "He is in a park. Behind him, stairs lead into thin air. They stop at a solid brick wall.",
+  "escalation": "I checked Google Street View. The stairs are still there today. They lead absolutely nowhere.",
+  "climax": "Boost the brightness on this corner. See the figure standing beneath the steps?",
+  "ending": "They haven't moved in seventy years.",
+  "emotion": "dread",
+  "emotionArc": [
+    "curiosity",
+    "confusion",
+    "unease",
+    "shock",
+    "dread"
+  ],
+  "storyType": "haunted-place",
+  "location": "public park",
+  "timePeriod": "modern day",
+  "visualStyle": "found-footage documentary",
+  "colorMood": "sepia transitioning to high-contrast monochrome",
+  "weather": "overcast",
+  "estimatedDuration": 50,
+  "visualMoments": [
+    "Slow zoom on the original black and white photograph.",
+    "Annotated circle highlighting the staircase ending at the brick wall.",
+    "Split screen comparison: 1954 photo vs modern Google Street View.",
+    "Digital zoom filter pushing contrast to reveal a shadowy silhouette.",
+    "Final static shot of the shadowed figure under the staircase."
+  ],
+  "createdAt": "2026-06-16T13:48:25.571Z"
+}

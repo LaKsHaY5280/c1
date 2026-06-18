@@ -1,0 +1,33 @@
+{
+  "id": "SCR-MYS-20260616-001",
+  "ideaId": "IDEA-MYS-20260616-001",
+  "title": "The Silent Visitor in My Baby Monitor",
+  "hook": "Do not buy this smart baby monitor. Mine just recorded something that shouldn't exist.",
+  "setup": "I installed it in the guest room for security. Every night at 3:14 AM, the motion sensor triggers.",
+  "escalation": "The room is always empty. But the light patterns on the wall shift into perfect, glowing geometric shapes.",
+  "climax": "These shapes never appear during the day. I zoomed in and realized the wall itself is warping.",
+  "ending": "The pattern isn't a reflection; it's a map pointing to what's buried behind the drywall.",
+  "emotion": "dread",
+  "emotionArc": [
+    "curiosity",
+    "unease",
+    "confusion",
+    "dread",
+    "terror"
+  ],
+  "storyType": "haunted-tech",
+  "location": "suburban family home",
+  "timePeriod": "modern day",
+  "visualStyle": "dark atmospheric horror",
+  "colorMood": "cold blue tones",
+  "weather": "overcast",
+  "estimatedDuration": 50,
+  "visualMoments": [
+    "Close up of the sleek, glowing baby monitor unit.",
+    "Grainy night-vision footage showing an empty, dark bedroom.",
+    "Slow-motion zoom on the wall revealing glowing, shifting geometric lines.",
+    "Side-by-side comparison of day vs night wall texture.",
+    "A hand reaching out to touch the vibrating drywall."
+  ],
+  "createdAt": "2026-06-16T13:17:46.652Z"
+}

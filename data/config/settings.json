@@ -1,0 +1,15 @@
+{
+  "defaultVisibility": "private",
+  "ttsVoice": "Kore",
+  "captionMaxWordsPerSegment": 8,
+  "genreSchedule": {
+    "0": "drama",
+    "1": "horror",
+    "2": "mystery",
+    "3": "scifi",
+    "4": "fantasy",
+    "5": "thriller",
+    "6": "romance"
+  },
+  "autoPublish": false
+}

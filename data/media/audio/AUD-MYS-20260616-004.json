@@ -1,0 +1,13 @@
+{
+  "id": "AUD-MYS-20260616-004",
+  "scriptId": "SCR-MYS-20260616-004",
+  "title": "The Infinite Staircase Photograph",
+  "narration": "I found this 1954 photo of my grandfather. Look at the background.\n\nHe is in a park. Behind him, stairs lead into thin air. They stop at a solid brick wall.\n\nI checked Google Street View. The stairs are still there today. They lead absolutely nowhere.\n\nBoost the brightness on this corner. See the figure standing beneath the steps?\n\nThey haven't moved in seventy years.",
+  "voice": "Kore",
+  "audioPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\audio\\AUD-MYS-20260616-004.wav",
+  "duration": 41.44,
+  "mimeType": "audio/l16",
+  "sampleRate": 24000,
+  "channels": 1,
+  "createdAt": "2026-06-16T13:49:12.084Z"
+}

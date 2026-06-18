@@ -1,0 +1,167 @@
+{
+  "id": "RUN-20260616-001",
+  "status": "failed",
+  "startedAt": "2026-06-16T13:17:42.530Z",
+  "steps": {
+    "idea": {
+      "step": "idea",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:17:42.565Z",
+      "finishedAt": "2026-06-16T13:17:44.553Z",
+      "outputId": "IDEA-MYS-20260616-001"
+    },
+    "script": {
+      "step": "script",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:17:44.558Z",
+      "finishedAt": "2026-06-16T13:17:46.657Z",
+      "outputId": "SCR-MYS-20260616-001"
+    },
+    "characters": {
+      "step": "characters",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:17:46.661Z",
+      "finishedAt": "2026-06-16T13:17:48.580Z",
+      "outputId": "CHAR-MYS-20260616-001"
+    },
+    "scenes": {
+      "step": "scenes",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:17:48.581Z",
+      "finishedAt": "2026-06-16T13:17:50.613Z",
+      "outputId": "SCN-MYS-20260616-001"
+    },
+    "visualSearch": {
+      "step": "visualSearch",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:17:50.615Z",
+      "finishedAt": "2026-06-16T13:17:51.681Z"
+    },
+    "pexels": {
+      "step": "pexels",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:17:51.682Z",
+      "finishedAt": "2026-06-16T13:17:57.303Z"
+    },
+    "manifest": {
+      "step": "manifest",
+      "status": "completed",
+      "startedAt": "2026-06-16T13:17:57.304Z",
+      "finishedAt": "2026-06-16T13:17:57.306Z"
+    },
+    "voice": {
+      "step": "voice",
+      "status": "running",
+      "startedAt": "2026-06-16T13:17:57.322Z"
+    },
+    "captions": {
+      "step": "captions",
+      "status": "pending",
+      "startedAt": ""
+    },
+    "render": {
+      "step": "render",
+      "status": "pending",
+      "startedAt": ""
+    },
+    "metadata": {
+      "step": "metadata",
+      "status": "pending",
+      "startedAt": ""
+    },
+    "upload": {
+      "step": "upload",
+      "status": "pending",
+      "startedAt": ""
+    },
+    "thumbnail": {
+      "step": "thumbnail",
+      "status": "pending",
+      "startedAt": ""
+    }
+  },
+  "history": [
+    {
+      "step": "idea",
+      "event": "started",
+      "timestamp": "2026-06-16T13:17:42.565Z"
+    },
+    {
+      "step": "idea",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:17:44.553Z",
+      "outputId": "IDEA-MYS-20260616-001"
+    },
+    {
+      "step": "script",
+      "event": "started",
+      "timestamp": "2026-06-16T13:17:44.558Z"
+    },
+    {
+      "step": "script",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:17:46.657Z",
+      "outputId": "SCR-MYS-20260616-001"
+    },
+    {
+      "step": "characters",
+      "event": "started",
+      "timestamp": "2026-06-16T13:17:46.661Z"
+    },
+    {
+      "step": "characters",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:17:48.580Z",
+      "outputId": "CHAR-MYS-20260616-001"
+    },
+    {
+      "step": "scenes",
+      "event": "started",
+      "timestamp": "2026-06-16T13:17:48.581Z"
+    },
+    {
+      "step": "scenes",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:17:50.613Z",
+      "outputId": "SCN-MYS-20260616-001"
+    },
+    {
+      "step": "visualSearch",
+      "event": "started",
+      "timestamp": "2026-06-16T13:17:50.615Z"
+    },
+    {
+      "step": "visualSearch",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:17:51.681Z"
+    },
+    {
+      "step": "pexels",
+      "event": "started",
+      "timestamp": "2026-06-16T13:17:51.682Z"
+    },
+    {
+      "step": "pexels",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:17:57.303Z"
+    },
+    {
+      "step": "manifest",
+      "event": "started",
+      "timestamp": "2026-06-16T13:17:57.304Z"
+    },
+    {
+      "step": "manifest",
+      "event": "completed",
+      "timestamp": "2026-06-16T13:17:57.306Z"
+    },
+    {
+      "step": "voice",
+      "event": "started",
+      "timestamp": "2026-06-16T13:17:57.322Z"
+    }
+  ],
+  "currentStep": "voice",
+  "finishedAt": "2026-06-16T13:23:31.143Z",
+  "error": "Cancelled by user"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "CHAR-MYS-20260616-003",
+  "scriptId": "SCR-MYS-20260616-003",
+  "title": "The Glitch in the Family Photo",
+  "characters": [
+    {
+      "name": "Alex",
+      "role": "protagonist",
+      "age": 25,
+      "gender": "non-binary",
+      "appearance": "shoulder-length messy dark hair, hazel eyes, slender build, olive skin",
+      "clothing": "oversized beige crewneck sweater and grey lounge pants",
+      "emotionProfile": "confused and unsettled"
+    },
+    {
+      "name": "Father",
+      "role": "parent",
+      "age": 30,
+      "gender": "male",
+      "appearance": "short neatly trimmed brown hair, clean-shaven, athletic build, fair skin",
+      "clothing": "vintage 1990s navy blue blazer with a white collared shirt",
+      "emotionProfile": "joyful and unaware"
+    },
+    {
+      "name": "Mother",
+      "role": "parent",
+      "age": 28,
+      "gender": "female",
+      "appearance": "voluminous curly chestnut hair, bright blue eyes, slim build, fair skin",
+      "clothing": "1994 style floral print summer dress with thin straps",
+      "emotionProfile": "happy and relaxed"
+    }
+  ],
+  "createdAt": "2026-06-16T13:38:22.790Z"
+}

@@ -1,0 +1,29 @@
+{"runId":"RUN-20260616-001","level":"info","message":"Pipeline started — run RUN-20260616-001","timestamp":"2026-06-16T13:17:42.534Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Day: Tuesday","timestamp":"2026-06-16T13:17:42.563Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Starting step: idea","timestamp":"2026-06-16T13:17:42.571Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"[MYSTERY] The Silent Visitor in My Baby Monitor","timestamp":"2026-06-16T13:17:44.551Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Completed step: idea → IDEA-MYS-20260616-001","timestamp":"2026-06-16T13:17:44.556Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Starting step: script","timestamp":"2026-06-16T13:17:44.581Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Script: SCR-MYS-20260616-001 | ~50s | dread","timestamp":"2026-06-16T13:17:46.655Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Completed step: script → SCR-MYS-20260616-001","timestamp":"2026-06-16T13:17:46.659Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Starting step: characters","timestamp":"2026-06-16T13:17:46.686Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Characters: Alex","timestamp":"2026-06-16T13:17:48.579Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Completed step: characters → CHAR-MYS-20260616-001","timestamp":"2026-06-16T13:17:48.581Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Starting step: scenes","timestamp":"2026-06-16T13:17:48.582Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Scenes: 5 scenes generated","timestamp":"2026-06-16T13:17:50.613Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Completed step: scenes → SCN-MYS-20260616-001","timestamp":"2026-06-16T13:17:50.614Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Starting step: visualSearch","timestamp":"2026-06-16T13:17:50.616Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Visual search: 5 queries generated","timestamp":"2026-06-16T13:17:51.680Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Completed step: visualSearch","timestamp":"2026-06-16T13:17:51.681Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Starting step: pexels","timestamp":"2026-06-16T13:17:51.682Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Searching (photo): \"person pointing at smartphone\"","timestamp":"2026-06-16T13:17:51.683Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Searching (photo): \"man sitting on bed\"","timestamp":"2026-06-16T13:17:52.849Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Searching (video): \"glowing shapes on wall\"","timestamp":"2026-06-16T13:17:53.812Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Searching (photo): \"hand touching wall\"","timestamp":"2026-06-16T13:17:54.956Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Searching (photo): \"hidden wall compartment\"","timestamp":"2026-06-16T13:17:56.412Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Downloaded 5 assets","timestamp":"2026-06-16T13:17:57.303Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Completed step: pexels","timestamp":"2026-06-16T13:17:57.303Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Starting step: manifest","timestamp":"2026-06-16T13:17:57.304Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Manifest saved: 5 assets recorded","timestamp":"2026-06-16T13:17:57.305Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Completed step: manifest","timestamp":"2026-06-16T13:17:57.322Z"}
+{"runId":"RUN-20260616-001","level":"info","message":"Starting step: voice","timestamp":"2026-06-16T13:17:57.339Z"}

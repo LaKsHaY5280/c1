@@ -1,0 +1,51 @@
+{
+  "runId": "SCN-MYS-20260616-003",
+  "assets": [
+    {
+      "sceneId": "SCN-MYS-20260616-003-01",
+      "assetPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\SCN-MYS-20260616-003-01.jpg",
+      "mediaType": "photo",
+      "pexelsId": 2815693,
+      "credit": "Lisa from Pexels",
+      "pexelsUrl": "https://www.pexels.com/photo/photo-of-woman-standing-near-trees-2815693/",
+      "createdAt": "2026-06-16T13:38:26.173Z"
+    },
+    {
+      "sceneId": "SCN-MYS-20260616-003-02",
+      "assetPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\SCN-MYS-20260616-003-02.jpg",
+      "mediaType": "photo",
+      "pexelsId": 15314117,
+      "credit": "Anaissa Olivares",
+      "pexelsUrl": "https://www.pexels.com/photo/two-elegant-albums-15314117/",
+      "createdAt": "2026-06-16T13:38:27.361Z"
+    },
+    {
+      "sceneId": "SCN-MYS-20260616-003-03",
+      "assetPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\SCN-MYS-20260616-003-03.mp4",
+      "mediaType": "video",
+      "pexelsId": 3627135,
+      "credit": "cottonbro studio",
+      "pexelsUrl": "https://www.pexels.com/video/a-person-sticking-a-printed-picture-on-the-wall-3627135/",
+      "createdAt": "2026-06-16T13:38:29.192Z"
+    },
+    {
+      "sceneId": "SCN-MYS-20260616-003-04",
+      "assetPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\SCN-MYS-20260616-003-04.jpg",
+      "mediaType": "photo",
+      "pexelsId": 4687338,
+      "credit": "Polina Zimmerman",
+      "pexelsUrl": "https://www.pexels.com/photo/person-holding-black-framed-eyeglasses-with-loupe-4687338/",
+      "createdAt": "2026-06-16T13:38:29.976Z"
+    },
+    {
+      "sceneId": "SCN-MYS-20260616-003-05",
+      "assetPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\SCN-MYS-20260616-003-05.jpg",
+      "mediaType": "photo",
+      "pexelsId": 7382876,
+      "credit": "Polina Tankilevitch",
+      "pexelsUrl": "https://www.pexels.com/photo/woman-with-afro-hair-sitting-on-sofa-while-using-a-tablet-7382876/",
+      "createdAt": "2026-06-16T13:38:30.896Z"
+    }
+  ],
+  "createdAt": "2026-06-16T13:38:30.925Z"
+}

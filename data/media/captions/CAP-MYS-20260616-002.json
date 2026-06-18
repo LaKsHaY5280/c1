@@ -1,0 +1,95 @@
+{
+  "id": "CAP-MYS-20260616-002",
+  "scriptId": "SCR-MYS-20260616-002",
+  "audioId": "AUD-MYS-20260616-002",
+  "title": "The Tenant Who Never Existed",
+  "segments": [
+    {
+      "text": "Do not buy a house",
+      "start": 0,
+      "end": 2.8
+    },
+    {
+      "text": "until you check",
+      "start": 2.8,
+      "end": 5.2
+    },
+    {
+      "text": "behind the mirror.",
+      "start": 5.2,
+      "end": 8.5
+    },
+    {
+      "text": "I just found out",
+      "start": 8.5,
+      "end": 11.2
+    },
+    {
+      "text": "I'm not alone here.",
+      "start": 11.2,
+      "end": 14
+    },
+    {
+      "text": "I pulled back",
+      "start": 14,
+      "end": 16.5
+    },
+    {
+      "text": "the master bedroom glass.",
+      "start": 16.5,
+      "end": 20
+    },
+    {
+      "text": "Behind it sat a",
+      "start": 20,
+      "end": 22.5
+    },
+    {
+      "text": "hidden cabinet of Polaroids.",
+      "start": 22.5,
+      "end": 26
+    },
+    {
+      "text": "Each photo shows",
+      "start": 26,
+      "end": 28.5
+    },
+    {
+      "text": "the same man.",
+      "start": 28.5,
+      "end": 31
+    },
+    {
+      "text": "He never ages.",
+      "start": 31,
+      "end": 34
+    },
+    {
+      "text": "The final photo shows",
+      "start": 34,
+      "end": 37
+    },
+    {
+      "text": "him holding an iPhone.",
+      "start": 37,
+      "end": 40
+    },
+    {
+      "text": "The screen light is",
+      "start": 40,
+      "end": 43
+    },
+    {
+      "text": "blindingly bright.",
+      "start": 43,
+      "end": 45.5
+    },
+    {
+      "text": "This room was never built.",
+      "start": 45.5,
+      "end": 47.9
+    }
+  ],
+  "srtPath": "D:\\ABYSS\\CODE\\AUTO\\Seventh Lantern\\Backend\\data\\assets\\captions\\CAP-MYS-20260616-002.srt",
+  "createdAt": "2026-06-16T13:25:44.620Z"
+}
