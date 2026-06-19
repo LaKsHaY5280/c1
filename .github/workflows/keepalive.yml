@@ -1,0 +1,21 @@
+name: Keep Alive
+
+# GitHub disables scheduled workflows after 60 days of repo inactivity.
+# This workflow runs weekly and re-enables any disabled workflows,
+# keeping the daily schedule alive even if the repo has no code commits.
+
+on:
+  schedule:
+    - cron: "0 5 * * 1"  # Every Monday at 05:00 UTC
+  workflow_dispatch:       # Also triggerable manually
+
+jobs:
+  keepalive:
+    name: Re-enable scheduled workflows
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+
+    steps:
+      - name: Keep workflows alive
+        uses: liskin/gh-workflow-keepalive@v1

@@ -2,8 +2,10 @@ name: Daily Video Generation
 
 on:
   schedule:
-    # Runs at 06:00 UTC every day
-    - cron: "0 6 * * *"
+    # Runs at 06:03 UTC every day.
+    # Avoid exact :00 — GitHub's queue is congested at the top of every hour,
+    # which causes delays or missed triggers. A few minutes off is more reliable.
+    - cron: "3 6 * * *"
   # Allow manual trigger from the Actions tab
   workflow_dispatch:
     inputs:
