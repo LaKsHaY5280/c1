@@ -1,0 +1,42 @@
+{
+  "runId": "SCN-ROM-20260620-002",
+  "assets": [
+    {
+      "sceneId": "SCN-ROM-20260620-002-01",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-ROM-20260620-002-01.mp4",
+      "mediaType": "video",
+      "pexelsId": 19915743,
+      "credit": "Şeyma  Gül",
+      "pexelsUrl": "https://www.pexels.com/video/a-wooden-table-with-a-book-on-it-sitting-in-front-of-a-window-19915743/",
+      "createdAt": "2026-06-20T09:32:15.341Z"
+    },
+    {
+      "sceneId": "SCN-ROM-20260620-002-02",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-ROM-20260620-002-02.jpg",
+      "mediaType": "photo",
+      "pexelsId": 16254138,
+      "credit": "Lisa from Pexels",
+      "pexelsUrl": "https://www.pexels.com/photo/a-sketch-of-a-cat-16254138/",
+      "createdAt": "2026-06-20T09:32:16.012Z"
+    },
+    {
+      "sceneId": "SCN-ROM-20260620-002-04",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-ROM-20260620-002-04.jpg",
+      "mediaType": "photo",
+      "pexelsId": 34255748,
+      "credit": "Yasin Onuş",
+      "pexelsUrl": "https://www.pexels.com/photo/barista-serving-latte-in-artisan-cafe-34255748/",
+      "createdAt": "2026-06-20T09:32:17.139Z"
+    },
+    {
+      "sceneId": "SCN-ROM-20260620-002-05",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-ROM-20260620-002-05.jpg",
+      "mediaType": "photo",
+      "pexelsId": 30567240,
+      "credit": "Sedanur Kunuk",
+      "pexelsUrl": "https://www.pexels.com/photo/artistic-floral-paintings-on-bookmarks-with-supplies-30567240/",
+      "createdAt": "2026-06-20T09:32:17.926Z"
+    }
+  ],
+  "createdAt": "2026-06-20T09:32:17.927Z"
+}

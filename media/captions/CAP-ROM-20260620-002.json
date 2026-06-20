@@ -1,0 +1,80 @@
+{
+  "id": "CAP-ROM-20260620-002",
+  "scriptId": "SCR-ROM-20260620-002",
+  "audioId": "AUD-ROM-20260620-002",
+  "title": "The Coffee Shop Bookmark",
+  "segments": [
+    {
+      "text": "I leave my book behind",
+      "start": 0,
+      "end": 3.2
+    },
+    {
+      "text": "every Tuesday on purpose.",
+      "start": 3.2,
+      "end": 6.8
+    },
+    {
+      "text": "The café cat is",
+      "start": 6.8,
+      "end": 9.5
+    },
+    {
+      "text": "tucked inside the bookmark.",
+      "start": 9.5,
+      "end": 13
+    },
+    {
+      "text": "The next week,",
+      "start": 13,
+      "end": 15.2
+    },
+    {
+      "text": "the drawing has a reply.",
+      "start": 15.2,
+      "end": 19.1
+    },
+    {
+      "text": "My notes grow",
+      "start": 19.1,
+      "end": 21.4
+    },
+    {
+      "text": "longer each visit.",
+      "start": 21.4,
+      "end": 24
+    },
+    {
+      "text": "The barista writes:",
+      "start": 24,
+      "end": 27.5
+    },
+    {
+      "text": "'You're twenty pages ahead of me.'",
+      "start": 27.5,
+      "end": 32
+    },
+    {
+      "text": "Today, I walk",
+      "start": 32,
+      "end": 34.5
+    },
+    {
+      "text": "up to the counter.",
+      "start": 34.5,
+      "end": 36.8
+    },
+    {
+      "text": "He slides my coffee over.",
+      "start": 36.8,
+      "end": 40
+    },
+    {
+      "text": "A bookmark sits on the saucer,",
+      "start": 40,
+      "end": 42.9
+    }
+  ],
+  "srtPath": "/home/runner/work/c1/c1/repo/data/assets/captions/CAP-ROM-20260620-002.srt",
+  "createdAt": "2026-06-20T09:32:38.818Z"
+}

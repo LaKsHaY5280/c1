@@ -1,0 +1,26 @@
+{
+  "id": "CHAR-ROM-20260620-002",
+  "scriptId": "SCR-ROM-20260620-002",
+  "title": "The Coffee Shop Bookmark",
+  "characters": [
+    {
+      "name": "Elena",
+      "role": "protagonist",
+      "age": 25,
+      "gender": "female",
+      "appearance": "wavy chestnut hair reaching her shoulders, warm brown eyes, slender build, olive skin tone",
+      "clothing": "a chunky knit cream-colored sweater",
+      "emotionProfile": "cautiously optimistic and intrigued"
+    },
+    {
+      "name": "Leo",
+      "role": "barista",
+      "age": 27,
+      "gender": "male",
+      "appearance": "short messy dark hair, sharp jawline, deep-set hazel eyes, athletic build, fair skin",
+      "clothing": "a dark grey denim apron over a plain black t-shirt",
+      "emotionProfile": "thoughtful, playful, and observant"
+    }
+  ],
+  "createdAt": "2026-06-20T09:32:11.617Z"
+}

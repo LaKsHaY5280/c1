@@ -1,0 +1,238 @@
+{
+  "id": "RUN-20260620-002",
+  "status": "completed",
+  "startedAt": "2026-06-20T09:31:58.720Z",
+  "steps": {
+    "idea": {
+      "step": "idea",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:31:58.734Z",
+      "finishedAt": "2026-06-20T09:32:07.356Z",
+      "outputId": "IDEA-ROM-20260620-002"
+    },
+    "script": {
+      "step": "script",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:32:07.357Z",
+      "finishedAt": "2026-06-20T09:32:10.401Z",
+      "outputId": "SCR-ROM-20260620-002"
+    },
+    "characters": {
+      "step": "characters",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:32:10.401Z",
+      "finishedAt": "2026-06-20T09:32:11.618Z",
+      "outputId": "CHAR-ROM-20260620-002"
+    },
+    "scenes": {
+      "step": "scenes",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:32:11.618Z",
+      "finishedAt": "2026-06-20T09:32:13.125Z",
+      "outputId": "SCN-ROM-20260620-002"
+    },
+    "visualSearch": {
+      "step": "visualSearch",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:32:13.125Z",
+      "finishedAt": "2026-06-20T09:32:13.987Z"
+    },
+    "pexels": {
+      "step": "pexels",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:32:13.988Z",
+      "finishedAt": "2026-06-20T09:32:17.926Z"
+    },
+    "manifest": {
+      "step": "manifest",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:32:17.927Z",
+      "finishedAt": "2026-06-20T09:32:17.928Z"
+    },
+    "voice": {
+      "step": "voice",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:32:17.928Z",
+      "finishedAt": "2026-06-20T09:32:36.948Z",
+      "outputId": "AUD-ROM-20260620-002"
+    },
+    "captions": {
+      "step": "captions",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:32:36.949Z",
+      "finishedAt": "2026-06-20T09:32:38.818Z",
+      "outputId": "CAP-ROM-20260620-002"
+    },
+    "render": {
+      "step": "render",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:32:38.819Z",
+      "finishedAt": "2026-06-20T09:33:30.312Z",
+      "outputId": "VID-ROM-20260620-002"
+    },
+    "metadata": {
+      "step": "metadata",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:33:30.312Z",
+      "finishedAt": "2026-06-20T09:33:37.078Z",
+      "outputId": "META-ROM-20260620-002"
+    },
+    "upload": {
+      "step": "upload",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:33:37.078Z",
+      "finishedAt": "2026-06-20T09:33:39.417Z",
+      "outputId": "UPL-ROM-20260620-002"
+    },
+    "thumbnail": {
+      "step": "thumbnail",
+      "status": "completed",
+      "startedAt": "2026-06-20T09:33:39.418Z",
+      "finishedAt": "2026-06-20T09:33:39.732Z",
+      "outputId": "THM-ROM-20260620-002"
+    }
+  },
+  "history": [
+    {
+      "step": "idea",
+      "event": "started",
+      "timestamp": "2026-06-20T09:31:58.734Z"
+    },
+    {
+      "step": "idea",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:32:07.356Z",
+      "outputId": "IDEA-ROM-20260620-002"
+    },
+    {
+      "step": "script",
+      "event": "started",
+      "timestamp": "2026-06-20T09:32:07.357Z"
+    },
+    {
+      "step": "script",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:32:10.401Z",
+      "outputId": "SCR-ROM-20260620-002"
+    },
+    {
+      "step": "characters",
+      "event": "started",
+      "timestamp": "2026-06-20T09:32:10.401Z"
+    },
+    {
+      "step": "characters",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:32:11.618Z",
+      "outputId": "CHAR-ROM-20260620-002"
+    },
+    {
+      "step": "scenes",
+      "event": "started",
+      "timestamp": "2026-06-20T09:32:11.618Z"
+    },
+    {
+      "step": "scenes",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:32:13.125Z",
+      "outputId": "SCN-ROM-20260620-002"
+    },
+    {
+      "step": "visualSearch",
+      "event": "started",
+      "timestamp": "2026-06-20T09:32:13.125Z"
+    },
+    {
+      "step": "visualSearch",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:32:13.987Z"
+    },
+    {
+      "step": "pexels",
+      "event": "started",
+      "timestamp": "2026-06-20T09:32:13.988Z"
+    },
+    {
+      "step": "pexels",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:32:17.926Z"
+    },
+    {
+      "step": "manifest",
+      "event": "started",
+      "timestamp": "2026-06-20T09:32:17.927Z"
+    },
+    {
+      "step": "manifest",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:32:17.928Z"
+    },
+    {
+      "step": "voice",
+      "event": "started",
+      "timestamp": "2026-06-20T09:32:17.928Z"
+    },
+    {
+      "step": "voice",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:32:36.948Z",
+      "outputId": "AUD-ROM-20260620-002"
+    },
+    {
+      "step": "captions",
+      "event": "started",
+      "timestamp": "2026-06-20T09:32:36.949Z"
+    },
+    {
+      "step": "captions",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:32:38.818Z",
+      "outputId": "CAP-ROM-20260620-002"
+    },
+    {
+      "step": "render",
+      "event": "started",
+      "timestamp": "2026-06-20T09:32:38.819Z"
+    },
+    {
+      "step": "render",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:33:30.312Z",
+      "outputId": "VID-ROM-20260620-002"
+    },
+    {
+      "step": "metadata",
+      "event": "started",
+      "timestamp": "2026-06-20T09:33:30.312Z"
+    },
+    {
+      "step": "metadata",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:33:37.078Z",
+      "outputId": "META-ROM-20260620-002"
+    },
+    {
+      "step": "upload",
+      "event": "started",
+      "timestamp": "2026-06-20T09:33:37.078Z"
+    },
+    {
+      "step": "upload",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:33:39.417Z",
+      "outputId": "UPL-ROM-20260620-002"
+    },
+    {
+      "step": "thumbnail",
+      "event": "started",
+      "timestamp": "2026-06-20T09:33:39.418Z"
+    },
+    {
+      "step": "thumbnail",
+      "event": "completed",
+      "timestamp": "2026-06-20T09:33:39.732Z",
+      "outputId": "THM-ROM-20260620-002"
+    }
+  ],
+  "finishedAt": "2026-06-20T09:33:39.732Z"
+}

@@ -1,0 +1,53 @@
+{
+  "id": "SCN-ROM-20260620-002",
+  "scriptId": "SCR-ROM-20260620-002",
+  "title": "The Coffee Shop Bookmark",
+  "scenes": [
+    {
+      "id": "SCN-ROM-20260620-002-01",
+      "sceneNumber": 1,
+      "purpose": "hook",
+      "description": "Elena leaves her book on the wooden cafe table before walking out the door.",
+      "emotion": "curiosity",
+      "duration": 10,
+      "preferredMediaType": "video"
+    },
+    {
+      "id": "SCN-ROM-20260620-002-02",
+      "sceneNumber": 2,
+      "purpose": "setup",
+      "description": "Elena finds a hand-drawn sketch of a cat on a bookmark tucked inside her book.",
+      "emotion": "intrigue",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-ROM-20260620-002-03",
+      "sceneNumber": 3,
+      "purpose": "escalation",
+      "description": "Elena reads a handwritten note from Leo on the margin of her book page.",
+      "emotion": "excitement",
+      "duration": 10,
+      "preferredMediaType": "video"
+    },
+    {
+      "id": "SCN-ROM-20260620-002-04",
+      "sceneNumber": 4,
+      "purpose": "climax",
+      "description": "Elena stands at the counter while Leo slides a coffee cup toward her.",
+      "emotion": "anticipation",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-ROM-20260620-002-05",
+      "sceneNumber": 5,
+      "purpose": "ending",
+      "description": "Elena looks at the bookmark on the saucer which contains a detailed sketch of her face.",
+      "emotion": "shock",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    }
+  ],
+  "createdAt": "2026-06-20T09:32:13.124Z"
+}

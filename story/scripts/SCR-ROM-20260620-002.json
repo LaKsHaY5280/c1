@@ -1,0 +1,33 @@
+{
+  "id": "SCR-ROM-20260620-002",
+  "ideaId": "IDEA-ROM-20260620-002",
+  "title": "The Coffee Shop Bookmark",
+  "hook": "I leave my book behind every Tuesday on purpose.",
+  "setup": "The café cat is tucked inside the bookmark. The next week, the drawing has a reply.",
+  "escalation": "My notes grow longer each visit. The barista writes: 'You're twenty pages ahead of me.'",
+  "climax": "Today, I walk up to the counter. He slides my coffee over.",
+  "ending": "A bookmark sits on the saucer, featuring a perfect sketch of my own face.",
+  "emotion": "longing",
+  "emotionArc": [
+    "curiosity",
+    "intrigue",
+    "excitement",
+    "anticipation",
+    "shock"
+  ],
+  "storyType": "slow-burn-romance",
+  "location": "cozy neighborhood coffee shop",
+  "timePeriod": "modern day",
+  "visualStyle": "cinematic realistic drama",
+  "colorMood": "warm golden hour",
+  "weather": "light afternoon rain",
+  "estimatedDuration": 50,
+  "visualMoments": [
+    "Close up of a book abandoned on a café table",
+    "Hand-drawn cat doodle in the margins of a page",
+    "Barista glancing over the counter with a subtle smile",
+    "Student approaching the counter with a nervous breath",
+    "The drawing of the student's face on the bookmark"
+  ],
+  "createdAt": "2026-06-20T09:32:10.400Z"
+}

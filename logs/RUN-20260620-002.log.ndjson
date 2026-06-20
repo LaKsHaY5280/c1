@@ -1,0 +1,48 @@
+{"runId":"RUN-20260620-002","level":"info","message":"Pipeline started — run RUN-20260620-002","timestamp":"2026-06-20T09:31:58.721Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Day: Saturday","timestamp":"2026-06-20T09:31:58.734Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: idea","timestamp":"2026-06-20T09:31:58.735Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"[ROMANCE] The Coffee Shop Bookmark","timestamp":"2026-06-20T09:32:07.356Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: idea → IDEA-ROM-20260620-002","timestamp":"2026-06-20T09:32:07.357Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: script","timestamp":"2026-06-20T09:32:07.358Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Script: SCR-ROM-20260620-002 | ~50s | longing","timestamp":"2026-06-20T09:32:10.400Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: script → SCR-ROM-20260620-002","timestamp":"2026-06-20T09:32:10.401Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: characters","timestamp":"2026-06-20T09:32:10.402Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Characters: Elena, Leo","timestamp":"2026-06-20T09:32:11.618Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: characters → CHAR-ROM-20260620-002","timestamp":"2026-06-20T09:32:11.618Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: scenes","timestamp":"2026-06-20T09:32:11.619Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Scenes: 5 scenes generated","timestamp":"2026-06-20T09:32:13.125Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: scenes → SCN-ROM-20260620-002","timestamp":"2026-06-20T09:32:13.125Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: visualSearch","timestamp":"2026-06-20T09:32:13.126Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Visual search: 5 queries generated","timestamp":"2026-06-20T09:32:13.987Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: visualSearch","timestamp":"2026-06-20T09:32:13.988Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: pexels","timestamp":"2026-06-20T09:32:13.989Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Searching (video): \"book on cafe table\"","timestamp":"2026-06-20T09:32:13.989Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Searching (photo): \"cat sketch bookmark\"","timestamp":"2026-06-20T09:32:15.341Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Searching (video): \"handwritten note in book\"","timestamp":"2026-06-20T09:32:16.012Z"}
+{"runId":"RUN-20260620-002","level":"warn","message":"No video results for \"handwritten note in book\" — skipping","timestamp":"2026-06-20T09:32:16.321Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Searching (photo): \"barista sliding coffee cup\"","timestamp":"2026-06-20T09:32:16.321Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Searching (photo): \"portrait sketch on bookmark\"","timestamp":"2026-06-20T09:32:17.139Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Downloaded 4 assets","timestamp":"2026-06-20T09:32:17.926Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: pexels","timestamp":"2026-06-20T09:32:17.927Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: manifest","timestamp":"2026-06-20T09:32:17.927Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Manifest saved: 4 assets recorded","timestamp":"2026-06-20T09:32:17.928Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: manifest","timestamp":"2026-06-20T09:32:17.928Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: voice","timestamp":"2026-06-20T09:32:17.936Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Voice: AUD-ROM-20260620-002 (42.9s)","timestamp":"2026-06-20T09:32:36.945Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: voice → AUD-ROM-20260620-002","timestamp":"2026-06-20T09:32:36.948Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: captions","timestamp":"2026-06-20T09:32:36.952Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Captions: 14 segments","timestamp":"2026-06-20T09:32:38.818Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: captions → CAP-ROM-20260620-002","timestamp":"2026-06-20T09:32:38.819Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: render","timestamp":"2026-06-20T09:32:38.819Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Rendered: /home/runner/work/c1/c1/repo/output/videos/VID-ROM-20260620-002.mp4","timestamp":"2026-06-20T09:33:30.312Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: render → VID-ROM-20260620-002","timestamp":"2026-06-20T09:33:30.312Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: metadata","timestamp":"2026-06-20T09:33:30.313Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Metadata: \"The book I’ve been reading for 3 months just for you.\" (priority: 92)","timestamp":"2026-06-20T09:33:37.078Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: metadata → META-ROM-20260620-002","timestamp":"2026-06-20T09:33:37.078Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: upload","timestamp":"2026-06-20T09:33:37.079Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Uploaded: https://youtube.com/watch?v=MkMy9jEc8lU","timestamp":"2026-06-20T09:33:39.417Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: upload → UPL-ROM-20260620-002","timestamp":"2026-06-20T09:33:39.418Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Starting step: thumbnail","timestamp":"2026-06-20T09:33:39.420Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Thumbnail: /home/runner/work/c1/c1/repo/output/thumbnails/THM-ROM-20260620-002.jpg","timestamp":"2026-06-20T09:33:39.732Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Completed step: thumbnail → THM-ROM-20260620-002","timestamp":"2026-06-20T09:33:39.732Z"}
+{"runId":"RUN-20260620-002","level":"info","message":"Pipeline completed — run RUN-20260620-002","timestamp":"2026-06-20T09:33:39.733Z"}

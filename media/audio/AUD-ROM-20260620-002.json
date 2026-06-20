@@ -1,0 +1,13 @@
+{
+  "id": "AUD-ROM-20260620-002",
+  "scriptId": "SCR-ROM-20260620-002",
+  "title": "The Coffee Shop Bookmark",
+  "narration": "I leave my book behind every Tuesday on purpose.\n\nThe café cat is tucked inside the bookmark. The next week, the drawing has a reply.\n\nMy notes grow longer each visit. The barista writes: 'You're twenty pages ahead of me.'\n\nToday, I walk up to the counter. He slides my coffee over.\n\nA bookmark sits on the saucer, featuring a perfect sketch of my own face.",
+  "voice": "Kore",
+  "audioPath": "/home/runner/work/c1/c1/repo/data/assets/audio/AUD-ROM-20260620-002.wav",
+  "duration": 42.92,
+  "mimeType": "audio/l16",
+  "sampleRate": 24000,
+  "channels": 1,
+  "createdAt": "2026-06-20T09:32:36.943Z"
+}
