@@ -25,7 +25,7 @@ export interface UploadFile {
 export async function publishVideo(
   video: VideoFile,
   metadata: MetadataFile,
-  visibility: Visibility = "private",
+  visibility: Visibility = "public",
 ): Promise<UploadFile> {
   const result = await uploadVideo(video, metadata, visibility);
 

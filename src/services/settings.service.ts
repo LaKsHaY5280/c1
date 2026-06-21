@@ -13,7 +13,7 @@ export interface Settings {
 }
 
 const DEFAULTS: Settings = {
-  defaultVisibility: "private",
+  defaultVisibility: "public",
   ttsVoice: "Kore",
   captionMaxWordsPerSegment: 8,
   genreSchedule: {
@@ -26,7 +26,7 @@ const DEFAULTS: Settings = {
     "6": "romance",
   },
   autoPublish: false,
-  schedulerEnabled: true,  // on by default — toggle off in settings to pause
+  schedulerEnabled: true, // on by default — toggle off in settings to pause
 };
 
 async function read(): Promise<Settings> {
