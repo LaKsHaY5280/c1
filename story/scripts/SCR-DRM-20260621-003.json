@@ -1,0 +1,33 @@
+{
+  "id": "SCR-DRM-20260621-003",
+  "ideaId": "IDEA-DRM-20260621-003",
+  "title": "The Unopened Envelope",
+  "hook": "I hated my father for twenty years for his silence, until I opened his closet.",
+  "setup": "He never replied to my childhood letters. I assumed he chose a life without me.",
+  "escalation": "I found a dusty shoebox tucked behind his winter coats. Inside were my letters, all opened, and his unmailed replies.",
+  "climax": "His letters revealed my mother’s criminal past, and his terrifying need to keep me hidden from her reach.",
+  "ending": "He didn't abandon me; he sacrificed our relationship to keep me alive.",
+  "emotion": "shock",
+  "emotionArc": [
+    "resentment",
+    "cynicism",
+    "curiosity",
+    "horror",
+    "devastation"
+  ],
+  "storyType": "family-secret",
+  "location": "cramped bedroom closet",
+  "timePeriod": "modern day",
+  "visualStyle": "gritty handheld drama",
+  "colorMood": "desaturated greys and warm amber light",
+  "weather": "overcast",
+  "estimatedDuration": 50,
+  "visualMoments": [
+    "Close up of woman pulling a shoebox from a dark shelf.",
+    "Quick cuts of handwritten letters spilling onto a wooden floor.",
+    "Finger tracing ink on an old, unopened envelope.",
+    "Extreme close up of the narrator's face widening in realization.",
+    "The empty shoebox sitting alone in the dim light."
+  ],
+  "createdAt": "2026-06-21T10:02:39.661Z"
+}

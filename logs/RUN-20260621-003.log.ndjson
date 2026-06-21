@@ -1,0 +1,47 @@
+{"runId":"RUN-20260621-003","level":"info","message":"Pipeline started — run RUN-20260621-003","timestamp":"2026-06-21T10:02:31.314Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Day: Sunday","timestamp":"2026-06-21T10:02:31.327Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: idea","timestamp":"2026-06-21T10:02:31.328Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"[DRAMA] The Unopened Envelope","timestamp":"2026-06-21T10:02:33.062Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: idea → IDEA-DRM-20260621-003","timestamp":"2026-06-21T10:02:33.063Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: script","timestamp":"2026-06-21T10:02:33.063Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Script: SCR-DRM-20260621-003 | ~50s | shock","timestamp":"2026-06-21T10:02:39.661Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: script → SCR-DRM-20260621-003","timestamp":"2026-06-21T10:02:39.662Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: characters","timestamp":"2026-06-21T10:02:39.662Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Characters: Elias, Arthur, Elena","timestamp":"2026-06-21T10:02:46.736Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: characters → CHAR-DRM-20260621-003","timestamp":"2026-06-21T10:02:46.744Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: scenes","timestamp":"2026-06-21T10:02:46.748Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Scenes: 5 scenes generated","timestamp":"2026-06-21T10:02:48.213Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: scenes → SCN-DRM-20260621-003","timestamp":"2026-06-21T10:02:48.214Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: visualSearch","timestamp":"2026-06-21T10:02:48.215Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Visual search: 5 queries generated","timestamp":"2026-06-21T10:02:49.846Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: visualSearch","timestamp":"2026-06-21T10:02:49.847Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: pexels","timestamp":"2026-06-21T10:02:49.847Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Searching (photo): \"man staring at closet\"","timestamp":"2026-06-21T10:02:49.847Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Searching (photo): \"stack of mail bedside\"","timestamp":"2026-06-21T10:02:50.768Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Searching (video): \"man retrieving dusty box\"","timestamp":"2026-06-21T10:02:52.175Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Searching (photo): \"person reading letter\"","timestamp":"2026-06-21T10:02:53.292Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Searching (photo): \"man holding photograph sitting\"","timestamp":"2026-06-21T10:02:54.147Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Downloaded 5 assets","timestamp":"2026-06-21T10:02:54.813Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: pexels","timestamp":"2026-06-21T10:02:54.814Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: manifest","timestamp":"2026-06-21T10:02:54.814Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Manifest saved: 5 assets recorded","timestamp":"2026-06-21T10:02:54.815Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: manifest","timestamp":"2026-06-21T10:02:54.815Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: voice","timestamp":"2026-06-21T10:02:54.815Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Voice: AUD-DRM-20260621-003 (48.5s)","timestamp":"2026-06-21T10:03:20.340Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: voice → AUD-DRM-20260621-003","timestamp":"2026-06-21T10:03:20.342Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: captions","timestamp":"2026-06-21T10:03:20.348Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Captions: 18 segments","timestamp":"2026-06-21T10:03:30.167Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: captions → CAP-DRM-20260621-003","timestamp":"2026-06-21T10:03:30.167Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: render","timestamp":"2026-06-21T10:03:30.168Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Rendered: /home/runner/work/c1/c1/repo/output/videos/VID-DRM-20260621-003.mp4","timestamp":"2026-06-21T10:04:41.862Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: render → VID-DRM-20260621-003","timestamp":"2026-06-21T10:04:41.863Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: metadata","timestamp":"2026-06-21T10:04:41.864Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Metadata: \"I hated my father for 20 years. I was wrong.\" (priority: 95)","timestamp":"2026-06-21T10:04:43.794Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: metadata → META-DRM-20260621-003","timestamp":"2026-06-21T10:04:43.795Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: upload","timestamp":"2026-06-21T10:04:43.795Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Uploaded: https://youtube.com/watch?v=pg32N9pet1w","timestamp":"2026-06-21T10:04:45.333Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: upload → UPL-DRM-20260621-003","timestamp":"2026-06-21T10:04:45.334Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Starting step: thumbnail","timestamp":"2026-06-21T10:04:45.334Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Thumbnail: /home/runner/work/c1/c1/repo/output/thumbnails/THM-DRM-20260621-003.jpg","timestamp":"2026-06-21T10:04:45.601Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Completed step: thumbnail → THM-DRM-20260621-003","timestamp":"2026-06-21T10:04:45.601Z"}
+{"runId":"RUN-20260621-003","level":"info","message":"Pipeline completed — run RUN-20260621-003","timestamp":"2026-06-21T10:04:45.602Z"}

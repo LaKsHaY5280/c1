@@ -1,0 +1,100 @@
+{
+  "id": "CAP-DRM-20260621-003",
+  "scriptId": "SCR-DRM-20260621-003",
+  "audioId": "AUD-DRM-20260621-003",
+  "title": "The Unopened Envelope",
+  "segments": [
+    {
+      "text": "I hated my father",
+      "start": 0,
+      "end": 2.5
+    },
+    {
+      "text": "for twenty years",
+      "start": 2.5,
+      "end": 4.5
+    },
+    {
+      "text": "for his silence,",
+      "start": 4.5,
+      "end": 7
+    },
+    {
+      "text": "until I opened his closet.",
+      "start": 7,
+      "end": 10.5
+    },
+    {
+      "text": "He never replied",
+      "start": 10.5,
+      "end": 13
+    },
+    {
+      "text": "to my childhood letters.",
+      "start": 13,
+      "end": 16
+    },
+    {
+      "text": "I assumed he chose",
+      "start": 16,
+      "end": 18.5
+    },
+    {
+      "text": "a life without me.",
+      "start": 18.5,
+      "end": 21
+    },
+    {
+      "text": "I found a dusty shoebox",
+      "start": 21,
+      "end": 24
+    },
+    {
+      "text": "tucked behind his coats.",
+      "start": 24,
+      "end": 27
+    },
+    {
+      "text": "Inside were my letters,",
+      "start": 27,
+      "end": 30
+    },
+    {
+      "text": "and his unmailed replies.",
+      "start": 30,
+      "end": 33
+    },
+    {
+      "text": "His letters revealed",
+      "start": 33,
+      "end": 35.5
+    },
+    {
+      "text": "my mother’s criminal past,",
+      "start": 35.5,
+      "end": 38.5
+    },
+    {
+      "text": "and his terrifying need",
+      "start": 38.5,
+      "end": 41.5
+    },
+    {
+      "text": "to keep me hidden.",
+      "start": 41.5,
+      "end": 44
+    },
+    {
+      "text": "He sacrificed our relationship",
+      "start": 44,
+      "end": 47
+    },
+    {
+      "text": "to keep me alive.",
+      "start": 47,
+      "end": 48.5
+    }
+  ],
+  "srtPath": "/home/runner/work/c1/c1/repo/data/assets/captions/CAP-DRM-20260621-003.srt",
+  "createdAt": "2026-06-21T10:03:30.166Z"
+}

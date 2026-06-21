@@ -1,0 +1,35 @@
+{
+  "id": "CHAR-DRM-20260621-003",
+  "scriptId": "SCR-DRM-20260621-003",
+  "title": "The Unopened Envelope",
+  "characters": [
+    {
+      "name": "Elias",
+      "role": "protagonist",
+      "age": 28,
+      "gender": "male",
+      "appearance": "short dark wavy hair, brown eyes, lean athletic build, olive skin tone",
+      "clothing": "charcoal crewneck sweater and dark slim-fit jeans",
+      "emotionProfile": "resentful shifting to profound grief and realization"
+    },
+    {
+      "name": "Arthur",
+      "role": "father",
+      "age": 60,
+      "gender": "male",
+      "appearance": "receding grey hair, deep set eyes with heavy bags, slender frame, pale weathered skin",
+      "clothing": "a worn navy wool pea coat",
+      "emotionProfile": "haunted, protective, and stoic"
+    },
+    {
+      "name": "Elena",
+      "role": "mother",
+      "age": 55,
+      "gender": "female",
+      "appearance": "long straight raven hair, sharp features, piercing gaze, slim build",
+      "clothing": "a formal dark trench coat",
+      "emotionProfile": "menacing and elusive"
+    }
+  ],
+  "createdAt": "2026-06-21T10:02:46.735Z"
+}

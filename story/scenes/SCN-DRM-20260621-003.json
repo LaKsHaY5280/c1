@@ -1,0 +1,53 @@
+{
+  "id": "SCN-DRM-20260621-003",
+  "scriptId": "SCR-DRM-20260621-003",
+  "title": "The Unopened Envelope",
+  "scenes": [
+    {
+      "id": "SCN-DRM-20260621-003-01",
+      "sceneNumber": 1,
+      "purpose": "hook",
+      "description": "Elias glares at the closed closet door in a dim bedroom.",
+      "emotion": "resentment",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-DRM-20260621-003-02",
+      "sceneNumber": 2,
+      "purpose": "setup",
+      "description": "Elias looks at a stack of unopened childhood mail on his bedside table.",
+      "emotion": "cynicism",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-DRM-20260621-003-03",
+      "sceneNumber": 3,
+      "purpose": "escalation",
+      "description": "Elias pulls a dusty shoebox from behind the winter coats of Arthur inside the closet.",
+      "emotion": "curiosity",
+      "duration": 10,
+      "preferredMediaType": "video"
+    },
+    {
+      "id": "SCN-DRM-20260621-003-04",
+      "sceneNumber": 4,
+      "purpose": "climax",
+      "description": "Elias reads a letter detailing the criminal history of Elena.",
+      "emotion": "horror",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    },
+    {
+      "id": "SCN-DRM-20260621-003-05",
+      "sceneNumber": 5,
+      "purpose": "ending",
+      "description": "Elias holds a photograph of Arthur to his chest while sitting on the bedroom floor.",
+      "emotion": "devastation",
+      "duration": 10,
+      "preferredMediaType": "photo"
+    }
+  ],
+  "createdAt": "2026-06-21T10:02:48.213Z"
+}

@@ -1,0 +1,51 @@
+{
+  "runId": "SCN-DRM-20260621-003",
+  "assets": [
+    {
+      "sceneId": "SCN-DRM-20260621-003-01",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-DRM-20260621-003-01.jpg",
+      "mediaType": "photo",
+      "pexelsId": 27687921,
+      "credit": "Anastasia Nagibina",
+      "pexelsUrl": "https://www.pexels.com/photo/a-man-in-a-tuxedo-looking-at-his-closet-27687921/",
+      "createdAt": "2026-06-21T10:02:50.768Z"
+    },
+    {
+      "sceneId": "SCN-DRM-20260621-003-02",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-DRM-20260621-003-02.jpg",
+      "mediaType": "photo",
+      "pexelsId": 7609144,
+      "credit": "cottonbro studio",
+      "pexelsUrl": "https://www.pexels.com/photo/books-ang-earrings-on-bedside-table-7609144/",
+      "createdAt": "2026-06-21T10:02:52.175Z"
+    },
+    {
+      "sceneId": "SCN-DRM-20260621-003-03",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-DRM-20260621-003-03.mp4",
+      "mediaType": "video",
+      "pexelsId": 7464093,
+      "credit": "RDNE Stock project",
+      "pexelsUrl": "https://www.pexels.com/video/a-man-standing-while-looking-at-a-camera-7464093/",
+      "createdAt": "2026-06-21T10:02:53.292Z"
+    },
+    {
+      "sceneId": "SCN-DRM-20260621-003-04",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-DRM-20260621-003-04.jpg",
+      "mediaType": "photo",
+      "pexelsId": 6924678,
+      "credit": "cottonbro studio",
+      "pexelsUrl": "https://www.pexels.com/photo/woman-reading-letter-6924678/",
+      "createdAt": "2026-06-21T10:02:54.147Z"
+    },
+    {
+      "sceneId": "SCN-DRM-20260621-003-05",
+      "assetPath": "/home/runner/work/c1/c1/repo/data/assets/SCN-DRM-20260621-003-05.jpg",
+      "mediaType": "photo",
+      "pexelsId": 19534047,
+      "credit": "siddharth vyas",
+      "pexelsUrl": "https://www.pexels.com/photo/brunette-man-sitting-with-camera-19534047/",
+      "createdAt": "2026-06-21T10:02:54.813Z"
+    }
+  ],
+  "createdAt": "2026-06-21T10:02:54.814Z"
+}
